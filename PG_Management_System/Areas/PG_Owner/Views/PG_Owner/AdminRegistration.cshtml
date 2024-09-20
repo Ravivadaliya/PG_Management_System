@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = "~/Views/Shared/RegistrationLayout.cshtml";
+}
+
+<header>Registration</header>
+<form action="#">
+    <div class="form first">
+        <div class="details personal">
+            <span class="title">Personal Details</span>
+
+            <div class="fields">
+                <div class="input-field">
+                    <label>Name*</label>
+                    <input type="text" placeholder="Enter your name" required>
+                </div>
+                <div class="input-field">
+                    <label>SurName*</label>
+                    <input type="text" placeholder="Enter your Surname" required>
+                </div>
+
+                <div class="input-field">
+                    <label>Email*</label>
+                    <input type="text" placeholder="Enter your email" required>
+                </div>
+
+                <div class="input-field">
+                    <label>Mobile Number*</label>
+                    <input type="number" placeholder="Enter mobile number" required>
+                </div>
+                <div class="input-field">
+                    <label>Alternative Mobile Number</label>
+                    <input type="number" placeholder="Enter mobile number" required>
+                </div>
+
+                <div class="input-field">
+                    <label>Gender*</label>
+                    <select required>
+                        <option disabled selected>Select gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Others</option>
+                    </select>
+                </div>
+                <div class="input-field">
+                    <label>Password*</label>
+                    <input type="password" placeholder="Set Your Password" required>
+                </div>
+                <div class="input-field">
+                    <label>Address*</label>
+                    <textarea name="" id=""></textarea>
+                </div>
+                <div class="input-field">
+                </div>
+            </div>
+        </div>
+
+        <div class="details ID">
+            <div class="buttons">
+                <button class="sumbit">
+                    <span class="btnText">Submit</span>
+                    <i class="uil uil-navigator"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
