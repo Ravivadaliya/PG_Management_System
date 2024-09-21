@@ -1,0 +1,72 @@
+﻿@{
+    Layout = "~/Views/Shared/Admin/AdminLayout.cshtml";
+}
+
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Issues</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="#"> <i class="icon-home"></i> </a>
+                </li>
+                <li class="separator"><i class="icon-arrow-right"></i></li>
+                <li class="nav-item"><a href="#">Issues</a></li>
+                <!-- <li class="separator"><i class="icon-arrow-right"></i></li> -->
+                <!-- <li class="nav-item"><a href="#">Basic Tables</a></li> -->
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">List of issues which is created by persons</div>
+                    </div>
+                    <div class="card-body">
+                        <!-- <div class="card-sub">
+                          Create responsive tables by wrapping any table with
+                          <code class="highlighter-rouge">.table-responsive</code>
+                          <code class="highlighter-rouge">DIV</code> to make them
+                          scroll horizontally on small devices
+                        </div> -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>sr</th>
+                                        <th>Table heading</th>
+                                        <th>Table heading</th>
+                                        <th>Table heading</th>
+                                        <th>Table heading</th>
+                                        <th>Table heading</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td><button class="badge badge-warning disabled">Pendding</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

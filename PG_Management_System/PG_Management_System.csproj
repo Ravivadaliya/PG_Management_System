@@ -20,9 +20,7 @@
     <Folder Include="Areas\PG_Announcement\Data\" />
     <Folder Include="Areas\PG_Announcement\Views\" />
     <Folder Include="Areas\PG_Hostel\Data\" />
-    <Folder Include="Areas\PG_Issues\Controllers\" />
     <Folder Include="Areas\PG_Issues\Data\" />
-    <Folder Include="Areas\PG_Issues\Views\" />
     <Folder Include="Areas\PG_Owner\Data\" />
     <Folder Include="Areas\PG_Person\Data\" />
     <Folder Include="Areas\PG_Room\Controllers\" />
