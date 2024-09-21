@@ -16,19 +16,16 @@ public class Room
 
     [Required]
     public int Room_Number { get; set; }
+    
+    [Required]
+    public string Room_GenderAllowed { get; set; }
+    
+    [Required]
+    public int Room_SharingType { get; set; }
 
     [Required]
-    public int Room_Capacity { get; set; }
+    public int Room_AllowcateBed { get; set; }
 
-    [Required]
-    public int Room_Allocate_Bed { get; set; }
-
-    [Required]
-    public int Room_Status { get; set; }
-
-    [Required]
-    public int Room_Gender { get; set; }
-
-    [Required]
-    public DateTime Room_CreatedDate { get; set; } = DateTime.Now;
+    public DateOnly Room_CreatedDate { get; set; }
+    public DateOnly Room_ModificationDate { get; set; }
 }

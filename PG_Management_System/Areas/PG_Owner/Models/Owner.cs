@@ -24,17 +24,30 @@ public class Owner
     public string Owner_EmailId { get; set; }
 
     [Required]
+    [StringLength(10)]
+    public string Owner_Gender { get; set; }
+
+
+    [Required]
     [StringLength(100)]
     public string Owner_Address { get; set; }
 
     [Required]
-    [StringLength(100)]
+    [StringLength(50)]
     public string Owner_City { get; set; }
+
+    [Required]
+    [StringLength(50)]
+    public string Owner_State { get; set; }
+
+    [Required]
+    public bool Owner_IsActive { get; set; }
 
     [Required]
     [StringLength(50)]
     public string Owner_PassWord { get; set; }
 
-    [Required]
-    public DateTime Owner_CreatedDate { get; set; } = DateTime.Now;
+    public DateOnly Owner_CreatedDate { get; set; }
+
+    public DateOnly Owner_ModificationDate { get; set; }
 }

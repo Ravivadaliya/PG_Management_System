@@ -9,7 +9,7 @@ public class Staff
     [Key]
     public int Id { get; set; }
 
-    [ForeignKey("PG_Owner")]
+    [ForeignKey("Owner")]
     public int Owner_ID { get; set; }
 
     public Owner Owner { get; set; }
@@ -24,11 +24,18 @@ public class Staff
 
     [Required]
     public int Staff_Mobile_Number { get; set; }
+    
+    [Required]
+    public string Staff_Gender { get; set; }
 
     [Required]
     [StringLength(100)]
     public string Staff_Address { get; set; }
-
+    
     [Required]
-    public DateTime Owner_CreatedDate { get; set; } = DateTime.Now;
+    [StringLength(50)]
+    public string Staff_City { get; set; }
+
+    public DateOnly Owner_CreatedDate { get; set; }
+    public DateOnly Owner_ModificationDate { get; set; }
 }

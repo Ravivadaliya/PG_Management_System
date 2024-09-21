@@ -61,19 +61,18 @@ public class Person
     [StringLength(50)]
     public string Person_Profession { get; set; }
 
+    [Required]
+    public DateOnly JoningDate { get; set; }
+
     [StringLength(50)]
     public string Person_WorkPlace { get; set; }
 
     public string Person_WorkPlace_MobileNumber { get; set; }
 
-    //[Required]
-    //[StringLength(50)]
-    //public string Person_UserName { get; set; }
-
     [Required]
     [StringLength(50)]
     public string Person_PassWord { get; set; }
 
-    [Required]
-    public DateTime Person_CreatedDate { get; set; } = DateTime.Now;
+    public DateOnly Person_CreatedDate { get; set; } 
+    public DateOnly Person_ModificationDate { get; set; } 
 }

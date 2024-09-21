@@ -21,6 +21,6 @@ public class Hostel
     [StringLength(100)]
     public string Hostel_Address { get; set; }
 
-    [Required]
-    public DateTime Hostel_CreatedDate { get; set; } = DateTime.Now;
+    public DateOnly Hostel_CreatedDate { get; set; }
+    public DateOnly Hostel_ModificationDate { get; set; }
 }

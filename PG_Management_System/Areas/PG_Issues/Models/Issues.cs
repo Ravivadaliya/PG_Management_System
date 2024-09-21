@@ -41,4 +41,7 @@ public class Issues
 
     [Required]
     public bool Issue_Status { get; set; }
+
+    public DateOnly CreatedDate { get; set; }
+    public DateOnly Modificationdate { get; set; }
 }
