@@ -8,6 +8,7 @@
 
     <!----======== CSS ======== -->
     <link href="~/Registration/css/main.css" rel="stylesheet" />
+    <link href="~/assets/css/Custom.css" rel="stylesheet" />
 
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -39,5 +40,7 @@
 
         backBtn.addEventListener("click", () => form.classList.remove('secActive'));
     </script>
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>

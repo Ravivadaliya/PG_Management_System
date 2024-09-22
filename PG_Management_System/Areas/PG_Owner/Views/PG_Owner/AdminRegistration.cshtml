@@ -2,9 +2,12 @@
 @{
     Layout = "~/Views/Shared/RegistrationLayout.cshtml";
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model PG_Management_System.Areas.PG_Owner.Models.Owner;
 
 <header>Registration</header>
-<form action="#">
+<form asp-area="PG_Owner" asp-controller="PG_Owner" asp-action="InsertAdmin">
+    @Html.HiddenFor(x => x.Id)
     <div class="form first">
         <div class="details personal">
             <span class="title">Personal Details</span>
@@ -12,43 +15,60 @@
             <div class="fields">
                 <div class="input-field">
                     <label>Name*</label>
-                    <input type="text" placeholder="Enter your name" required>
+                    <input type="text" asp-for="Owner_Name" placeholder="Enter your name" required>
+                    <span asp-validation-for="Owner_Name"  class="text-danger"></span>
                 </div>
                 <div class="input-field">
                     <label>SurName*</label>
-                    <input type="text" placeholder="Enter your Surname" required>
+                    <input type="text" asp-for="Owner_Surname" placeholder="Enter your Surname" required>
+                    <span asp-validation-for="Owner_Surname"  class="text-danger"></span>
                 </div>
 
                 <div class="input-field">
                     <label>Email*</label>
-                    <input type="text" placeholder="Enter your email" required>
+                    <input type="email" asp-for="Owner_EmailId" placeholder="Enter your email" required>
+                    <span asp-validation-for="Owner_EmailId"  class="text-danger"></span>
                 </div>
 
                 <div class="input-field">
                     <label>Mobile Number*</label>
-                    <input type="number" placeholder="Enter mobile number" required>
+                    <input type="number" asp-for="Owner_Mobile_Number" placeholder="Enter mobile number" required>
+                    <span asp-validation-for="Owner_Mobile_Number"  class="text-danger"></span>
+
+                </div>
+                
+                 <div class="input-field">
+                    <label>City*</label>
+                    <input type="text"  asp-for="Owner_City" placeholder="Enter Your City" required>
+                    <span asp-validation-for="Owner_City"  class="text-danger"></span>
+
                 </div>
                 <div class="input-field">
-                    <label>Alternative Mobile Number</label>
-                    <input type="number" placeholder="Enter mobile number" required>
-                </div>
+                    <label>State*</label>
+                    <input type="text" asp-for="Owner_State" placeholder="Enter Yout State" required>
+                    <span asp-validation-for="Owner_State"  class="text-danger"></span>
 
+                </div>
                 <div class="input-field">
                     <label>Gender*</label>
-                    <select required>
-                        <option disabled selected>Select gender</option>
+                    <select required asp-for="Owner_Gender">
+                        <option disabled selected>Select Gender</option>
                         <option>Male</option>
                         <option>Female</option>
                         <option>Others</option>
                     </select>
+                    <span asp-validation-for="Owner_Gender"  class="text-danger"></span>
+
                 </div>
                 <div class="input-field">
                     <label>Password*</label>
-                    <input type="password" placeholder="Set Your Password" required>
+                    <input type="password" asp-for="Owner_PassWord" placeholder="Set Your Password" required>
+                    <span asp-validation-for="Owner_PassWord" class="text-danger"></span>
                 </div>
                 <div class="input-field">
                     <label>Address*</label>
-                    <textarea name="" id=""></textarea>
+                    <textarea  asp-for="Owner_Address" id=""></textarea>
+                    <span asp-validation-for="Owner_Address"  class="text-danger"></span>
                 </div>
                 <div class="input-field">
                 </div>
@@ -65,3 +85,9 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

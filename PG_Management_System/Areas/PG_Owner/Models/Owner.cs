@@ -8,19 +8,20 @@ public class Owner
     public int Id { get; set; }
 
     [Required]
-    [StringLength(50)]
+    [StringLength(15)]
     public string Owner_Name { get; set; }
 
     [Required]
-    [StringLength(50)]
+    [StringLength(20)]
     public string Owner_Surname { get; set; }
 
     [Required]
     public int Owner_Mobile_Number { get; set; }
 
+
     [Required]
     [EmailAddress]
-    [StringLength(100)]
+    [StringLength(40)]
     public string Owner_EmailId { get; set; }
 
     [Required]

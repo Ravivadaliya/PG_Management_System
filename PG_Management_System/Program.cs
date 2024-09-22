@@ -1,10 +1,14 @@
+using DatabaseHelperLibrary;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<DatabaseHelper>(sp =>
+    new DatabaseHelper(builder.Configuration.GetConnectionString("myConnectionStrings")));
+builder.Services.AddHostedService<DatabaseService>(); // Register the lifecycle service
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
