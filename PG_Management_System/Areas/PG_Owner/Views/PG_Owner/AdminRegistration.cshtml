@@ -4,8 +4,8 @@
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model PG_Management_System.Areas.PG_Owner.Models.Owner;
-
 <header>Registration</header>
+
 <form asp-area="PG_Owner" asp-controller="PG_Owner" asp-action="InsertAdmin">
     @Html.HiddenFor(x => x.Id)
     <div class="form first">
@@ -81,13 +81,25 @@
                     <span class="btnText">Submit</span>
                     <i class="uil uil-navigator"></i>
                 </button>
+                <button type="reset" class="sumbit">
+                    <span class="btnText">Reset</span>
+                    <i class="uil uil-navigator"></i>
+                </button>
             </div>
         </div>
+
     </div>
 </form>
 
 @section Scripts {
+    @if (TempData["AddAdmin"] != null)
+    {
+        <script type="text/javascript">
+            alert('@TempData["AddAdmin"]');
+        </script>
+        TempData["AddAdmin"] = null;
+    }
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    }
+ }

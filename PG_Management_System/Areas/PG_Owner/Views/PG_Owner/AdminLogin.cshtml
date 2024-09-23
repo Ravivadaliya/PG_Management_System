@@ -1,8 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/LoginLayout.cshtml";
 }
-
-
+@model PG_Management_System.Areas.PG_Owner.Models.Owner
 <div class="limiter">
 	<div class="container-login100">
 		<div class="wrap-login100">
@@ -10,13 +9,13 @@
 				<img src="~/Login/images/img-01.png" alt="IMG">
 			</div>
 
-			<form method="post" asp-area="Admin" asp-controller="Admin" asp-action="Login" class="login100-form validate-form">
+			<form method="post" asp-area="PG_Owner" asp-controller="PG_Owner" asp-action="Login" class="login100-form validate-form">
 				<span class="login100-form-title">
 					Admin Login
-				</span>
-
+				</span>	
+				<h6 class="text-danger">@TempData["Error"]</h6>
 				<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-					@* <input class="input100" type="text" asp-for="Owner_EmailId" placeholder="Email"> *@
+					<input class="input100" type="text" asp-for="Owner_EmailId" placeholder="Email">
 
 					<span class="focus-input100"></span>
 					<span class="symbol-input100">
@@ -25,7 +24,7 @@
 				</div>
 
 				<div class="wrap-input100 validate-input" data-validate="Password is required">
-					@* <input class="input100" type="password" asp-for="Owner_Password" placeholder="Password"> *@
+					<input class="input100" type="password" asp-for="Owner_PassWord" placeholder="Password">
 
 					<span class="focus-input100"></span>
 					<span class="symbol-input100">
@@ -59,3 +58,10 @@
 	</div>
 </div>
 
+
+@section Scripts {
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

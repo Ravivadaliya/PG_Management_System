@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using PG_Management_System.BAL;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -166,7 +167,7 @@
                 <div class="main-header-logo">
                     <!-- Logo Header -->
                     <div class="logo-header" data-background-color="dark">
-                        <a href="index.html" class="logo">
+                        <a href="#" class="logo">
                             <img src="~/assets/img/kaiadmin/logo_light.svg"
                                  alt="navbar brand"
                                  class="navbar-brand"
@@ -235,7 +236,7 @@
                                     </div>
                                     <span class="profile-username">
                                         <span class="op-7">Hi,</span>
-                                        <span class="fw-bold">Hizrian</span>
+                                        <span class="fw-bold">@CV.Owner_Id()</span>
                                     </span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -250,7 +251,7 @@
                                             <div class="u-text">
                                                 <h4>Hizrian</h4>
                                                 <p class="text-muted">hello@example.com</p>
-                                                <a href="profile.html"
+                                                <a href="#"
                                                    class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                             </div>
                                         </div>
@@ -260,7 +261,7 @@
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Account Setting</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Logout</a>
+                                        <a asp-area="PG_Owner" asp-controller="PG_Owner" asp-action="Logout" class="dropdown-item">Logout</a>
                                     </li>
                                    
                                 </ul>
@@ -642,6 +643,7 @@
         });
     </script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

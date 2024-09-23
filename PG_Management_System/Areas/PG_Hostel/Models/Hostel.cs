@@ -9,13 +9,15 @@ public class Hostel
     [Key]
     public int Id { get; set; }
 
+    [Required]
     [ForeignKey("Owner")]
     public int Owner_ID { get; set; }
 
     public Owner Owner { get; set; }
 
-    [StringLength(20)]
-    public string Building_Number { get; set; }
+    [Required]
+    [StringLength(10)]
+    public string Hostel_Building_Number { get; set; }
 
     [Required]
     [StringLength(100)]

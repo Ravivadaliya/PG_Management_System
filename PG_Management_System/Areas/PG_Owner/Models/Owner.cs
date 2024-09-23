@@ -16,7 +16,8 @@ public class Owner
     public string Owner_Surname { get; set; }
 
     [Required]
-    public int Owner_Mobile_Number { get; set; }
+    [StringLength(10),MinLength(10)]
+    public string Owner_Mobile_Number { get; set; }
 
 
     [Required]

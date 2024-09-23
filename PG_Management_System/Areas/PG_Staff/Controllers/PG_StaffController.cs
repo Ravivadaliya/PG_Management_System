@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using PG_Management_System.BAL;
 namespace PG_Management_System.Areas.PG_Staff.Controllers;
+
 
 
 [Area("PG_Staff")]
@@ -29,6 +30,11 @@ public class PG_StaffController : Controller
         return View();
     }
     public IActionResult StaffProfile()
+    {
+        return View();
+    }
+
+    public IActionResult DashBoard()
     {
         return View();
     }

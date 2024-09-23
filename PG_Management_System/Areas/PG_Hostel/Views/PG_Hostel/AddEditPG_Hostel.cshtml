@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/Admin/AdminLayout.cshtml";
 }
+@model PG_Management_System.Areas.PG_Hostel.Models.Hostel;
 
 <div class="container">
     <div class="page-inner">
@@ -28,7 +29,9 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form action="/" method="post">
+                <form asp-area="PG_Hostel" asp-controller="PG_Hostel" asp-action="SavePg" method="post">
+                    @Html.HiddenFor(x => x.Owner_ID)
+                    @Html.HiddenFor(x => x.Id)
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Fill PG_Hostel Details</div>
@@ -39,22 +42,26 @@
                                     <div class="form-group">
                                         <label for="email2">Building Number</label>
                                         <input type="text"
+                                               asp-for="Hostel_Building_Number"
                                                class="form-control"
                                                id="inlineinput"
                                                placeholder="Enter Pg building number" required />
+                                        <span asp-validation-for="Hostel_Building_Number" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label for="comment">Address</label>
                                         <input type="text"
+                                               asp-for="Hostel_Address"
                                                class="form-control"
                                                id="inlineinput"
                                                placeholder="Enter Pg building Address" required />
+                                        <span asp-validation-for="Hostel_Address" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-action">
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="submit"  class="btn btn-success">Submit</button>
                             <button type="reset" class="btn btn-danger">Cancel</button>
                         </div>
                     </div>
@@ -63,3 +70,8 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
