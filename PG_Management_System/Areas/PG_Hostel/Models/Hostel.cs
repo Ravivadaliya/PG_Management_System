@@ -7,7 +7,7 @@ namespace PG_Management_System.Areas.PG_Hostel.Models;
 public class Hostel
 {
     [Key]
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
     [Required]
     [ForeignKey("Owner")]
@@ -25,4 +25,10 @@ public class Hostel
 
     public DateOnly Hostel_CreatedDate { get; set; }
     public DateOnly Hostel_ModificationDate { get; set; }
+}
+
+public class Hostel_DropDownModel
+{
+    public int Id { get; set; }
+    public string Hostel_Building_Number { get; set; }
 }

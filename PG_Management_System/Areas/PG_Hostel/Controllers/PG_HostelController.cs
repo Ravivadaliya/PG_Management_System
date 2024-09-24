@@ -44,7 +44,7 @@ public class PG_HostelController : Controller
             {
                 foreach (DataRow dr in dataTable.Rows)
                 {
-
+                    hostel.Id = Convert.ToInt32(dr["Id"]);
                     hostel.Owner_ID = Convert.ToInt32(dr["Owner_Id"]);
                     hostel.Hostel_Building_Number = dr["Hostel_Building_Number"].ToString();
                     hostel.Hostel_Address = dr["Hostel_Address"].ToString();

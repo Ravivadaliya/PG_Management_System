@@ -50,7 +50,7 @@
             <div class="sidebar-logo">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a href="index.html" class="logo">
+                    <a href="#" class="logo">
                         <img src="~/assets/img/Infinity-removebg.png"
                              alt="navbar brand"
                              class="navbar-brand"
@@ -75,7 +75,7 @@
                 <div class="sidebar-content">
                     <ul class="nav nav-secondary">
                         <li class="nav-item active">
-                            <a href="index.html">
+                            <a href="#">
                                 <i class="fas fa-home"></i>
                                 <p>Dashboard</p>
                             </a>
@@ -109,7 +109,7 @@
                         </li>
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#Staff">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-user-friends"></i>
                                 <p>Staff</p>
                                 <span class="caret"></span>
                             </a>
@@ -142,8 +142,50 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a asp-area="PG_Person" asp-controller="PG_Person" asp-action="AddEditPerson">
+                                        <a asp-area="PG_Person" asp-controller="PG_Person" asp-action="Add">
                                             <span class="sub-item">Add New Persons</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#Room">
+                                <i class="fas fa-home"></i>
+                                <p>Rooms</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="Room">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a asp-area="PG_Room" asp-controller="PG_Room" asp-action="PGList">
+                                            <span class="sub-item">See All Rooms</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="PG_Room" asp-controller="PG_Room" asp-action="Add">
+                                            <span class="sub-item">Add New Room</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#Beds">
+                                <i class="fas fa-bed"></i>
+                                <p>Beds</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="Beds">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a asp-area="PG_Bed" asp-controller="PG_Bed" asp-action="AllBedList">
+                                            <span class="sub-item">See All Beds</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="PG_Bed" asp-controller="PG_Bed" asp-action="Add">
+                                            <span class="sub-item">Add New Bed</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -236,7 +278,7 @@
                                     </div>
                                     <span class="profile-username">
                                         <span class="op-7">Hi,</span>
-                                        <span class="fw-bold">@CV.Owner_Id()</span>
+                                        <span class="fw-bold">@CV.Owner_Name()</span>
                                     </span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -316,6 +358,53 @@
     <script src="~/assets/js/setting-demo.js"></script>
     <script src="~/assets/js/demo.js"></script>
     <script src="~/assets/js/setting-demo2.js"></script>
+
+    <script>
+    function confirmDelete(OwnerId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You won't be able to revert this!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form for the specific adminId
+                document.getElementById(`deleteForm-${OwnerId}`).submit();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        var message = '@ViewBag.Message';
+        var alertType = '@ViewBag.AlertType';
+
+        if (message) {
+            Swal.fire({
+                icon: alertType,
+                title: message,
+                showConfirmButton: true
+            });
+        }
+    });
+
+    $(document).ready(function () {
+        var message = '@TempData["Message"]';
+        var alertType = '@TempData["AlertType"]';
+
+        if (message) {
+            Swal.fire({
+                icon: alertType,
+                title: message,
+                showConfirmButton: true
+            });
+        }
+    });
+</script>
+
+
 
     <script>
         $(document).ready(function () {

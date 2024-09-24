@@ -30,8 +30,8 @@
         <div class="row">
             <div class="col-md-12">
                 <form asp-area="PG_Hostel" asp-controller="PG_Hostel" asp-action="SavePg" method="post">
-                    @Html.HiddenFor(x => x.Owner_ID)
                     @Html.HiddenFor(x => x.Id)
+                    @Html.HiddenFor(x => x.Owner_ID)
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Fill PG_Hostel Details</div>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="card-action">
-                            <button type="submit"  class="btn btn-success">Submit</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
                             <button type="reset" class="btn btn-danger">Cancel</button>
                         </div>
                     </div>

@@ -7,7 +7,7 @@ namespace PG_Management_System.Areas.PG_Staff.Models;
 public class Staff
 {
     [Key]
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
     [ForeignKey("Owner")]
     public int Owner_ID { get; set; }
@@ -23,7 +23,8 @@ public class Staff
     public string Staff_Surname { get; set; }
 
     [Required]
-    public int Staff_Mobile_Number { get; set; }
+    [StringLength(10), MinLength(10)]
+    public string Staff_Mobile_Number { get; set; }
     
     [Required]
     public string Staff_Gender { get; set; }

@@ -1,0 +1,156 @@
+﻿@{
+    Layout = "~/Views/Shared/Admin/AdminLayout.cshtml";
+}
+@model PG_Management_System.Areas.PG_Room.Models.Room;
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Add Rooms</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="#">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Rooms</a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Add Room</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-area="PG_Room" asp-controller="PG_Room" asp-action="SaveStaff" method="post">
+                    @Html.HiddenFor(x => x.Id)
+                    @* @Html.HiddenFor(x => x.Hostel_ID) *@
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Fill Person Details</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-12">
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter Room Number*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Room_Number"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="101"/>
+                                            <span asp-validation-for="Room_Number" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter Sharing Capacity*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Room_SharingType"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="5,4 or 3 " />
+                                            <span asp-validation-for="Room_SharingType" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Gender Allowed*</label><br />
+                                        <div class="d-flex">
+                                            <div class="form-check">
+                                                <input class="form-check-input"
+                                                       asp-for="Room_GenderAllowed"
+                                                       type="radio"
+                                                       name="flexRadioDefault"
+                                                       value="Male"
+                                                       id="flexRadioDefault1" />
+                                                <label class="form-check-label"
+                                                       for="flexRadioDefault1">
+                                                    Male
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input"
+                                                       asp-for="Room_GenderAllowed"
+                                                       type="radio"
+                                                       name="flexRadioDefault"
+                                                       value="Female"
+                                                       id="flexRadioDefault2" />
+                                                <label class="form-check-label"
+                                                       for="flexRadioDefault2">
+                                                    Female
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="Room_GenderAllowed" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Enter Room Type*</label><br />
+                                        <div class="d-flex">
+                                            <div class="form-check">
+                                                <input class="form-check-input"
+                                                       asp-for="Room_Type"
+                                                       type="radio"
+                                                       name=""
+                                                       value="AC"
+                                                       id="" />
+                                                <label class="form-check-label"
+                                                       for="flexRadioDefault1">
+                                                    AC
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input"
+                                                       asp-for="Room_Type"
+                                                       type="radio"
+                                                       name=""
+                                                       value="Non-AC"
+                                                       id="flexRadioDefault2" />
+                                                <label class="form-check-label"
+                                                       for="">
+                                                    Non-AC
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="Room_Type" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group form-inline"> 
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Hostel*</label> 
+                                        <div class="col-md-9 p-0">
+                                            <input type=""
+                                                   asp-for="Hostel_ID"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="101" 
+                                                   value="@TempData["HostelId"]"
+                                                   disabled/>
+                                            <span asp-validation-for="Hostel_ID" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="reset" class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PG_Management_System.Areas.PG_Bed.Models;
 
-public class PG_Bed
+public class Bed
 {
     [Key]
     public int Id { get; set; }
@@ -25,4 +25,10 @@ public class PG_Bed
     [Required]
     public DateTime Bed_ModificationDate { get; set; } = DateTime.Now;
 
+}
+
+public class Bed_DropDownmodel
+{
+   public  int Id { get; set; }
+   public int Bed_Number { get; set; }
 }

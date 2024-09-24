@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -23,15 +23,8 @@
     <Folder Include="Areas\PG_Announcement\Controllers\" />
     <Folder Include="Areas\PG_Announcement\Data\" />
     <Folder Include="Areas\PG_Announcement\Views\" />
-    <Folder Include="Areas\PG_Bed\Controllers\" />
-    <Folder Include="Areas\PG_Bed\Data\" />
-    <Folder Include="Areas\PG_Bed\Views\" />
+    <Folder Include="Areas\PG_Bed\Views\PG_Bed\" />
     <Folder Include="Areas\PG_Issues\Data\" />
-    <Folder Include="Areas\PG_Person\Data\" />
-    <Folder Include="Areas\PG_Room\Controllers\" />
-    <Folder Include="Areas\PG_Room\Data\" />
-    <Folder Include="Areas\PG_Room\Views\" />
-    <Folder Include="Areas\PG_Staff\Data\" />
   </ItemGroup>
 
   <ItemGroup>

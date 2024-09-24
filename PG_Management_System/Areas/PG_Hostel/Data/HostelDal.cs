@@ -26,7 +26,7 @@ public class HostelDal
         DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_PG_Hostel_SelectById", sqlParameter);
         return dataTable;
     }
-    
+
     public bool InserHostelData(Hostel hostel, DatabaseHelper _dbHelper)
     {
         SqlParameter[] sqlParameter = new SqlParameter[]
@@ -49,7 +49,7 @@ public class HostelDal
         int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Delete", sqlParameter);
         return (value == -1 ? false : true);
     }
-   
+
     public bool UpdatePgData(DatabaseHelper _dbHelper, Hostel hostel)
     {
         SqlParameter[] sqlParameter = new SqlParameter[]

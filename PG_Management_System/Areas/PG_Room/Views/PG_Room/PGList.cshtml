@@ -18,7 +18,7 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">PG Hostel</a>
+                    <a href="#">Rooms</a>
                 </li>
                 <li class="separator">
                     <i class="icon-arrow-right"></i>
@@ -32,7 +32,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">PG View and Delete</h4>
+                        <h4 class="card-title">Select PG First For Add And View Room</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -42,9 +42,8 @@
                                     <tr>
                                         <th>Building No</th>
                                         <th>Address</th>
-                                        <th>Created Date</th>
-                                        <th>Modification Date</th>
-                                        <th>Action</th>
+                                        <th>Add Room</th>
+                                        <th>View Rooms</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,24 +55,18 @@
                                         <tr>
                                             <td>@dr["Hostel_Building_Number"]</td>
                                             <td>@dr["Hostel_Address"]</td>
-                                            <td>@Convert.ToDateTime(dr["Hostel_CreatedDate"]).ToString("dd-MM-yyyy")</td>
-                                            <td>@Convert.ToDateTime(dr["Hostel_Modificationdate"]).ToString("dd-MM-yyyy")</td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a asp-area="PG_Hostel" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Hostel" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">
-                                                        <i class="fa fa-edit"></i>
+                                                    <a asp-area="PG_Room" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Room" asp-action="Add" asp-route-Hostel_Id="@Convert.ToInt32(dr["Id"])">
+                                                        <i class="fas fa-plus-circle"></i>
                                                     </a>
-                                                    <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Hostel" asp-controller="PG_Hostel" asp-action="DeletePG">
-                                                        <input type="hidden" name="Id" value="@Convert.ToInt32(dr["Id"])" />
-                                                        <button type="button"
-                                                                onclick="confirmDelete('@dr["Id"]')"
-                                                                title=""
-                                                                class="btn btn-link btn-danger mt-2"
-                                                                data-original-title="Remove">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    </form>
-
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-button-action">
+                                                    <a asp-area="PG_Room" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Room" asp-action="AllRoomListByHostelId" asp-route-Id="@Convert.ToInt32(dr["Id"])">
+                                                        <i class="fas fa-home"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>

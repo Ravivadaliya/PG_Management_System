@@ -3,13 +3,21 @@ using System.ComponentModel.DataAnnotations;
 using PG_Management_System.Areas.PG_Room.Models;
 using PG_Management_System.Areas.PG_Hostel.Models;
 using PG_Management_System.Areas.PG_Owner.Models;
+using PG_Management_System.Areas.PG_Bed.Models;
 
 namespace PG_Management_System.Areas.PG_Person.Models;
 
 public class Person
 {
     [Key]
-    public int Id { get; set; }
+    public int? Id { get; set; }
+
+
+    [ForeignKey("Room")]
+    public int Bed_ID { get; set; }
+
+    public Bed Bed { get; set; }
+
 
     [ForeignKey("Room")]
     public int Room_ID { get; set; }
@@ -35,10 +43,12 @@ public class Person
     public string Person_Surname { get; set; }
 
     [Required]
-    public int Person_Mobile_Number { get; set; }
+    [StringLength(10),MinLength(10)]
+    public string Person_Mobile_Number { get; set; }
 
     [Required]
-    public int Person_Parent_Mobile_Number { get; set; }
+    [StringLength(10), MinLength(10)]
+    public string Person_Parent_Mobile_Number { get; set; }
 
     [Required]
     [EmailAddress]
@@ -62,11 +72,14 @@ public class Person
     public string Person_Profession { get; set; }
 
     [Required]
-    public DateOnly JoningDate { get; set; }
+    public DateOnly Person_JoningDate { get; set; }
 
     [StringLength(50)]
     public string Person_WorkPlace { get; set; }
 
+
+    [Required]
+    [StringLength(10), MinLength(10)]
     public string Person_WorkPlace_MobileNumber { get; set; }
 
     [Required]
