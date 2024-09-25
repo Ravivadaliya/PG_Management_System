@@ -29,32 +29,55 @@ public class RoomDal
     }
     public bool UpdateRoomData(DatabaseHelper _dbHelper, Room room)
     {
+        string baseRoomNumber = room.Room_Number.Split('-')[0]; 
+
+        string newRoomNumber = baseRoomNumber + "-" + room.Room_SharingType + "-" + room.Room_Type;
+
         SqlParameter[] sqlParameter = new SqlParameter[]
        {
-            new SqlParameter("@Id", SqlDbType.Int) { Value = room.Id },
-            new SqlParameter("@Hostel_ID", SqlDbType.Int) { Value = room.Hostel_ID },
-            new SqlParameter("@Room_Number", SqlDbType.VarChar) { Value = room.Room_Number},
-            new SqlParameter("@Room_SharingType", SqlDbType.VarChar) { Value = room.Room_SharingType},
-            new SqlParameter("@Room_AllowcateBed", SqlDbType.VarChar) { Value = 0},
-            new SqlParameter("@Room_Type", SqlDbType.VarChar) { Value = room.Room_Type},
-            new SqlParameter("@Room_GenderAllowed", SqlDbType.VarChar) { Value = room.Room_GenderAllowed},
+            new SqlParameter("Id", SqlDbType.Int) { Value = room.Id },
+            new SqlParameter("Hostel_ID", SqlDbType.Int) { Value = room.Hostel_ID },
+            new SqlParameter("Room_Number", SqlDbType.VarChar) { Value = newRoomNumber},
+            new SqlParameter("Room_SharingType", SqlDbType.VarChar) { Value = room.Room_SharingType},
+            new SqlParameter("Room_AllowcateBed", SqlDbType.VarChar) { Value = 0},
+            new SqlParameter("Room_Type", SqlDbType.VarChar) { Value = room.Room_Type},
+            new SqlParameter("Room_GenderAllowed", SqlDbType.VarChar) { Value = room.Room_GenderAllowed},
        };
         int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Room_Update", sqlParameter);
         return (value == -1 ? false : true);
     }
     public bool InsertRoomData(DatabaseHelper _dbHelper, Room room)
     {
+        
         SqlParameter[] sqlParameter = new SqlParameter[]
        {
-         new SqlParameter("@Id", SqlDbType.Int) { Value = room.Id },
-            new SqlParameter("@Hostel_ID", SqlDbType.Int) { Value = room.Hostel_ID },
-            new SqlParameter("@Room_Number", SqlDbType.VarChar) { Value = room.Room_Number},
-            new SqlParameter("@Room_SharingType", SqlDbType.VarChar) { Value = room.Room_SharingType},
-            new SqlParameter("@Room_AllowcateBed", SqlDbType.VarChar) { Value = 0},
-            new SqlParameter("@Room_Type", SqlDbType.VarChar) { Value = room.Room_Type},
-            new SqlParameter("@Room_GenderAllowed", SqlDbType.VarChar) { Value = room.Room_GenderAllowed},
+            new SqlParameter("Hostel_ID", SqlDbType.Int) { Value = room.Hostel_ID },
+            new SqlParameter("Room_Number", SqlDbType.VarChar) { Value = room.Room_Number+"-"+room.Room_SharingType+"-"+room.Room_Type},
+            new SqlParameter("Room_SharingType", SqlDbType.VarChar) { Value = room.Room_SharingType},
+            new SqlParameter("Room_AllowcateBed", SqlDbType.VarChar) { Value = 0},
+            new SqlParameter("Room_Type", SqlDbType.VarChar) { Value = room.Room_Type},
+            new SqlParameter("Room_GenderAllowed", SqlDbType.VarChar) { Value = room.Room_GenderAllowed},
        };
-        int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Room_Update", sqlParameter);
+        int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Room_Insert", sqlParameter);
+        return (value == -1 ? false : true);
+    }
+
+    public bool Deletestaff(DatabaseHelper _dbHelper, int Roomid)
+    {
+        SqlParameter[] sqlParameter = new SqlParameter[]
+        {
+            new SqlParameter ("Id",SqlDbType.Int){ Value=Roomid }
+        };
+        int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Room_Delete", sqlParameter);
+        return (value == -1 ? false : true);
+    }
+    public bool Deleteroom(DatabaseHelper _dbHelper, int Roomid)
+    {
+        SqlParameter[] sqlParameter = new SqlParameter[]
+        {
+            new SqlParameter ("Id",SqlDbType.Int){ Value=Roomid }
+        };
+        int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Room_Delete", sqlParameter);
         return (value == -1 ? false : true);
     }
 

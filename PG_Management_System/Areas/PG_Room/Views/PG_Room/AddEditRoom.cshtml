@@ -31,6 +31,7 @@
                 <form asp-area="PG_Room" asp-controller="PG_Room" asp-action="SaveStaff" method="post">
                     @Html.HiddenFor(x => x.Id)
                     @* @Html.HiddenFor(x => x.Hostel_ID) *@
+                    @Html.HiddenFor(x => x.Hostel_ID, new { Value = @TempData["HostelId"] })
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Fill Person Details</div>
@@ -46,7 +47,7 @@
                                                    asp-for="Room_Number"
                                                    class="form-control input-full"
                                                    id="inlineinput"
-                                                   placeholder="101"/>
+                                                   placeholder="101" />
                                             <span asp-validation-for="Room_Number" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -62,80 +63,49 @@
                                             <span asp-validation-for="Room_SharingType" class="text-danger"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Gender Allowed*</label><br />
-                                        <div class="d-flex">
-                                            <div class="form-check">
-                                                <input class="form-check-input"
-                                                       asp-for="Room_GenderAllowed"
-                                                       type="radio"
-                                                       name="flexRadioDefault"
-                                                       value="Male"
-                                                       id="flexRadioDefault1" />
-                                                <label class="form-check-label"
-                                                       for="flexRadioDefault1">
-                                                    Male
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input"
-                                                       asp-for="Room_GenderAllowed"
-                                                       type="radio"
-                                                       name="flexRadioDefault"
-                                                       value="Female"
-                                                       id="flexRadioDefault2" />
-                                                <label class="form-check-label"
-                                                       for="flexRadioDefault2">
-                                                    Female
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <span asp-validation-for="Room_GenderAllowed" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Enter Room Type*</label><br />
-                                        <div class="d-flex">
-                                            <div class="form-check">
-                                                <input class="form-check-input"
-                                                       asp-for="Room_Type"
-                                                       type="radio"
-                                                       name=""
-                                                       value="AC"
-                                                       id="" />
-                                                <label class="form-check-label"
-                                                       for="flexRadioDefault1">
-                                                    AC
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input"
-                                                       asp-for="Room_Type"
-                                                       type="radio"
-                                                       name=""
-                                                       value="Non-AC"
-                                                       id="flexRadioDefault2" />
-                                                <label class="form-check-label"
-                                                       for="">
-                                                    Non-AC
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <span asp-validation-for="Room_Type" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group form-inline"> 
+                                    <div class="form-group form-inline">
                                         <label for="inlineinput"
-                                               class="col-md-3 col-form-label">Hostel*</label> 
+                                               class="col-md-3 col-form-label">Select Gender*</label>
                                         <div class="col-md-9 p-0">
-                                            <input type=""
-                                                   asp-for="Hostel_ID"
-                                                   class="form-control input-full"
-                                                   id="inlineinput"
-                                                   placeholder="101" 
-                                                   value="@TempData["HostelId"]"
-                                                   disabled/>
-                                            <span asp-validation-for="Hostel_ID" class="text-danger"></span>
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Room_GenderAllowed">
+                                                <option value="">Select Hostel</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                            <span asp-validation-for="Room_GenderAllowed" class="text-danger"></span>
                                         </div>
                                     </div>
+                                     <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Select Room Tyoe*</label>
+                                        <div class="col-md-9 p-0">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Room_Type">
+                                                <option value="">Select Room Type</option>
+                                                <option value="AC">AC</option>
+                                                <option value="NonAc">NonAc</option>
+                                            </select>
+                                            <span asp-validation-for="Room_Type" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    @*  <div class="form-group">
+                                    <label>Enter Room Type*</label><br />
+
+                                    <span asp-validation-for="Room_Type" class="text-danger"></span>
+                                    </div> *@
+                                    @*  <div class="form-group form-inline">
+                                    <label for="inlineinput"
+                                    class="col-md-3 col-form-label">Hostel*</label>
+                                    <div class="col-md-9 p-0">
+                                    <input type=""
+                                    asp-for="Hostel_ID"
+                                    class="form-control input-full"
+                                    id="inlineinput"
+                                    placeholder="101"
+                                    value="@TempData["HostelId"]"
+                                    disabled/>
+                                    <span asp-validation-for="Hostel_ID" class="text-danger"></span>
+                                    </div>
+                                    </div> *@
                                 </div>
                             </div>
                         </div>

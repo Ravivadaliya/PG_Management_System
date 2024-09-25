@@ -70,7 +70,7 @@
                                                     <a asp-area="PG_Room" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Room" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
-                                                    <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Room" asp-controller="PG_Room" asp-action="DeletePerson">
+                                                    <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Room" asp-controller="PG_Room" asp-action="DeleteRoom">
                                                         <input type="hidden" name="Id" value="@Convert.ToInt32(dr["Id"])" />
                                                         <button type="button"
                                                         onclick="confirmDelete('@dr["Id"]')"

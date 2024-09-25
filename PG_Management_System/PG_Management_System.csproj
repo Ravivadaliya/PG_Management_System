@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <Reference Include="DatabaseHelperLibrary">
-      <HintPath>..\..\DatabaseHelperLibrary\DatabaseHelperLibrary\bin\Debug\net8.0\DatabaseHelperLibrary.dll</HintPath>
+      <HintPath>C:\Users\Admin\Downloads\DatabaseHelperLibrary\DatabaseHelperLibrary\DatabaseHelperLibrary\bin\Debug\net8.0\DatabaseHelperLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 

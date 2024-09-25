@@ -15,7 +15,7 @@ public class OwnerDal
 			new SqlParameter("@Owner_Surname", SqlDbType.VarChar) { Value = owner.Owner_Surname },
 			new SqlParameter("@Owner_Gender", SqlDbType.VarChar) { Value = owner.Owner_Gender },
 			new SqlParameter("@Owner_EmailId", SqlDbType.VarChar) { Value = owner.Owner_EmailId },
-			new SqlParameter("@Owner_Mobile_Number", SqlDbType.Int) { Value = owner.Owner_Mobile_Number},
+			new SqlParameter("@Owner_Mobile_Number", SqlDbType.VarChar) { Value = owner.Owner_Mobile_Number},
 			new SqlParameter("@Owner_City", SqlDbType.VarChar) { Value = owner.Owner_City },
 			new SqlParameter("@Owner_State", SqlDbType.VarChar) { Value = owner.Owner_State },
 			new SqlParameter("@Owner_Address", SqlDbType.VarChar) { Value = owner.Owner_Address },

@@ -57,7 +57,7 @@ public class PG_RoomController(DatabaseHelper dbHelper) : Controller
                 {
                     ViewBag.HostelId = Convert.ToInt32(dr["Hostel_ID"]);
                     room.Hostel_ID = Convert.ToInt32(dr["Hostel_ID"]);
-                    room.Room_Number = dr["Room_Number"].ToString();
+                    room.Room_Number = dr["Room_Number"].ToString().Split('-')[0];
                     room.Room_GenderAllowed= dr["Room_GenderAllowed"].ToString();
                     room.Room_SharingType = Convert.ToInt32(dr["Room_SharingType"]);
                     room.Room_AllowcateBed = Convert.ToInt32(dr["Room_AllowcateBed"]);
@@ -80,12 +80,12 @@ public class PG_RoomController(DatabaseHelper dbHelper) : Controller
             if (roomDal.InsertRoomData(_dbHelper, room))
             {
                 TempData["Message"] = "Room added successfully!";
-                TempData["AlertType"] = "success";  // 'success' for success alert
+                TempData["AlertType"] = "success"; 
             }
             else
             {
                 TempData["Message"] = "Failed to add Room.";
-                TempData["AlertType"] = "error";  // 'error' for failure alert
+                TempData["AlertType"] = "error"; 
             }
         }
         else
@@ -93,16 +93,32 @@ public class PG_RoomController(DatabaseHelper dbHelper) : Controller
             if (roomDal.UpdateRoomData(_dbHelper, room))
             {
                 TempData["Message"] = "Room Data Update successfully!";
-                TempData["AlertType"] = "success";  // 'success' for success alert
+                TempData["AlertType"] = "success"; 
             }
             else
             {
                 TempData["Message"] = "Failed To Update Staff Data.";
                 TempData["AlertType"] = "Error";
             }
-            return RedirectToAction("AllStaffList");
+            return RedirectToAction("PGList");
         }
 
-        return RedirectToAction("AllStaffList");
+        return RedirectToAction("PGList");
+    }
+
+    public IActionResult DeleteRoom(int Id)
+    {
+        RoomDal roomDal = new RoomDal();
+        if (roomDal.Deleteroom(_dbHelper, Id))
+        {
+            TempData["Message"] = "Room Delete successfully!";
+            TempData["AlertType"] = "success";
+        }
+        else
+        {
+            TempData["Message"] = "Error to Delete";
+            TempData["AlertType"] = "error";
+        }
+        return RedirectToAction("PGList");
     }
 }
