@@ -76,6 +76,13 @@ public class PG_PersonController(DatabaseHelper dbHelper) : Controller
         return View("AddEditPerson");
     }
 
+    public IActionResult PersonDetails(int Person_Id)
+    {
+        PersonDal personDal = new PersonDal();
+        DataTable dataTable = personDal.GetAllPersonByOwnerIdAndPersonId(_dbHelper,Person_Id);
+        return View("PersonDetails", dataTable);
+    }
+
     public IActionResult SavePerson(Person person)
     {
         PersonDal personDal = new PersonDal();

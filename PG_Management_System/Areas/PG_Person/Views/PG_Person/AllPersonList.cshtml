@@ -68,16 +68,9 @@
                                             <td>@dr["Hostel_Building_Number"]</td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <button type="button"
-                                                            asp-area="PG_Person"
-                                                            asp-controller="PG_Person"
-                                                            asp-action="PersonDetails"
-                                                            asp-route-Person_Id="@Convert.ToInt32(dr["Id"])"
-                                                            title=""
-                                                            class="btn btn-link btn-primary btn-lg"
-                                                            data-original-title="Edit Task">
+                                                    <a asp-area="PG_Person" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Person" asp-action="PersonDetails" asp-route-Person_Id="@Convert.ToInt32(dr["Id"])">
                                                         <i class="fas fa-eye"></i>
-                                                    </button>
+                                                    </a>
                                                     <a asp-area="PG_Person" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Person" asp-action="Add" asp-route-Person_Id="@Convert.ToInt32(dr["Id"])">
                                                         <i class="fa fa-edit"></i>
                                                     </a>

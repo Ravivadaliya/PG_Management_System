@@ -21,6 +21,17 @@ public class PersonDal
         DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_PG_Person_SelectAllByOwnerId", sqlParameter);
         return dataTable;
     }
+
+    public DataTable GetAllPersonByOwnerIdAndPersonId(DatabaseHelper _dbHelper, int Person_Id)
+    {
+        SqlParameter[] sqlParameter = new SqlParameter[]
+        {
+            new SqlParameter ("Owner_Id",SqlDbType.Int){ Value= CV.Owner_Id() },
+            new SqlParameter ("Person_Id",SqlDbType.Int){ Value= Person_Id }
+        };
+        DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_PG_Person_SelectAllByOwnerIdandPersonId", sqlParameter);
+        return dataTable;
+    }
     public DataTable GetPersonById(DatabaseHelper _dbHelper, int? personId)
     {
         SqlParameter[] sqlParameter = new SqlParameter[]
