@@ -44,6 +44,9 @@ public class PersonDal
 
     public bool InsertPerson(DatabaseHelper _dbHelper, Person person)
     {
+
+
+
         SqlParameter[] sqlParameter = new SqlParameter[]
         {
             new SqlParameter ("Bed_ID",SqlDbType.Int){ Value= person.Bed_ID },
@@ -67,7 +70,16 @@ public class PersonDal
         };
 
         int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Person_Insert", sqlParameter);
-        return value == -1 ? false : true;
+        if (value==-1)
+        {
+            return false;
+        }
+        else
+        {
+
+
+            return true;
+        }
 
     }
 

@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data;
 using PG_Management_System.Areas.PG_Staff.Models;
 using PG_Management_System.Areas.PG_Room.Models;
+using Microsoft.Practices.EnterpriseLibrary.Data;
 
 namespace PG_Management_System.Areas.PG_Room.Data;
 
@@ -48,7 +49,22 @@ public class RoomDal
     }
     public bool InsertRoomData(DatabaseHelper _dbHelper, Room room)
     {
-        
+        string checkroom = room.Room_Number + "-" + room.Room_SharingType;
+
+        SqlParameter[] checkParams = new SqlParameter[]
+        {
+            new SqlParameter("Room_Number", SqlDbType.VarChar) { Value = checkroom }
+        };
+
+        object result = _dbHelper.ExecuteScalar("SP_CheckRoomDuplicateEntry", checkParams);
+
+        // Check if the room already exists
+        if (result != null && Convert.ToInt32(result) > 0)
+        {
+            // Room already exists, return false
+            return false;
+        }
+
         SqlParameter[] sqlParameter = new SqlParameter[]
        {
             new SqlParameter("Hostel_ID", SqlDbType.Int) { Value = room.Hostel_ID },

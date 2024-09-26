@@ -82,7 +82,7 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
         else
         {
             TempData["Message"] = "Failed To Insert Bed Data.";
-            TempData["AlertType"] = "Error";
+            TempData["AlertType"] = "error";
         }
         return RedirectToAction("PGList");
     }

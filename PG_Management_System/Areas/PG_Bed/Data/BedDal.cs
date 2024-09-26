@@ -10,6 +10,22 @@ public class BedDal
 {
     public bool InsertRoomData(DatabaseHelper _dbHelper, Bed bed)
     {
+        SqlParameter[] checkParams = new SqlParameter[]
+       {
+            new SqlParameter("Room_ID", SqlDbType.Int) { Value = bed.Room_ID },
+           new SqlParameter("Bed_Number", SqlDbType.VarChar) { Value = bed.Bed_Number},
+       };
+
+        object result = _dbHelper.ExecuteScalar("SP_CheckBedDuplicateEntry", checkParams);
+
+        // Check if the room already exists
+        if (result != null && Convert.ToInt32(result) > 0)
+        {
+            // Room already exists, return false
+            return false;
+        }
+
+
         SqlParameter[] sqlParameter = new SqlParameter[]
        {
             new SqlParameter("Room_ID", SqlDbType.Int) { Value = bed.Room_ID },

@@ -86,7 +86,7 @@ public class PG_RoomController(DatabaseHelper dbHelper) : Controller
             }
             else
             {
-                TempData["Message"] = "Failed to add Room.";
+                TempData["Message"] = "Failed to add Room.(It is possible you trying to add duplicate room)";
                 TempData["AlertType"] = "error"; 
             }
         }
@@ -100,7 +100,7 @@ public class PG_RoomController(DatabaseHelper dbHelper) : Controller
             else
             {
                 TempData["Message"] = "Failed To Update Staff Data.";
-                TempData["AlertType"] = "Error";
+                TempData["AlertType"] = "error";
             }
             return RedirectToAction("PGList");
         }
