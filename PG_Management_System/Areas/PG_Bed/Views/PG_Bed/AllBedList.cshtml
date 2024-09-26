@@ -1,13 +1,13 @@
 ﻿@{
     Layout = "~/Views/Shared/Admin/AdminLayout.cshtml";
 }
+
 @using System.Data;
-@model DataTable
 
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">PG</h3>
+            <h3 class="fw-bold mb-3">Beds</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="#">
@@ -18,13 +18,13 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">PG Hostel</a>
+                    <a href="#">Bed</a>
                 </li>
                 <li class="separator">
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">PG List</a>
+                    <a href="#">See All Bed</a>
                 </li>
             </ul>
         </div>
@@ -32,7 +32,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">PG View and Delete</h4>
+                        <h4 class="card-title">Bed View and Delete</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -40,30 +40,36 @@
                                    class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Building No</th>
-                                        <th>Address</th>
-                                        <th>Created Date</th>
-                                        <th>Modification Date</th>
+                                        <th>Bed Number</th>
+                                        <th>Room Number</th>
+                                        <th>Hostel Building No</th> 
+                                        @* <th>AllowcateBed</th> *@
+                                        @* <th>Profession</th> *@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Office</th>
+                                        @* <th>Age</th> *@
+                                        <th>Start date</th>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
-                                    @{
-                                        int i = 1;
-                                    }
                                     @foreach (DataRow dr in Model.Rows)
                                     {
                                         <tr>
-                                            <td>@dr["Hostel_Building_Number"]</td>
-                                            <td>@dr["Hostel_Address"]</td>
-                                            <td>@Convert.ToDateTime(dr["Hostel_CreatedDate"]).ToString("dd-MM-yyyy")</td>
-                                            <td>@Convert.ToDateTime(dr["Hostel_Modificationdate"]).ToString("dd-MM-yyyy")</td>
+                                            <td>@dr["Bed_Number"]</td>
+                                            <td>@dr["Room_Number"]</td>
+                                             <td>@dr["Hostel_Building_Number"]</td> 
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a asp-area="PG_Hostel" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Hostel" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">
+                                                    <a asp-area="PG_Room" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Room" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
-                                                    <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Hostel" asp-controller="PG_Hostel" asp-action="DeletePG">
+                                                    <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Bed" asp-controller="PG_Bed" asp-action="DeleteBed" asp-route-Bed_Id="@Convert.ToInt32(dr["Id"])">
                                                         <input type="hidden" name="Id" value="@Convert.ToInt32(dr["Id"])" />
                                                         <button type="button"
                                                                 onclick="confirmDelete('@dr["Id"]')"
@@ -73,7 +79,6 @@
                                                             <i class="fa fa-times"></i>
                                                         </button>
                                                     </form>
-
                                                 </div>
                                             </td>
                                         </tr>
@@ -84,6 +89,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -104,8 +110,6 @@
             }
         });
     }
-
-
 
     $(document).ready(function () {
         var message = '@TempData["Message"]';

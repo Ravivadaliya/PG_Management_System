@@ -94,4 +94,34 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmDelete(OwnerId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You won't be able to revert this!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form for the specific adminId
+                document.getElementById(`deleteForm-${OwnerId}`).submit();
+            }
+        });
+    }
 
+    $(document).ready(function () {
+        var message = '@TempData["Message"]';
+        var alertType = '@TempData["AlertType"]';
+
+        if (message) {
+            Swal.fire({
+                icon: alertType,
+                title: message,
+                showConfirmButton: true
+            });
+        }
+    });
+</script>

@@ -12,8 +12,7 @@
     <link rel="icon"
           href="~/assets/img/Infinity-removebg.png"
           type="image/x-icon" />
-
-    <!-- Fonts and icons -->
+<!-- Fonts and icons -->
 
     <script>
         WebFont.load({
@@ -162,11 +161,11 @@
                                             <span class="sub-item">See All Rooms</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li>@* 
                                         <a asp-area="PG_Room" asp-controller="PG_Room" asp-action="Add">
                                             <span class="sub-item">Add New Room</span>
                                         </a>
-                                    </li>
+                                    </li> *@
                                 </ul>
                             </div>
                         </li>
@@ -179,15 +178,15 @@
                             <div class="collapse" id="Beds">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a asp-area="PG_Bed" asp-controller="PG_Bed" asp-action="AllBedList">
+                                        <a asp-area="PG_Bed" asp-controller="PG_Bed" asp-action="PGList">
                                             <span class="sub-item">See All Beds</span>
                                         </a>
                                     </li>
-                                    <li>
+                                  @*   <li>
                                         <a asp-area="PG_Bed" asp-controller="PG_Bed" asp-action="Add">
                                             <span class="sub-item">Add New Bed</span>
                                         </a>
-                                    </li>
+                                    </li> *@
                                 </ul>
                             </div>
                         </li>
@@ -199,7 +198,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div>  
             </div>
         </div>
         <!-- End Sidebar -->
@@ -378,19 +377,6 @@
     }
 
     $(document).ready(function () {
-        var message = '@ViewBag.Message';
-        var alertType = '@ViewBag.AlertType';
-
-        if (message) {
-            Swal.fire({
-                icon: alertType,
-                title: message,
-                showConfirmButton: true
-            });
-        }
-    });
-
-    $(document).ready(function () {
         var message = '@TempData["Message"]';
         var alertType = '@TempData["AlertType"]';
 
@@ -401,6 +387,8 @@
                 showConfirmButton: true
             });
         }
+        @TempData["Message"] = "";
+        @TempData["AlertType"] = "";
     });
 </script>
 

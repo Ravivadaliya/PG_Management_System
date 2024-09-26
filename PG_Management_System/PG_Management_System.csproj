@@ -23,7 +23,6 @@
     <Folder Include="Areas\PG_Announcement\Controllers\" />
     <Folder Include="Areas\PG_Announcement\Data\" />
     <Folder Include="Areas\PG_Announcement\Views\" />
-    <Folder Include="Areas\PG_Bed\Views\PG_Bed\" />
     <Folder Include="Areas\PG_Issues\Data\" />
   </ItemGroup>
 

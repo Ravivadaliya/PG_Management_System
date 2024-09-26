@@ -99,19 +99,6 @@
     }
 
     $(document).ready(function () {
-        var message = '@ViewBag.Message';
-        var alertType = '@ViewBag.AlertType';
-
-        if (message) {
-            Swal.fire({
-                icon: alertType,
-                title: message,
-                showConfirmButton: true
-            });
-        }
-    });
-
-    $(document).ready(function () {
         var message = '@TempData["Message"]';
         var alertType = '@TempData["AlertType"]';
 
@@ -120,7 +107,13 @@
                 icon: alertType,
                 title: message,
                 showConfirmButton: true
+            }).then((result) => {
+                // Reload the page after the alert is confirmed
+                if (result.isConfirmed) {
+                    location.reload();
+                }
             });
         }
     });
+
 </script>

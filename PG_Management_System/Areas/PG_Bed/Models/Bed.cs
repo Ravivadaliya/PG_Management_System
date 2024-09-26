@@ -14,7 +14,7 @@ public class Bed
     public int Room_ID { get; set; }
 
     [Required]
-    public int Bed_Number { get; set; }
+    public string Bed_Number { get; set; }
 
     [Required]
     public bool Bed_Status { get; set; } = false; // Default value is false
@@ -30,5 +30,5 @@ public class Bed
 public class Bed_DropDownmodel
 {
    public  int Id { get; set; }
-   public int Bed_Number { get; set; }
+   public string Bed_Number { get; set; }
 }

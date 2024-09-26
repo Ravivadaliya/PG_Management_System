@@ -28,7 +28,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <form asp-area="PG_Person" asp-controller="PG_Person" asp-action="Add" method="post">
+                    <form asp-area="PG_Person" asp-controller="PG_Person" asp-action="SavePerson" method="post">
                         @Html.HiddenFor(x => x.Id)
                         @Html.HiddenFor(x => x.Owner_ID)
                         <div class="card">
@@ -90,7 +90,7 @@
                                         <label for="inlineinput"
                                                class="col-md-3 col-form-label">Select Bed</label>
                                         <div class="col-md-9 p-0">
-                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room" data-allow-clear="true" asp-for="Bed_ID">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room" data-allow-clear="true" asp-for="Bed_ID" asp-items="@(new SelectList(ViewBag.BedList,"Id","Bed_Number"))">
                                                 <option value="">Select Bed</option>
                                             </select>
                                             <span asp-validation-for="Bed_ID" class="text-danger"></span>
@@ -174,7 +174,19 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Select Gender*</label>
+                                        <div class="col-md-9 p-0">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Person_Gender">
+                                                <option value="">Select Gender*</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                            <span asp-validation-for="Person_Gender" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                        @* <div class="form-group">
                                             <label>Gender*</label><br />
                                             <div class="d-flex">
                                                 <div class="form-check">
@@ -203,7 +215,7 @@
                                                 </div>
                                             </div>
                                             <span asp-validation-for="Person_Gender" class="text-danger"></span>
-                                        </div>
+                                        </div> *@
 
                                         <div class="form-group form-inline">
                                             <label for="inlineinput"

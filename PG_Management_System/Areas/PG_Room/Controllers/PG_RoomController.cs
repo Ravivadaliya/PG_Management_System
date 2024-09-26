@@ -19,6 +19,8 @@ public class PG_RoomController(DatabaseHelper dbHelper) : Controller
 
     public IActionResult PGList()
     {
+
+
         HostelDal hosteldal = new HostelDal();
         DataTable dataTable = hosteldal.GetAllPGByOwnerId(_dbHelper);
         return View("PGList", dataTable);

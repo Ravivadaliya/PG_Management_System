@@ -35,6 +35,7 @@ public class PG_StaffController : Controller
 
     public IActionResult AllStaffList()
     {
+        
         StaffDal staffdal = new StaffDal();
         DataTable dataTable = staffdal.GetAllStaffByOwnerId(_dbHelper);
         return View("AllStaffList", dataTable);
@@ -115,9 +116,9 @@ public class PG_StaffController : Controller
                 TempData["Message"] = "Failed To Update Staff Data.";
                 TempData["AlertType"] = "Error";
             }
-            return RedirectToAction("AllRoomList");
+            return RedirectToAction("AllStaffList");
         }
 
-        return RedirectToAction("AllRoomList");
+        return RedirectToAction("AllStaffList");
     }
 }
