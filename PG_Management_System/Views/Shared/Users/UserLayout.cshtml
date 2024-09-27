@@ -80,7 +80,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="PG_Issues" asp-controller="PG_Issues" asp-action="AllIssuesList">
+                            <a asp-area="User" asp-controller="User" asp-action="IssueForm">
                                 <i class="fas fa-exclamation-circle"></i>
                                 <p>Create Issues</p>
                                 @* <span class="badge bg-warning"></span> *@
@@ -191,7 +191,7 @@
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Account Setting</a>
                                         <div class="dropdown-divider"></div>
-                                        <a asp-area="PG_Owner" asp-controller="PG_Owner" asp-action="Logout" class="dropdown-item">Logout</a>
+                                        <a asp-area="Login" asp-controller="Login" asp-action="Logout" class="dropdown-item">Logout</a>
                                     </li>
 
                                 </ul>

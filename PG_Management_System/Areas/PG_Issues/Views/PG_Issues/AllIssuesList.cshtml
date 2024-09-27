@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/Admin/AdminLayout.cshtml";
 }
-
+@using System.Data;
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
@@ -28,11 +28,11 @@
                                    class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th>Start date</th>
+                                        <th>Image</th>
+                                        <th>Description</th>
+                                        <th>Room Number</th>
+                                        <th>Building Number</th>
+                                        <th>Person Name</th>
                                         @* <th>Salary</th> *@
                                         <th>Action</th>
                                     </tr>
@@ -49,105 +49,41 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>Ravi</td>
-                                        <td>Vadaliya</td>
-                                        <td>6353712695</td>
-                                        <td>Ashokvihar Motera , Ahmedabad Gujarat</td>
-                                        <td>2011/04/25</td>
-                                        @* <td>$320,800</td> *@
-                                        <td>
-                                            <div class="form-button-action">
-                                                <button type="button"
-                                                        title=""
-                                                        class="btn btn-link btn-primary btn-lg"
-                                                        data-original-title="Edit Task">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button type="button"
-                                                        title=""
-                                                        class="btn btn-link btn-primary btn-lg"
-                                                        data-original-title="Edit Task">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button"
-                                                @*data-bs-toggle="modal"
+                                    @foreach (DataRow dr in Model.Rows)
+                                    {
+                                        <tr>
+                                            <td>@dr["Issue_ImgPath"]</td>
+                                            <td>@dr["Issue_Description"]</td>
+                                            <td>@dr["Room_Number"]</td>
+                                            <td>@dr["Hostel_Building_Number"]</td>
+                                            <td>@dr["Person_Name"]</td>
+                                            <td>
+                                                <div class="form-button-action">
+                                                    <button type="button"
+                                                            title=""
+                                                            class="btn btn-link btn-primary btn-lg"
+                                                            data-original-title="Edit Task">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button"
+                                                            title=""
+                                                            class="btn btn-link btn-primary btn-lg"
+                                                            data-original-title="Edit Task">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    <button type="button"
+                                                    @*data-bs-toggle="modal"
                                                         data-bs-target="#addRowModal" *@
-                                                        title=""
-                                                        id="alert_demo_7"
-                                                        class="btn btn-link btn-danger"
-                                                        data-original-title="Remove">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Darshan</td>
-                                        <td>Babariya</td>
-                                        <td>9825382821</td>
-                                        <td>Motera ahok vihhar, Ahmedabad Gujarat</td>
-                                        <td>2020/05/05</td>
-                                        @* <td>$320,800</td> *@
-                                        <td>
-                                            <div class="form-button-action">
-                                                <button type="button"
-                                                        title=""
-                                                        class="btn btn-link btn-primary btn-lg"
-                                                        data-original-title="Edit Task">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button type="button"
-                                                        title=""
-                                                        class="btn btn-link btn-primary btn-lg"
-                                                        data-original-title="Edit Task">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button"
-                                                @*data-bs-toggle="modal"
-                                                        data-bs-target="#addRowModal" *@
-                                                        title=""
-                                                        id="alert_demo_7"
-                                                        class="btn btn-link btn-danger"
-                                                        data-original-title="Remove">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Meet</td>
-                                        <td>Aghera</td>
-                                        <td>9573456123</td>
-                                        <td>Bodakdev</td>
-                                        <td>2011/04/25</td>
-                                        @* <td>$320,800</td> *@
-                                        <td>
-                                            <div class="form-button-action">
-                                                <button type="button"
-                                                        title=""
-                                                        class="btn btn-link btn-primary btn-lg"
-                                                        data-original-title="Edit Task">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button type="button"
-                                                        title=""
-                                                        class="btn btn-link btn-primary btn-lg"
-                                                        data-original-title="Edit Task">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button"
-                                                @*data-bs-toggle="modal"
-                                                        data-bs-target="#addRowModal" *@
-                                                        title=""
-                                                        id="alert_demo_7"
-                                                        class="btn btn-link btn-danger"
-                                                        data-original-title="Remove">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                                            title=""
+                                                            id="alert_demo_7"
+                                                            class="btn btn-link btn-danger"
+                                                            data-original-title="Remove">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>

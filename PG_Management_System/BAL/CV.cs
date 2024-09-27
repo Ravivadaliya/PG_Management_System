@@ -10,11 +10,11 @@ public class CV
 
 	public static string? Owner_Id()
 	{
-		string? Owner_ID = null;
+		string? Owner_ID = null;	
 
 		if (_httpContextAccessor.HttpContext.Session.GetString("AdminId") != null)
 		{
-			Owner_ID = _httpContextAccessor.HttpContext.Session.GetString("Id").ToString();
+			Owner_ID = _httpContextAccessor.HttpContext.Session.GetString("AdminId").ToString();
 		}
 		return Owner_ID;
 	}

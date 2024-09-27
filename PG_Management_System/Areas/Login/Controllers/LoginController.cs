@@ -108,7 +108,7 @@ public class LoginController(DatabaseHelper dbHelper) : Controller
 	public IActionResult Logout()
 	{
 		HttpContext.Session.Clear();
-		return RedirectToAction("AdminLogin", "Login", new { Area = "Login" });
+		return RedirectToAction("Login", "Login", new { Area = "Login" });
 	}
 
 }
