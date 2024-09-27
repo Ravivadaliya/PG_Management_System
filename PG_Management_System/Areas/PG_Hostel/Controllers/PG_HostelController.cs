@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using PG_Management_System.Areas.PG_Hostel.Data;
 using PG_Management_System.Areas.PG_Hostel.Models;
+using PG_Management_System.BAL;
 using System.Data;
 namespace PG_Management_System.Areas.PG_Hostel.Controllers;
 
-
+[CheckAccess]
 [Area("PG_Hostel")]
 [Route("PG_Hostel/[controller]/[action]")]
 public class PG_HostelController : Controller

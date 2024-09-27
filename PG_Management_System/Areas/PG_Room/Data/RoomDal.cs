@@ -49,7 +49,7 @@ public class RoomDal
     }
     public bool InsertRoomData(DatabaseHelper _dbHelper, Room room)
     {
-        string checkroom = room.Room_Number + "-" + room.Room_SharingType;
+        string checkroom = room.Room_Number + "-" + room.Room_SharingType + "-" + room.Room_Type;
 
         SqlParameter[] checkParams = new SqlParameter[]
         {
@@ -76,7 +76,7 @@ public class RoomDal
        };
         int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Room_Insert", sqlParameter);
         return (value == -1 ? false : true);
-    }
+    }   
 
     public bool Deletestaff(DatabaseHelper _dbHelper, int Roomid)
     {
@@ -96,6 +96,5 @@ public class RoomDal
         int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Room_Delete", sqlParameter);
         return (value == -1 ? false : true);
     }
-
 
 }

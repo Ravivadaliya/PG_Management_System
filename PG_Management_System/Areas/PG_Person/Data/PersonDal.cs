@@ -21,7 +21,6 @@ public class PersonDal
         DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_PG_Person_SelectAllByOwnerId", sqlParameter);
         return dataTable;
     }
-
     public DataTable GetAllPersonByOwnerIdAndPersonId(DatabaseHelper _dbHelper, int Person_Id)
     {
         SqlParameter[] sqlParameter = new SqlParameter[]
@@ -29,10 +28,11 @@ public class PersonDal
             new SqlParameter ("Owner_Id",SqlDbType.Int){ Value= CV.Owner_Id() },
             new SqlParameter ("Person_Id",SqlDbType.Int){ Value= Person_Id }
         };
-        DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_PG_Person_SelectAllByOwnerIdandPersonId", sqlParameter);
+        DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_PG_Person_SelectByOwnerIdandPersonId", sqlParameter);
         return dataTable;
     }
     public DataTable GetPersonById(DatabaseHelper _dbHelper, int? personId)
+
     {
         SqlParameter[] sqlParameter = new SqlParameter[]
         {
@@ -41,6 +41,17 @@ public class PersonDal
         DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_GetPersonById", sqlParameter);
         return dataTable;
     }
+
+    public DataTable GetPersonAllDetailsById(DatabaseHelper _dbHelper, int? personId)
+    {
+        SqlParameter[] sqlParameter = new SqlParameter[]
+        {
+            new SqlParameter ("@Person_Id",SqlDbType.Int){ Value=personId  }
+        };
+        DataTable dataTable = _dbHelper.ExecuteStoredProcedure("[SP_PG_Person_SelectByPersonId]", sqlParameter);
+        return dataTable;
+    }
+
 
     public bool InsertPerson(DatabaseHelper _dbHelper, Person person)
     {
@@ -83,7 +94,6 @@ public class PersonDal
 
     }
 
-
     public bool UpdatePerson(DatabaseHelper _dbHelper, Person person)
     {
         SqlParameter[] sqlParameter = new SqlParameter[]
@@ -123,6 +133,7 @@ public class PersonDal
         int value = _dbhelper.ExecuteStoredProcedureNonQuery("SP_PG_Person_Delete", sqlParameter);
         return value == -1 ? false : true;
     }
+
 
     public List<Hostel_DropDownModel> GetHostelListByOwnerID(DatabaseHelper _dbHelper)
     {
@@ -190,4 +201,17 @@ public class PersonDal
         }
         return Bed_DropDownmodel;
     }
+
+
+
+	public DataTable SelectPersonByEmailPassword(DatabaseHelper _dbHelper, string PersonEmaiul, string PersonPassword)
+	{
+		SqlParameter[] sqlParameter = new SqlParameter[]
+		 {
+		   new SqlParameter("@Email_Id",SqlDbType.VarChar){ Value = PersonEmaiul},
+		   new SqlParameter("@Password",SqlDbType.VarChar){ Value = PersonPassword}
+		 };
+		DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_SelectPersonByEmailPassword", sqlParameter);
+		return dataTable;
+	}
 }

@@ -12,7 +12,7 @@ public class CV
 	{
 		string? Owner_ID = null;
 
-		if (_httpContextAccessor.HttpContext.Session.GetString("Id") != null)
+		if (_httpContextAccessor.HttpContext.Session.GetString("AdminId") != null)
 		{
 			Owner_ID = _httpContextAccessor.HttpContext.Session.GetString("Id").ToString();
 		}
@@ -49,4 +49,28 @@ public class CV
 		}
 		return Owner_Name;
 	}
+
+
+	public static string? Person_Name()
+	{
+		string? Person_Name = null;
+
+		if (_httpContextAccessor.HttpContext.Session.GetString("Person_Name") != null)
+		{
+			Person_Name = _httpContextAccessor.HttpContext.Session.GetString("Person_Name").ToString();
+		}
+		return Person_Name;
+	}
+	public static string? Person_Id()
+	{
+		string? UserId = null;
+
+		if (_httpContextAccessor.HttpContext.Session.GetString("UserId") != null)
+		{
+			UserId = _httpContextAccessor.HttpContext.Session.GetString("UserId").ToString();
+		}
+		return UserId;
+	}
+
+
 }

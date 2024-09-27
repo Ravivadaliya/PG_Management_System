@@ -10,7 +10,7 @@ using System.Data;
 namespace PG_Management_System.Areas.PG_Staff.Controllers;
 
 
-
+[CheckAccess]
 [Area("PG_Staff")]
 [Route("PG_Staff/[controller]/[action]")]
 public class PG_StaffController : Controller

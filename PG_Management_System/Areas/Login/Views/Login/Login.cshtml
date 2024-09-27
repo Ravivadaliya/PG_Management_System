@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/LoginLayout.cshtml";
+	Layout = "~/Views/Shared/LoginLayout.cshtml";
 }
 @model PG_Management_System.Areas.PG_Owner.Models.Owner
 <div class="limiter">
@@ -9,10 +9,10 @@
 				<img src="~/Login/images/img-01.png" alt="IMG">
 			</div>
 
-			<form method="post" asp-area="PG_Owner" asp-controller="PG_Owner" asp-action="Login" class="login100-form validate-form">
+			<form method="post" asp-area="Login" asp-controller="Login" asp-action="LoginAction" class="login100-form validate-form">
 				<span class="login100-form-title">
 					Admin Login
-				</span>	
+				</span>
 				<h6 class="text-danger">@TempData["Error"]</h6>
 				<div class="wrap-input100 validate-input" data-validate="Password is required">
 

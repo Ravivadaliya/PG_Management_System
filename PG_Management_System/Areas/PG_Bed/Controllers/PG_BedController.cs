@@ -11,7 +11,7 @@ using System.Data;
 
 namespace PG_Management_System.Areas.PG_Bed.Controllers;
 
-
+[CheckAccess]
 [Area("PG_Bed")]
 [Route("PG_Bed/[controller]/[action]")]
 public class PG_BedController(DatabaseHelper dbHelper) : Controller

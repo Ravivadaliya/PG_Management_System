@@ -7,9 +7,12 @@ using PG_Management_System.Areas.PG_Hostel.Data;
 using PG_Management_System.Areas.PG_Staff.Data;
 using PG_Management_System.Areas.PG_Staff.Models;
 using PG_Management_System.Areas.PG_Room.Models;
+using PG_Management_System.BAL;
 
 namespace PG_Management_System.Areas.PG_Room.Controllers;
 
+
+[CheckAccess]
 [Area("PG_Room")]
 [Route("PG_Room/[controller]/[action]")]
 public class PG_RoomController(DatabaseHelper dbHelper) : Controller

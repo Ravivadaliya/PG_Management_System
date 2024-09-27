@@ -49,6 +49,8 @@ public class Owner
     [StringLength(50)]
     public string Owner_PassWord { get; set; }
 
+    [Required]
+    public string LoginPerson {  get; set; }
     public DateOnly Owner_CreatedDate { get; set; }
 
     public DateOnly Owner_ModificationDate { get; set; }
