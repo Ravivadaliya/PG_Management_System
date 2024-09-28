@@ -64,7 +64,7 @@ public class LoginController(DatabaseHelper dbHelper) : Controller
 				else
 				{
 					TempData["Error"] = "Email or Password Invalid";
-					return RedirectToAction("AdminLogin");
+					return RedirectToAction("Login");
 				}
 
 				if (HttpContext.Session.GetString("Person_Email_Id") != null && HttpContext.Session.GetString("Person_PassWord") != null)

@@ -12,7 +12,7 @@
                 <h3 class="fw-bold mb-3">Person Details</h3>
             </div>
             <div class="ms-md-auto py-2 py-md-0">
-                <a asp-area="User" asp-controller="User" asp-action="UserIssueList" asp-route-Room_Id="@dr["Room_ID"]" class="btn btn-primary btn-round me-2">See You Issue List</a>
+                <a asp-area="User" asp-controller="User" asp-action="UserIssueList" asp-route-Room_Id="@dr["Room_ID"]" class="btn btn-primary btn-round me-2">See You Room Issue List</a>
                 @* <a href="#" class="btn btn-danger btn-round">Delete</a> *@
             </div>
         </div>
@@ -368,3 +368,40 @@
     </div>
 </div>
 
+<script>
+    function confirmDelete(OwnerId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You won't be able to revert this!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form for the specific adminId
+                document.getElementById(`deleteForm-${OwnerId}`).submit();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        var message = '@TempData["Message"]';
+        var alertType = '@TempData["AlertType"]';
+
+        if (message) {
+            Swal.fire({
+                icon: alertType,
+                title: message,
+                showConfirmButton: true
+            }).then((result) => {
+                // Reload the page after the alert is confirmed
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        }
+    });
+
+</script>

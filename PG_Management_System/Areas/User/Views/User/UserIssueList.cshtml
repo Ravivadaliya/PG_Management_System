@@ -6,7 +6,7 @@
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">PG</h3>
+            <h3 class="fw-bold mb-3">Issue</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="#">
@@ -17,13 +17,13 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">PG Hostel</a>
+                    <a href="#">Issue </a>
                 </li>
                 <li class="separator">
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">PG List</a>
+                    <a href="#">Issue List</a>
                 </li>
             </ul>
         </div>
@@ -31,7 +31,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">PG View and Delete</h4>
+                        <h4 class="card-title">Issue List Which Is Created By You or Your Roommate</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -43,6 +43,7 @@
                                         <th>Description</th>
                                         <th>Person Name</th>
                                         <th>Room_Number</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,6 +57,18 @@
                                             <td>@dr["Issue_Description"]</td>
                                             <td>@dr["Person_Name"]</td>
                                             <td>@dr["Room_Number"]</td>
+                                            <td>
+                                                @{
+                                                    if (Convert.ToInt32(dr["Issue_Status"]) == 0)
+                                                    {
+                                                        <span class="badge badge-warning">pendding</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-success">Done</span>
+                                                    }
+                                                }
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>
@@ -67,3 +80,41 @@
         </div>
     </div>
 </div>
+
+<script>
+    function confirmDelete(OwnerId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You won't be able to revert this!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form for the specific adminId
+                document.getElementById(`deleteForm-${OwnerId}`).submit();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        var message = '@TempData["Message"]';
+        var alertType = '@TempData["AlertType"]';
+
+        if (message) {
+            Swal.fire({
+                icon: alertType,
+                title: message,
+                showConfirmButton: true
+            }).then((result) => {
+                // Reload the page after the alert is confirmed
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        }
+    });
+
+</script>

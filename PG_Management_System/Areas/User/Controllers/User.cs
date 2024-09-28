@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PG_Management_System.Areas.PG_Person.Data;
 using PG_Management_System.Areas.User.Data;
+using PG_Management_System.Areas.User.Models;
 using PG_Management_System.BAL;
 using System.Data;
 
@@ -28,9 +29,6 @@ public class User(DatabaseHelper dbHelper) : Controller
 
     public IActionResult IssueForm()
     {
-        int user_id = Convert.ToInt32(CV.Person_Id());
-
-
         return View();
     }
     public IActionResult UserIssueList(int Room_ID)
@@ -40,8 +38,41 @@ public class User(DatabaseHelper dbHelper) : Controller
         return View("UserIssueList",dataTable);
     }
 
-    //public IActionResult SaveIssue()
-    //{
+    public IActionResult SaveIssue(UserIssue userIssue)
+    {
+        UserIssueDal userIssueDal = new UserIssueDal();
+        string imgpath = userIssue.Issue_ImgPath;
+        string description = userIssue.Issue_Description;
 
-    //}
+        PersonDal personDal = new PersonDal();
+        DataTable dataTable = personDal.GetPersonById(_dbHelper,Convert.ToInt32(CV.Person_Id()));
+
+        UserIssue userIssue1 = new UserIssue();
+        if (dataTable.Rows.Count>1)
+        {
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                userIssue1.Person_ID =Convert.ToInt32(CV.Person_Id());
+                userIssue1.Room_ID = Convert.ToInt32(dataRow["Room_ID"]);
+                userIssue1.Hostel_ID= Convert.ToInt32(dataRow["Hostel_ID"]);
+                userIssue1.Owner_ID = Convert.ToInt32(dataRow["Owner_ID"]);
+                userIssue1.Issue_ImgPath = imgpath;
+                userIssue1.Issue_Description = description;
+                userIssue1.Issue_Status = false;
+            }
+        }
+        else
+        {
+            TempData["Message"] = "Some problem occure during report your issue";
+            TempData["AlertType"] = "error";
+            return RedirectToAction("UserDashBoard");
+        }
+
+        if (userIssueDal.InsertIssue(_dbHelper,userIssue1))
+        {
+            TempData["Message"] = "Your issue has been submited";
+            TempData["AlertType"] = "success";
+        }
+        return RedirectToAction("UserIssueList", new { Room_ID = userIssue1.Room_ID });
+    }
 }

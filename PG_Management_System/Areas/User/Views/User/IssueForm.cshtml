@@ -1,11 +1,11 @@
 ﻿@{
     Layout = "~/Views/Shared/Users/UserLayout.cshtml";
 }
-@model PG_Management_System.Areas.PG_Issues.Models.Issues;
+@model PG_Management_System.Areas.User.Models.UserIssue;
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">Add Building</h3>
+            <h3 class="fw-bold mb-3">Report Yout Issue</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="#">
@@ -16,13 +16,13 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Home</a>
+                    <a href="#">Create Issue</a>
                 </li>
                 <li class="separator">
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Add Building</a>
+                    <a href="#">Add issue</a>
                 </li>
             </ul>
         </div>
@@ -31,27 +31,27 @@
                 <form asp-area="User" asp-controller="User" asp-action="SaveIssue" method="post">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Fill PG_Hostel Details</div>
+                            <div class="card-title">Add You Issue</div>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 col-lg-12">
                                     <div class="form-group">
-                                        <label for="email2">Building Number</label>
+                                        <label for="email2">Issue Image</label>
                                         <input type="text"
                                                asp-for="Issue_ImgPath"
                                                class="form-control"
                                                id="inlineinput"
-                                               placeholder="Enter Pg building number" required />
+                                               placeholder="Select Image" required />
                                         <span asp-validation-for="Issue_ImgPath" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
-                                        <label for="comment">Address</label>
+                                        <label for="comment">Issue Description</label>
                                         <input type="text"
                                                asp-for="Issue_Description"
                                                class="form-control"
                                                id="inlineinput"
-                                               placeholder="Enter Pg building Address" required />
+                                               placeholder="Enter Details" required />
                                         <span asp-validation-for="Issue_Description" class="text-danger"></span>
                                     </div>
                                 </div>
