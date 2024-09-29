@@ -28,7 +28,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <form asp-area="PG_Person" asp-controller="PG_Person" asp-action="SavePerson" method="post">
+                <form asp-area="PG_Person" asp-controller="PG_Person" asp-action="SavePerson" enctype="multipart/form-data" method="post">
                         @Html.HiddenFor(x => x.Id)
                         @Html.HiddenFor(x => x.Owner_ID)
                         <div class="card">
@@ -254,6 +254,14 @@
                                                        placeholder="" />
                                                 <span asp-validation-for="Person_JoningDate" class="text-danger"></span>
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlFile1">Example file input</label>
+                                            <input type="file"
+                                               asp-for="File"
+                                                   class="form-control-file"
+                                                   id="exampleFormControlFile1" />
+                                        <span asp-validation-for="File" class="text-danger"></span>
                                         </div>
                                         <div class="form-group form-inline">
                                             <label for="inlineinput"

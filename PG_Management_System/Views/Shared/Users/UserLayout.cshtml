@@ -43,13 +43,15 @@
 
 </head>
 <body>
+    <audio id="notificationSound" src="~/assets/audio/PopupAudio.mp3" preload="auto"></audio>
+
     <div class="wrapper">
         <!-- Sidebar -->
         <div class="sidebar" data-background-color="dark">
             <div class="sidebar-logo">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a asp-area="U  ser" asp-controller="User" asp-action="UserDashboard" class="logo">
+                    <a asp-area="User" asp-controller="User" asp-action="UserDashboard" class="logo">
                         <img src="~/assets/img/Infinity-removebg.png"
                              alt="navbar brand"
                              class="navbar-brand"
@@ -84,6 +86,13 @@
                                 <i class="fas fa-exclamation-circle"></i>
                                 <p>Create Issues</p>
                                 @* <span class="badge bg-warning"></span> *@
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="User" asp-controller="User" asp-action="AnnouncementList">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <p>New Announcement</p>
+                                <span id="NewNotificationBadge" class="badge bg-warning">0</span>
                             </a>
                         </li>
                     </ul>
@@ -204,7 +213,7 @@
 
             @RenderBody()
         </div>
-
+        
 
     </div>
 
@@ -248,37 +257,65 @@
     <script src="~/assets/js/setting-demo2.js"></script>
 
     <script>
-        function confirmDelete(OwnerId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: `You won't be able to revert this!`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Submit the form for the specific adminId
-                    document.getElementById(`deleteForm-${OwnerId}`).submit();
-                }
-            });
-        }
+        let previousIssueCount = parseInt(localStorage.getItem("previousIssueCount")) || 0;
 
         $(document).ready(function () {
-            var message = '@TempData["Message"]';
-            var alertType = '@TempData["AlertType"]';
+            function showNotification() {
+                var content = {
+                    message: 'You have new Announcement By Owner!',
+                    title: "New Notification",
+                    icon: "fa fa-bell"
+                };
 
-            if (message) {
-                Swal.fire({
-                    icon: alertType,
-                    title: message,
-                    showConfirmButton: true
+                $.notify(content, {
+                    type: 'warning',
+                    placement: {
+                        from: 'top',
+                        align: 'right'
+                    },
+                    time: 1000,
+                    delay: 0
                 });
             }
-        @TempData["Message"] = "";
-        @TempData["AlertType"] = "";
+
+            function updateIssueCount() {
+                $.ajax({
+                    url: '@Url.Action("GetNewNotificationCountByPersonId", "User", new { Area = "User" })',
+                    type: 'GET',
+                    success: function (data) {
+                        console.log(data);
+                        $('#NewNotificationBadge').text(data);
+
+                        if (data > 0 && data !== previousIssueCount) {
+                            if (data > previousIssueCount) {
+                                playNotificationSound();
+                                showNotification();
+                            }
+                        }
+
+                        // Update previous issue count in both variable and local storage
+                        previousIssueCount = data;
+                        localStorage.setItem("previousIssueCount", data);
+                    },
+                    error: function (error) {
+                        console.log("Error fetching issue count: ", error);
+                    }
+                });
+            }
+
+            function playNotificationSound() {
+                const audio = document.getElementById('notificationSound');
+                audio.play().catch(function (error) {
+                    console.error("Audio playback failed:", error);
+                });
+            }
+
+            // Call the function periodically every 10 seconds
+            setInterval(updateIssueCount, 15000);
+            updateIssueCount(); // Call it once when the page loads
         });
+
+
     </script>
 
 

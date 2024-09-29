@@ -40,7 +40,6 @@ public class RoomDal
             new SqlParameter("Hostel_ID", SqlDbType.Int) { Value = room.Hostel_ID },
             new SqlParameter("Room_Number", SqlDbType.VarChar) { Value = newRoomNumber},
             new SqlParameter("Room_SharingType", SqlDbType.VarChar) { Value = room.Room_SharingType},
-            new SqlParameter("Room_AllowcateBed", SqlDbType.VarChar) { Value = 0},
             new SqlParameter("Room_Type", SqlDbType.VarChar) { Value = room.Room_Type},
             new SqlParameter("Room_GenderAllowed", SqlDbType.VarChar) { Value = room.Room_GenderAllowed},
        };
@@ -53,7 +52,8 @@ public class RoomDal
 
         SqlParameter[] checkParams = new SqlParameter[]
         {
-            new SqlParameter("Room_Number", SqlDbType.VarChar) { Value = checkroom }
+            new SqlParameter("Room_Number", SqlDbType.VarChar) { Value = checkroom },
+            new SqlParameter("Hostel_ID", SqlDbType.VarChar) { Value = room.Hostel_ID },
         };
 
         object result = _dbHelper.ExecuteScalar("SP_CheckRoomDuplicateEntry", checkParams);
@@ -71,6 +71,7 @@ public class RoomDal
             new SqlParameter("Room_Number", SqlDbType.VarChar) { Value = room.Room_Number+"-"+room.Room_SharingType+"-"+room.Room_Type},
             new SqlParameter("Room_SharingType", SqlDbType.VarChar) { Value = room.Room_SharingType},
             new SqlParameter("Room_AllowcateBed", SqlDbType.VarChar) { Value = 0},
+            new SqlParameter("Room_Createbed", SqlDbType.VarChar) { Value = 0},
             new SqlParameter("Room_Type", SqlDbType.VarChar) { Value = room.Room_Type},
             new SqlParameter("Room_GenderAllowed", SqlDbType.VarChar) { Value = room.Room_GenderAllowed},
        };

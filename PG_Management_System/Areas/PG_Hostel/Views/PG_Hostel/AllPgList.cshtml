@@ -87,6 +87,7 @@
         </div>
     </div>
 </div>
+
 <script>
     function confirmDelete(OwnerId) {
         Swal.fire({
@@ -105,8 +106,6 @@
         });
     }
 
-
-
     $(document).ready(function () {
         var message = '@TempData["Message"]';
         var alertType = '@TempData["AlertType"]';
@@ -116,7 +115,13 @@
                 icon: alertType,
                 title: message,
                 showConfirmButton: true
+            }).then((result) => {
+                // Reload the page after the alert is confirmed
+                if (result.isConfirmed) {
+                    location.reload();
+                }
             });
         }
     });
+
 </script>

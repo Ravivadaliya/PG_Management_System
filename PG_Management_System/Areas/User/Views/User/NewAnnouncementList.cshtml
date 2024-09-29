@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Views/Shared/Users/UserLayout.cshtml";
+}
+@using System.Data;
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Announcement</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="#">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Announcement</a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">New Announcement</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            @foreach (DataRow dr in Model.Rows)
+            {
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">@dr["Announcement_Title"]</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                    <p>@dr["Announcement_Message"]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>			

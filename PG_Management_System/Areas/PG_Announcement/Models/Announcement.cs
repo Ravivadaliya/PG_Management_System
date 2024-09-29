@@ -8,23 +8,25 @@ namespace PG_Management_System.Areas.PG_Announcement.Models;
 public class Announcement
 {
     [Key]
-    public int ID { get; set; }
+    public int? ID { get; set; }
 
     [ForeignKey("Owner")]
     public int Owner_ID { get; set; }
 
     public Owner Owner { get; set; }
 
+    [Required]
     [ForeignKey("PG_Hostel")]
     public int Hostel_ID { get; set; }
 
     public Hostel Hostel { get; set; }
 
     [Required]
-    [StringLength(255)]
+    [StringLength(100)]
     public string Announcement_Title { get; set; }
 
     [Required]
+    [StringLength(300)]
     public string Announcement_Message { get; set; }
 
     [Required]

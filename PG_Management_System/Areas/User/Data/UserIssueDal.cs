@@ -18,6 +18,24 @@ public class UserIssueDal
         DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_SelectIssueListByRoomId", sqlParameter);
         return dataTable;
     }
+    public DataTable GetUserOldNotification(DatabaseHelper _dbHelper, int Person_Id)
+    {
+        SqlParameter[] sqlParameter = new SqlParameter[]
+        {
+            new SqlParameter ("Person_Id",SqlDbType.Int){ Value= Person_Id}
+        };
+        DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_SelectuserOldNotificationbyPersonId", sqlParameter);
+        return dataTable;
+    }
+    public DataTable GetUserNewNotification(DatabaseHelper _dbHelper, int Person_Id)
+    {
+        SqlParameter[] sqlParameter = new SqlParameter[]
+        {
+            new SqlParameter ("@Person_Id",SqlDbType.Int){ Value= Person_Id}
+        };
+        DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_SelectuserNotificationbyPersonId", sqlParameter);
+        return dataTable;
+    }
     public bool InsertIssue(DatabaseHelper _dbHelper, UserIssue userIssue)
     {
         SqlParameter[] sqlParameter = new SqlParameter[]
@@ -34,4 +52,13 @@ public class UserIssueDal
         return value==-1 ? false : true;
     }
     
+    public bool UpdateNotificationStatus(DatabaseHelper _dbHelper)
+    {
+        SqlParameter[] sqlParameter = new SqlParameter[]
+        {
+            new SqlParameter ("Person_Id",SqlDbType.Int){ Value= CV.Person_Id()},
+        };
+        int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_UpdateUsernotificationStatus", sqlParameter);
+        return value == -1 ? false : true;
+    }
 }
