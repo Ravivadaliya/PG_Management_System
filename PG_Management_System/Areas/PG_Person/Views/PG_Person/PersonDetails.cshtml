@@ -3,8 +3,8 @@
 }
 
 @using System.Data;
-<div class="container">
-    <div class="page-inner">
+<div class="container" >
+    <div class="page-inner" id="PrintDiv">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
             <div>
                 <h3 class="fw-bold mb-3">Person Details</h3>
@@ -143,7 +143,7 @@
                         <div class="card-body pb-4 ">
                             <!-- <div class="h1 fw-bold float-end text-primary">+5%</div> -->
                             <!-- <h2 class="mb-2">17</h2> -->
-                            <img style="height:300px;width:300px" src="~/assets/img/darshan.jpeg" alt="">
+                            <img style="height:300px;width:300px" src="~/@dr["Person_Image"]" alt="">
                             <!-- <p class="text-muted"></p> -->
                             <!-- <div class="pull-in sparkline-fix">
                               <div id="lineChart"></div>
@@ -168,12 +168,15 @@
                                       </span>
                                       Export
                                     </a> -->
-                                    <a href="#" class="btn btn-label-info btn-round btn-sm">
+                                    <a href="#" class="btn btn-label-info btn-round btn-sm no-print">
                                         <span class="btn-label">
                                             <i class="fa fa-print"></i>
                                         </span>
                                         Print
                                     </a>
+                                    <input type="button" onclick="printDiv('PrintDiv')" class="btn btn-label-info btn-round btn-sm no-print" value="Print only Datalist!" />
+
+                                  
                                 </div>
                             </div>
                         </div>
@@ -382,7 +385,7 @@
 
 
 
-<script>
+<script>    
     function confirmDelete(OwnerId) {
         Swal.fire({
             title: 'Are you sure?',
@@ -418,4 +421,34 @@
         }
     });
 
+</script>
+<script language="javascript">
+    function printDiv(divName) {
+        // Get the contents of the div to print
+        var printContents = document.getElementById(divName).innerHTML;
+
+        // Create a new iframe element
+        var printFrame = document.createElement('iframe');
+        printFrame.name = "printFrame";
+        printFrame.style.position = "absolute";
+        printFrame.style.top = "-1000px";
+        document.body.appendChild(printFrame);
+
+        // Get the iframe document and write the content
+        var frameDoc = printFrame.contentWindow ? printFrame.contentWindow : printFrame.contentDocument.document ? printFrame.contentDocument.document : printFrame.contentDocument;
+        frameDoc.document.open();
+        frameDoc.document.write('<html><head><title>Print Preview</title>');
+        frameDoc.document.write('<link rel="stylesheet" type="text/css" href="path/to/your/styles.css">'); // Link to your stylesheets if needed
+        frameDoc.document.write('</head><body>');
+        frameDoc.document.write(printContents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+
+        // Print the iframe contents
+        setTimeout(function () {
+            frameDoc.focus();
+            frameDoc.print();
+            document.body.removeChild(printFrame); // Remove the iframe after printing
+        }, 500);
+    }
 </script>

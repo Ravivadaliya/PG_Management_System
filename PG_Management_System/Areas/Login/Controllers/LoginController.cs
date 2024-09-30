@@ -10,10 +10,11 @@ namespace PG_Management_System.Areas.Login.Controllers;
 
 
 [Area("Login")]
-[Route("Login/[controller]/[action]")]
+[Route("Login")]
 public class LoginController(DatabaseHelper dbHelper) : Controller
 {
 	private readonly DatabaseHelper _dbHelper = dbHelper;
+	[HttpGet("Login")]
 	public IActionResult Login()
 	{
 		return View();
@@ -105,6 +106,7 @@ public class LoginController(DatabaseHelper dbHelper) : Controller
 		}
 	}
 
+	[HttpGet("Logout")]
 	public IActionResult Logout()
 	{
 		HttpContext.Session.Clear();

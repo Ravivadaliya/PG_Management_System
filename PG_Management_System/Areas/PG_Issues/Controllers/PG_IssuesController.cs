@@ -9,50 +9,61 @@ namespace PG_Management_System.Areas.PG_Issues.Controllers;
 
 [CheckAccess]
 [Area("PG_Issues")]
-[Route("PG_Issues/[controller]/[action]")]
-public class PG_IssuesController(DatabaseHelper dbHelper) : Controller
+[Route("Issues")]
+public class PG_IssuesController : Controller
 {
-    private readonly DatabaseHelper _dbHelper = dbHelper;
+    private readonly DatabaseHelper _dbHelper;
 
-    public static IssueDal issuesDal = new IssueDal();
+    public PG_IssuesController(DatabaseHelper dbHelper)
+    {
+        _dbHelper = dbHelper;
+        _dbHelper.OpenConnection();
+    }
+
+    [HttpGet("AllIssuesList")]
     public IActionResult AllIssuesList()
     {
-        DataTable dataTable = issuesDal.GetAllissueByOwnerId(_dbHelper);
+        IssueDal issueDal = new IssueDal();
+        string errorMessage;
+        DataTable dataTable = issueDal.GetAllissueByOwnerId(_dbHelper);
         return View("AllIssuesList", dataTable);
     }
 
-    public IActionResult UpdateStatus(int Issue_Id)
+    [HttpPost("UpdateStatus/{issueId}")]
+    public IActionResult UpdateStatus(int issueId)
     {
-
-        if (issuesDal.UpdateIssueStatus(_dbHelper, Issue_Id))
+        try
         {
-            TempData["Message"] = "Done";
-            TempData["AlertType"] = "success";
+            IssueDal issueDal = new IssueDal();
+            string errorMessage;
+
+            if (issueDal.UpdateIssueStatus(_dbHelper, issueId))
+            {
+                TempData["Message"] = "Issue status updated successfully!";
+                TempData["AlertType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = "Error while updating issues status";
+                TempData["AlertType"] = "error";
+            }
+
             return RedirectToAction("AllIssuesList");
         }
-        else
+        catch (Exception ex)
         {
-            TempData["Message"] = "Not Update Something was wrong!!";
+            TempData["Message"] = "An unexpected error occurred";
             TempData["AlertType"] = "error";
             return RedirectToAction("AllIssuesList");
-
         }
     }
-    public int GetIssuesCountByOwnerId()
-    {
-        int issuesCount = 0;
-        SqlParameter[] sqlParameters = new SqlParameter[] {
-            new SqlParameter("Owner_Id",SqlDbType.Int){Value=CV.Owner_Id()}
-        };
-        object result = (int)_dbHelper.ExecuteScalar("SP_Issue_PenddingCount", sqlParameters);
 
-        if (result != null && Convert.ToInt32(result) > 0)
-        {
-            return Convert.ToInt32(result);
-        }
-        else
-        {
-            return issuesCount;
-        }
+    [HttpGet("GetPendingIssuesCount")]
+    public IActionResult GetPendingIssuesCount()
+    {
+        IssueDal issueDal = new IssueDal();
+        IActionResult result = issueDal.GetPendingIssueCount(_dbHelper);
+        return result;
+
     }
 }

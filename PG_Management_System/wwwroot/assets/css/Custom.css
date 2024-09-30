@@ -2,3 +2,8 @@
     color:red;
     font-size:smaller;
 }
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}

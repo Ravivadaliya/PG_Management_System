@@ -1,110 +1,152 @@
 ﻿using DatabaseHelperLibrary;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
 using PG_Management_System.Areas.PG_Hostel.Data;
 using PG_Management_System.Areas.PG_Hostel.Models;
 using PG_Management_System.BAL;
 using System.Data;
-namespace PG_Management_System.Areas.PG_Hostel.Controllers;
 
-[CheckAccess]
-[Area("PG_Hostel")]
-[Route("PG_Hostel/[controller]/[action]")]
-public class PG_HostelController : Controller
+namespace PG_Management_System.Areas.PG_Hostel.Controllers
 {
-    private IConfiguration configuration;
-    private readonly DatabaseHelper _dbHelper;
-
-    public PG_HostelController(DatabaseHelper dbHelper)
+    [CheckAccess]
+    [Area("PG_Hostel")]
+    [Route("PG")]
+    public class PG_HostelController : Controller
     {
-        _dbHelper = dbHelper;
-        _dbHelper.OpenConnection();
-    }
-    public IActionResult AllPgList()
-    {
-        HostelDal hosteldal = new HostelDal();
-        DataTable dataTable = hosteldal.GetAllPGByOwnerId(_dbHelper);
-        return View("AllPgList", dataTable);
-    }
+        private readonly DatabaseHelper _dbHelper;
 
-    public IActionResult AddEditPG_Hostel()
-    {
+        public PG_HostelController(DatabaseHelper dbHelper)
+        {
+            _dbHelper = dbHelper;
+            _dbHelper.OpenConnection();
+        }
 
-        return View();
-    }
-
-    public IActionResult Add(int? Id)
-    {
-        if (Id != null)
+        [HttpGet("AllPgList")]
+        public IActionResult AllPgList()
         {
             HostelDal hostelDal = new HostelDal();
-            DataTable dataTable = hostelDal.GetPgById(_dbHelper, Id);
+            DataTable dataTable = hostelDal.GetAllPGByOwnerId(_dbHelper);
 
-            Hostel hostel = new Hostel();
-            if (dataTable.Rows.Count > 0)
+            return View("AllPgList", dataTable);
+        }
+
+        [HttpGet("AddPG")]
+        public IActionResult AddEditPG_Hostel()
+        {
+
+            return View();
+
+        }
+
+        [HttpGet("AddEditPg/{id?}")]
+        public IActionResult Add(int? id)
+        {
+            try
             {
-                foreach (DataRow dr in dataTable.Rows)
+                if (id != null)
                 {
-                    hostel.Id = Convert.ToInt32(dr["Id"]);
-                    hostel.Owner_ID = Convert.ToInt32(dr["Owner_Id"]);
-                    hostel.Hostel_Building_Number = dr["Hostel_Building_Number"].ToString();
-                    hostel.Hostel_Address = dr["Hostel_Address"].ToString();
+                    HostelDal hostelDal = new HostelDal();
+                    string errorMessage;
+                    DataTable dataTable = hostelDal.GetPgById(_dbHelper, id, out errorMessage);
+
+                    if (dataTable == null)
+                    {
+                        TempData["Message"] = errorMessage;
+                        TempData["AlertType"] = "error";
+                        return RedirectToAction("AllPgList");
+                    }
+
+                    Hostel hostel = new Hostel();
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        DataRow dr = dataTable.Rows[0];
+                        hostel.Id = Convert.ToInt32(dr["Id"]);
+                        hostel.Owner_ID = Convert.ToInt32(dr["Owner_Id"]);
+                        hostel.Hostel_Building_Number = dr["Hostel_Building_Number"].ToString();
+                        hostel.Hostel_Address = dr["Hostel_Address"].ToString();
+                    }
+
+                    return View("AddEditPG_Hostel", hostel);
+                }
+
+                return View("AddEditPG_Hostel");
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "An unexpected error occurred";
+                TempData["AlertType"] = "error";
+                return RedirectToAction("AllPgList");
+            }
+        }
+
+        [HttpPost("DeletePG")]
+        public IActionResult DeletePG(int id)
+        {
+            try
+            {
+                HostelDal hostelDal = new HostelDal();
+
+                if (hostelDal.DeletePG(_dbHelper, id))
+                {
+                    TempData["Message"] = "PG removed successfully!";
+                    TempData["AlertType"] = "success";
+                }
+                else
+                {
+                    TempData["Message"] = "Make sure first delete all details which is related to this PG";
+                    TempData["AlertType"] = "error";
                 }
             }
-            return View("AddEditPG_Hostel", hostel);
-        }
-        return View("AddEditPG_Hostel");
-    }
-
-    public IActionResult DeletePG(int Id)
-    {
-        HostelDal hostelDal = new HostelDal();
-        if (hostelDal.DeletePG(_dbHelper, Id))
-        {
-            TempData["Message"] = "PG Remove successfully!";
-            TempData["AlertType"] = "success";
-        }
-        else
-        {
-            TempData["Message"] = "Error to Delete";
-            TempData["AlertType"] = "error";
-        }
-        return RedirectToAction("AllPgList");
-    }
-
-
-    public IActionResult SavePg(Hostel hostel)
-    {
-        HostelDal hosteldal = new HostelDal();
-        if (hostel.Id == null)
-        {
-
-            if (hosteldal.InserHostelData(hostel, _dbHelper))
+            catch (Exception ex)
             {
-                TempData["Message"] = "PG added successfully!";
-                TempData["AlertType"] = "success";  // 'success' for success alert
+                TempData["Message"] = "error occurred while deleting PG";
+                TempData["AlertType"] = "error";
             }
-            else
-            {
-                TempData["Message"] = "Failed to add PG.";
-                TempData["AlertType"] = "error";  // 'error' for failure alert
-            }
-        }
-        else
-        {
-            if (hosteldal.UpdatePgData(_dbHelper, hostel))
-            {
-                TempData["Message"] = "PG Data Update successfully!";
-                TempData["AlertType"] = "success";  // 'success' for success alert
-            }
-            else
-            {
-                TempData["Message"] = "Failed To Update PG Data.";
-                TempData["AlertType"] = "Error";
-            }
-            return RedirectToAction("AllPGList");
+
+            return RedirectToAction("AllPgList");
         }
 
-        return RedirectToAction("AllPGList");
+        [HttpPost("SavePg")]
+        public IActionResult SavePg(Hostel hostel)
+        {
+            try
+            {
+                HostelDal hostelDal = new HostelDal();
+                string errorMessage;
+
+                if (hostel.Id == null)
+                {
+                    if (hostelDal.InsertHostelData(hostel, _dbHelper))
+                    {
+                        TempData["Message"] = "PG added successfully!";
+                        TempData["AlertType"] = "success";
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Error while inserting data";
+                        TempData["AlertType"] = "error";
+                    }
+                }
+                else
+                {
+                    if (hostelDal.UpdatePgData(_dbHelper, hostel))
+                    {
+                        TempData["Message"] = "PG data updated successfully!";
+                        TempData["AlertType"] = "success";
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Error while Updating data";
+                        TempData["AlertType"] = "error";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "Error occurred while save pg details";
+                TempData["AlertType"] = "error";
+            }
+
+            return RedirectToAction("AllPgList");
+        }
     }
 }

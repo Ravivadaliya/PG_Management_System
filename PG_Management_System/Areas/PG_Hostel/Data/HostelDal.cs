@@ -3,63 +3,115 @@ using System.Data.SqlClient;
 using System.Data;
 using PG_Management_System.Areas.PG_Hostel.Models;
 using PG_Management_System.BAL;
+
 namespace PG_Management_System.Areas.PG_Hostel.Data;
 
 public class HostelDal
 {
-
     public DataTable GetAllPGByOwnerId(DatabaseHelper _dbHelper)
     {
-        SqlParameter[] sqlParameter = new SqlParameter[]
+        try
         {
-            new SqlParameter ("Owner_ID",SqlDbType.Int){ Value= CV.Owner_Id() }
-        };
-        DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_PG_Hostel_SelectByOwnerId", sqlParameter);
-        return dataTable;
-    }
-    public DataTable GetPgById(DatabaseHelper _dbHelper, int? HostelId)
-    {
-        SqlParameter[] sqlParameter = new SqlParameter[]
+            SqlParameter[] sqlParameter = new SqlParameter[]
+            {
+                new SqlParameter("Owner_ID", SqlDbType.Int) { Value = CV.Owner_Id() }
+            };
+            return _dbHelper.ExecuteStoredProcedure("SP_PG_Hostel_SelectByOwnerId", sqlParameter);
+        }
+        catch (Exception ex)
         {
-            new SqlParameter ("Id",SqlDbType.Int){ Value= HostelId }
-        };
-        DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_PG_Hostel_SelectById", sqlParameter);
-        return dataTable;
+            return null;
+        }
     }
 
-    public bool InserHostelData(Hostel hostel, DatabaseHelper _dbHelper)
+    public DataTable GetPgById(DatabaseHelper _dbHelper, int? hostelId, out string errorMessage)
     {
-        SqlParameter[] sqlParameter = new SqlParameter[]
+        errorMessage = string.Empty;
+        try
         {
-            new SqlParameter("@Owner_ID", SqlDbType.Int) { Value = CV.Owner_Id() },
-            new SqlParameter("@Hostel_Building_Number", SqlDbType.VarChar) { Value = hostel.Hostel_Building_Number},
-            new SqlParameter("@Hostel_Address", SqlDbType.VarChar) { Value = hostel.Hostel_Address },
-        };
-
-        int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Insert", sqlParameter);
-        return (value == -1 ? false : true);
+            SqlParameter[] sqlParameter = new SqlParameter[]
+            {
+                new SqlParameter("Id", SqlDbType.Int) { Value = hostelId }
+            };
+            return _dbHelper.ExecuteStoredProcedure("SP_PG_Hostel_SelectById", sqlParameter);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An unexpected error occurred: {ex.Message}";
+            return null;
+        }
     }
 
-    public bool DeletePG(DatabaseHelper _dbHelper, int pgid)
+    public bool InsertHostelData(Hostel hostel, DatabaseHelper _dbHelper)
     {
-        SqlParameter[] sqlParameter = new SqlParameter[]
+        try
         {
-            new SqlParameter ("Id",SqlDbType.Int){ Value=pgid }
-        };
-        int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Delete", sqlParameter);
-        return (value == -1 ? false : true);
+            SqlParameter[] sqlParameter = new SqlParameter[]
+            {
+                new SqlParameter("@Owner_ID", SqlDbType.Int) { Value = CV.Owner_Id() },
+                new SqlParameter("@Hostel_Building_Number", SqlDbType.VarChar) { Value = hostel.Hostel_Building_Number },
+                new SqlParameter("@Hostel_Address", SqlDbType.VarChar) { Value = hostel.Hostel_Address },
+            };
+
+            int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Insert", sqlParameter);
+            if (value == -1)
+            {
+
+                return false;
+            }
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+    public bool DeletePG(DatabaseHelper _dbHelper, int pgId)
+    {
+        try
+        {
+            SqlParameter[] sqlParameter = new SqlParameter[]
+            {
+                new SqlParameter("Id", SqlDbType.Int) { Value = pgId }
+            };
+            int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Delete", sqlParameter);
+            if (value == -1)
+            {
+                return false;
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
     }
 
     public bool UpdatePgData(DatabaseHelper _dbHelper, Hostel hostel)
     {
-        SqlParameter[] sqlParameter = new SqlParameter[]
-         {
-            new SqlParameter ("Id",SqlDbType.Int){Value= hostel.Id},
-            new SqlParameter ("Owner_ID",SqlDbType.Int){Value= hostel.Owner_ID},
-            new SqlParameter ("Hostel_Building_Number",SqlDbType.VarChar){Value= hostel.Hostel_Building_Number},
-            new SqlParameter ("Hostel_Address",SqlDbType.VarChar){Value= hostel.Hostel_Address}
-         };
-        int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Update", sqlParameter);
-        return (value == -1 ? false : true);
+
+        try
+        {
+            SqlParameter[] sqlParameter = new SqlParameter[]
+            {
+                new SqlParameter("Id", SqlDbType.Int) { Value = hostel.Id },
+                new SqlParameter("Owner_ID", SqlDbType.Int) { Value = hostel.Owner_ID },
+                new SqlParameter("Hostel_Building_Number", SqlDbType.VarChar) { Value = hostel.Hostel_Building_Number },
+                new SqlParameter("Hostel_Address", SqlDbType.VarChar) { Value = hostel.Hostel_Address }
+            };
+            int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Update", sqlParameter);
+            if (value == -1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
     }
 }

@@ -85,7 +85,9 @@ public class Person
     [Required]
     [StringLength(50)]
     public string Person_PassWord { get; set; }
+    
     public IFormFile File { get; set; }
+
     [Required]
     [StringLength(120)]
     public string Person_Image { get; set; }

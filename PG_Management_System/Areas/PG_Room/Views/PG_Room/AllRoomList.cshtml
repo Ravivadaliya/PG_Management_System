@@ -44,7 +44,7 @@
                                         <th>GenderAllowed</th>
                                         <th>SharingType</th>
                                         <th>AllowcateBed</th>
-                                        @* <th>Profession</th> *@
+                                        <th>Available Bed</th> 
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -53,7 +53,7 @@
                                         <th>Name</th>
                                         <th>Position</th>
                                         <th>Office</th>
-                                        @* <th>Age</th> *@
+                                         <th>Age</th> 
                                         <th>Start date</th>
                                     </tr>
                                 </tfoot>
@@ -65,6 +65,7 @@
                                             <td>@dr["Room_GenderAllowed"]</td>
                                             <td>@dr["Room_SharingType"]</td>
                                             <td>@dr["Room_AllowcateBed"]</td>
+                                            <td>@dr["Room_Createbed"]</td>
                                             <td>
                                                 <div class="form-button-action">
                                                     <a asp-area="PG_Room" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Room" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">

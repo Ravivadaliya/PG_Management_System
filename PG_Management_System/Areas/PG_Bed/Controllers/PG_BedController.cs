@@ -1,11 +1,8 @@
 ﻿using DatabaseHelperLibrary;
 using Microsoft.AspNetCore.Mvc;
-using PG_Management_System.Areas.PG_Bed.Data;
 using PG_Management_System.Areas.PG_Bed.Models;
 using PG_Management_System.Areas.PG_Hostel.Data;
 using PG_Management_System.Areas.PG_Person.Data;
-using PG_Management_System.Areas.PG_Room.Data;
-using PG_Management_System.Areas.PG_Room.Models;
 using PG_Management_System.BAL;
 using System.Data;
 
@@ -13,78 +10,115 @@ namespace PG_Management_System.Areas.PG_Bed.Controllers;
 
 [CheckAccess]
 [Area("PG_Bed")]
-[Route("PG_Bed/[controller]/[action]")]
+[Route("Bed")]
 public class PG_BedController(DatabaseHelper dbHelper) : Controller
 {
-
     private readonly DatabaseHelper _dbHelper = dbHelper;
-    public IActionResult Index()
-    {
-        return View();
-    }
+
+    [HttpGet("PGList")]
     public IActionResult PGList()
     {
-        HostelDal hosteldal = new HostelDal();
-        DataTable dataTable = hosteldal.GetAllPGByOwnerId(_dbHelper);
-
-        return View("PGList", dataTable);
+        try
+        {
+            HostelDal hosteldal = new HostelDal();
+            DataTable dataTable = hosteldal.GetAllPGByOwnerId(_dbHelper);
+            return View("PGList", dataTable);
+        }
+        catch (Exception ex)
+        {
+            TempData["Message"] = "Error loading PG list. Please try again.";
+            TempData["AlertType"] = "error";
+            return RedirectToAction("Index");
+        }
     }
 
-    public IActionResult bedListByHostelId(int Hostel_Id)
+    [HttpGet("BedList")]
+    public IActionResult BedListByHostelId(int Hostel_Id)
     {
-        TempData.Remove("Message");
-        TempData.Remove("AlertType");
+        try
+        {
+            TempData.Remove("Message");
+            TempData.Remove("AlertType");
 
-        BedDal bedDal = new BedDal();
-        DataTable dataTable = bedDal.GetAllBedFromHostelId(_dbHelper,Hostel_Id);
-        return View("AllBedList", dataTable);
+            BedDal bedDal = new BedDal();
+            DataTable dataTable = bedDal.GetAllBedFromHostelId(_dbHelper, Hostel_Id);
+            return View("AllBedList", dataTable);
+        }
+        catch (Exception ex)
+        {
+            TempData["Message"] = "Error loading bed list. Please try again.";
+            TempData["AlertType"] = "error";
+            return RedirectToAction("PGList");
+        }
     }
 
-    public IActionResult Add(string Hostel_Id)
-    {
-        TempData["HostelId"] = Hostel_Id;
-        return View("AddEditBed");
-    }
-
+    [HttpGet("AddBed")]
     public IActionResult AddBed(int Hostel_Id)
     {
-        //use person dal for reoccurance 
-        PersonDal personDal = new PersonDal();
-
-        ViewBag.RoomList = personDal.GetRoomListByHostelId(_dbHelper, Hostel_Id);
-        return View("AddEditBed");
+        try
+        {
+            PersonDal personDal = new PersonDal();
+            ViewBag.RoomList = personDal.GetRoomListByHostelIdForbed(_dbHelper, Hostel_Id);
+            return View("AddEditBed");
+        }
+        catch (Exception ex)
+        {
+            TempData["Message"] = "Error loading add bed page. Please try again.";
+            TempData["AlertType"] = "error";
+            return RedirectToAction("PGList");
+        }
     }
 
-    public IActionResult Deletebed(int Bed_Id)
+    [HttpPost("Deletebed")]
+    public IActionResult DeleteBed(int Bed_Id)
     {
-        BedDal bedDal = new BedDal();
-        if (bedDal.DeleteBed(_dbHelper,Bed_Id))
+        try
         {
-            TempData["Message"] = "Bed Delete successfully!";
-            TempData["AlertType"] = "success";
+            BedDal bedDal = new BedDal();
+            if (bedDal.DeleteBed(_dbHelper, Bed_Id))
+            {
+                TempData["Message"] = "Bed deleted successfully!";
+                TempData["AlertType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = "Error deleting the bed. Please try again.";
+                TempData["AlertType"] = "error";
+            }
         }
-        else
+        catch (Exception ex)
         {
-            TempData["Message"] = "Error to Delete bed!";
-            TempData["AlertType"] = "success";
+            TempData["Message"] = "An error occurred while deleting the bed.";
+            TempData["AlertType"] = "error";
+
         }
+
         return RedirectToAction("PGList");
     }
 
+    [HttpPost("SavePg")]
     public IActionResult SaveBed(Bed bed)
     {
-        BedDal bedDal = new BedDal();   
-        if (bedDal.InsertRoomData(_dbHelper, bed))
+        try
         {
-            TempData["Message"] = "Bed Data Insert successfully!";
-            TempData["AlertType"] = "success";
+            BedDal bedDal = new BedDal();
+            if (bedDal.InsertRoomData(_dbHelper, bed))
+            {
+                TempData["Message"] = "Bed data inserted successfully!";
+                TempData["AlertType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = "Failed to insert bed data.";
+                TempData["AlertType"] = "error";
+            }
         }
-        else
+        catch (Exception ex)
         {
-            TempData["Message"] = "Failed To Insert Bed Data.";
+            TempData["Message"] = "An error occurred while saving bed data.";
             TempData["AlertType"] = "error";
         }
+
         return RedirectToAction("PGList");
     }
-
 }
