@@ -69,7 +69,7 @@
                                             <label for="inlineinput"
                                                    class="col-md-3 col-form-label">Select PG Hostel</label>
                                             <div class="col-md-9 p-0">
-                                                <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Hostel_ID" asp-items="@(new SelectList(ViewBag.HostelList, "Id", "Hostel_Building_Number"))" onchange="OnHostelChange();">
+                                                <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" asp-for="Hostel_ID" asp-items="@(new SelectList(ViewBag.HostelList, "Id", "Hostel_Building_Number"))" onchange="OnHostelChange();">
                                                     <option value="">Select Hostel</option>
                                                 </select>
                                                 <span asp-validation-for="Hostel_ID" class="text-danger"></span>
@@ -80,7 +80,7 @@
                                             <label for="inlineinput"
                                                    class="col-md-3 col-form-label">Select Room</label>
                                             <div class="col-md-9 p-0">
-                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room" data-allow-clear="true" asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList,"Id","Room_Number"))" onchange="OnRoomChange();">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room"  asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList,"Id","Room_Number"))" onchange="OnRoomChange();">
                                                     <option value="">Select Room</option>
                                                 </select>
                                                 <span asp-validation-for="Room_ID" class="text-danger"></span>
@@ -91,7 +91,7 @@
                                         <label for="inlineinput"
                                                class="col-md-3 col-form-label">Select Bed</label>
                                         <div class="col-md-9 p-0">
-                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room" data-allow-clear="true" asp-for="Bed_ID" asp-items="@(new SelectList(ViewBag.BedList, "Id", "Bed_Number", Model?.Bed_ID))">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room" asp-for="Bed_ID" asp-items="@(new SelectList(ViewBag.BedList, "Id", "Bed_Number", Model?.Bed_ID))">
                                                 <option value="">Select Bed</option>
                                             </select>
                                             <span asp-validation-for="Bed_ID" class="text-danger"></span>
@@ -313,6 +313,7 @@
                         },
 
                         error: function (err) {
+                        console.error("Error While Running AJAX in hostel :", err); // Log the error details
                             alert("Error While Running AJAX");
                         }
                     }
@@ -339,13 +340,14 @@
                     dataType: "json",
                     success: function (Result) {
                         $.each(Result, function (index, item) {
+                             // alert(JSON.stringify(Result));
                         // console.log(Result); // Inspect the data
-                        // alert(JSON.stringify(Result));
                             $("#Bed_ID").append($("<option></option>").val(item.id).html(item.bed_Number));
                         });
                     },
 
                     error: function (err) {
+                        console.error("Error While Running AJAX in room:", err); // Log the error details
                         alert("Error While Running AJAX");
                     }
                 }

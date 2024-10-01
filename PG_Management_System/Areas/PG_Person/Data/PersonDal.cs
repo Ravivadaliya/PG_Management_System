@@ -4,6 +4,7 @@ using PG_Management_System.Areas.PG_Hostel.Models;
 using PG_Management_System.Areas.PG_Person.Models;
 using PG_Management_System.Areas.PG_Room.Models;
 using PG_Management_System.BAL;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -373,9 +374,8 @@ public class PersonDal
         }
     }
 
-    public DataTable GetAllPersonByOwnerIdAndPersonId(DatabaseHelper _dbHelper, int Person_Id, out string errorMessage)
+    public DataTable GetAllPersonByOwnerIdAndPersonId(DatabaseHelper _dbHelper, int Person_Id)
     {
-        errorMessage = string.Empty;
         try
         {
             SqlParameter[] sqlParameter = new SqlParameter[]
@@ -388,7 +388,6 @@ public class PersonDal
         }
         catch (Exception ex)
         {
-            errorMessage = ex.Message;
             return null;
         }
     }
@@ -428,9 +427,9 @@ public class PersonDal
         }
     }
 
-    public bool InsertPerson(DatabaseHelper _dbHelper, Person person, string Person_Image, out string errorMessage)
+    public bool InsertPerson(DatabaseHelper _dbHelper, Person person)
     {
-        errorMessage = string.Empty;
+
         try
         {
             if (person.File != null)
@@ -451,7 +450,7 @@ public class PersonDal
                     person.File.CopyTo(stream);
                 }
             }
-            person.Person_Image = Person_Image;
+            
             SqlParameter[] sqlParameter = new SqlParameter[]
             {
                 new SqlParameter("Bed_ID", SqlDbType.Int) { Value = person.Bed_ID },
@@ -477,14 +476,17 @@ public class PersonDal
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Person_Insert", sqlParameter);
             return value != -1;
         }
+        catch (SqlException ex)
+        {
+            return false;
+        }
         catch (Exception ex)
         {
-            errorMessage = ex.Message;
             return false;
         }
     }
 
-    public bool UpdatePerson(DatabaseHelper _dbHelper, Person person)
+    public bool UpdatePerson(DatabaseHelper _dbHelper, Person person, string Person_Image)
     {
         try
         {
@@ -512,7 +514,10 @@ public class PersonDal
                     person.File.CopyTo(stream);
                 }
             }
-
+            else
+            {
+                person.Person_Image = Person_Image;
+            }
             SqlParameter[] sqlParameter = new SqlParameter[]
             {
                 new SqlParameter("Id", SqlDbType.Int) { Value = person.Id },
@@ -539,28 +544,36 @@ public class PersonDal
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Person_Update", sqlParameter);
             return value > 0;
         }
+        catch (SqlException ex)
+        {
+            return false;
+        }
         catch (Exception ex)
         {
             return false;
         }
     }
 
-    public bool DeletePerson(DatabaseHelper _dbHelper, int? personId, out string errorMessage)
+    public bool DeletePerson(DatabaseHelper _dbHelper, int? personId)
     {
-        errorMessage = string.Empty;
+
         try
         {
             SqlParameter[] sqlParameter = new SqlParameter[]
             {
-                new SqlParameter("Person_ID", SqlDbType.Int) { Value = personId }
+                new SqlParameter("ID", SqlDbType.Int) { Value = personId }
             };
 
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Person_Delete", sqlParameter);
             return value > 0;
         }
+        catch (SqlException ex)
+        {
+            return false;
+        }
         catch (Exception ex)
         {
-            errorMessage = ex.Message;
+
             return false;
         }
     }

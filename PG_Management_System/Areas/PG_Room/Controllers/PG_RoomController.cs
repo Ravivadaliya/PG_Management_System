@@ -10,7 +10,7 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
 {
     [CheckAccess]
     [Area("PG_Room")]
-    [Route("Room")]
+    [Route("PG_Room/{controller}/{action}")]
     public class PG_RoomController : Controller
     {
         private readonly DatabaseHelper _dbHelper;
@@ -21,7 +21,6 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
             _dbHelper.OpenConnection();
         }
 
-        [HttpGet("PGList")]
         public IActionResult PGList()
         {
 
@@ -31,7 +30,7 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
 
         }
 
-        [HttpGet("RoomList")]
+      
         public IActionResult AllRoomListByHostelId(string Id)
         {
             try
@@ -42,13 +41,13 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Message"] = $"An unexpected error occurred: {ex.Message}";
+                TempData["Message"] = "An unexpected error occurred";
                 TempData["AlertType"] = "error";
-                return RedirectToAction("ErrorPage");
+                return RedirectToAction("PGList");
             }
         }
 
-        [HttpGet("AddRoom")]
+       
         public IActionResult Add(int? Id, int Hostel_Id)
         {
             try
@@ -82,11 +81,11 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
             {
                 TempData["Message"] = $"An unexpected error occurred: {ex.Message}";
                 TempData["AlertType"] = "error";
-                return RedirectToAction("ErrorPage");
+                return RedirectToAction("PGList");
             }
         }
 
-        [HttpPost("SaveStaff")]
+       
         public IActionResult SaveRoom(Room room)
         {
             string errorMessage = string.Empty; // Initialize error message
@@ -131,7 +130,6 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
             }
         }
 
-        [HttpPost("DeleteRoom")]
         public IActionResult DeleteRoom(int Id)
         {
             try
@@ -145,14 +143,14 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
                 }
                 else
                 {
-                    TempData["Message"] = $"Error deleting Room. {errorMessage}";
+                    TempData["Message"] = $"Error deleting Room.";
                     TempData["AlertType"] = "error";
                 }
                 return RedirectToAction("PGList");
             }
             catch (Exception ex)
             {
-                TempData["Message"] = $"An unexpected error occurred: {ex.Message}";
+                TempData["Message"] = $"An unexpected error occurred";
                 TempData["AlertType"] = "error";
                 return RedirectToAction("PGList");
             }

@@ -10,17 +10,16 @@ namespace PG_Management_System.Areas.Login.Controllers;
 
 
 [Area("Login")]
-[Route("Login")]
+[Route("Login/{controller}/{action}")]
 public class LoginController(DatabaseHelper dbHelper) : Controller
 {
 	private readonly DatabaseHelper _dbHelper = dbHelper;
-	[HttpGet("Login")]
+
 	public IActionResult Login()
 	{
 		return View();
 	}
 
-	[HttpPost]
 	public IActionResult LoginAction(Owner owner)
 	{
 		string error = null;
@@ -106,8 +105,40 @@ public class LoginController(DatabaseHelper dbHelper) : Controller
 		}
 	}
 
-	[HttpGet("Logout")]
-	public IActionResult Logout()
+	public IActionResult AdminRegistration()
+	{
+		return View();
+	}
+
+    public IActionResult InsertAdmin(Owner owner)
+    {
+        try
+        {
+            OwnerDal ownerDal = new OwnerDal();
+
+            if (ownerDal.InsertAdminData(owner, _dbHelper))
+            {
+                TempData["AddAdmin"] = "Registration Successful";
+                TempData["AlertType"] = "success";
+                return View("~/Views/Home/Index.cshtml");
+            }
+            else
+            {
+                TempData["AddAdmin"] = "failed to regestration";
+                TempData["AlertType"] = "error";
+                return View("~/Views/Home/Index.cshtml");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            TempData["AddAdmin"] = "An unexpected error occurred";
+            TempData["AlertType"] = "error";
+            return View("AdminRegistration");
+        }
+    }
+
+    public IActionResult Logout()
 	{
 		HttpContext.Session.Clear();
 		return RedirectToAction("Login", "Login", new { Area = "Login" });

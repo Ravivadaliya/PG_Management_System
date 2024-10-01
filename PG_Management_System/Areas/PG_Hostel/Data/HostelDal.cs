@@ -18,6 +18,10 @@ public class HostelDal
             };
             return _dbHelper.ExecuteStoredProcedure("SP_PG_Hostel_SelectByOwnerId", sqlParameter);
         }
+        catch (SqlException ex)
+        {
+            return null;
+        }
         catch (Exception ex)
         {
             return null;
@@ -35,9 +39,13 @@ public class HostelDal
             };
             return _dbHelper.ExecuteStoredProcedure("SP_PG_Hostel_SelectById", sqlParameter);
         }
+        catch (SqlException ex)
+        {
+            return null;
+        }
         catch (Exception ex)
         {
-            errorMessage = $"An unexpected error occurred: {ex.Message}";
+           
             return null;
         }
     }
@@ -62,6 +70,10 @@ public class HostelDal
 
             return true;
         }
+        catch (SqlException ex)
+        {
+            return false;
+        }
         catch (Exception ex)
         {
             return false;
@@ -82,6 +94,10 @@ public class HostelDal
                 return false;
             }
             return true;
+        }
+        catch (SqlException ex)
+        {
+            return false;
         }
         catch (Exception ex)
         {
@@ -108,6 +124,10 @@ public class HostelDal
             }
 
             return true;
+        }
+        catch (SqlException ex)
+        {
+            return false;
         }
         catch (Exception ex)
         {

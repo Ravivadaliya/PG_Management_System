@@ -33,6 +33,10 @@ public class OwnerDal
 
             return true;
         }
+        catch (SqlException ex)
+        {
+            return false;
+        }
         catch (Exception ex)
         {
             return false;
@@ -50,6 +54,10 @@ public class OwnerDal
                 new SqlParameter("@PassWord", SqlDbType.VarChar) { Value = ownerPassword }
             };
             return _dbHelper.ExecuteStoredProcedure("SP_SelectOwnerByEmailandPassword", sqlParameter);
+        }
+        catch (SqlException ex)
+        {
+            return null;
         }
         catch (Exception ex)
         {

@@ -19,6 +19,10 @@ public class IssueDal
             };
             return _dbHelper.ExecuteStoredProcedure("SP_SelectIssueListByownerId", sqlParameter);
         }
+        catch (SqlException ex)
+        {
+            return null;
+        }
         catch (Exception ex)
         {
             return null;
@@ -40,6 +44,10 @@ public class IssueDal
             }
 
             return true;
+        }
+        catch (SqlException ex)
+        {
+            return false;
         }
         catch (Exception ex)
         {

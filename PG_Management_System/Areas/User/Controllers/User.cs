@@ -22,6 +22,10 @@ namespace PG_Management_System.Areas.User.Controllers
             _dbHelper.OpenConnection();
         }
 
+        public IActionResult IssueForm()
+        {
+            return View();
+        }
         public IActionResult UserDashBoard()
         {
             try

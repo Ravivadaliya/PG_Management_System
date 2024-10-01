@@ -10,12 +10,11 @@ namespace PG_Management_System.Areas.PG_Bed.Controllers;
 
 [CheckAccess]
 [Area("PG_Bed")]
-[Route("Bed")]
+[Route("PG_Bed/{controller}/{action}")]
 public class PG_BedController(DatabaseHelper dbHelper) : Controller
 {
     private readonly DatabaseHelper _dbHelper = dbHelper;
 
-    [HttpGet("PGList")]
     public IActionResult PGList()
     {
         try
@@ -32,14 +31,10 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
         }
     }
 
-    [HttpGet("BedList")]
     public IActionResult BedListByHostelId(int Hostel_Id)
     {
         try
         {
-            TempData.Remove("Message");
-            TempData.Remove("AlertType");
-
             BedDal bedDal = new BedDal();
             DataTable dataTable = bedDal.GetAllBedFromHostelId(_dbHelper, Hostel_Id);
             return View("AllBedList", dataTable);
@@ -52,7 +47,7 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
         }
     }
 
-    [HttpGet("AddBed")]
+
     public IActionResult AddBed(int Hostel_Id)
     {
         try
@@ -69,7 +64,7 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
         }
     }
 
-    [HttpPost("Deletebed")]
+  
     public IActionResult DeleteBed(int Bed_Id)
     {
         try
@@ -90,13 +85,12 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
         {
             TempData["Message"] = "An error occurred while deleting the bed.";
             TempData["AlertType"] = "error";
-
         }
 
         return RedirectToAction("PGList");
     }
 
-    [HttpPost("SavePg")]
+   
     public IActionResult SaveBed(Bed bed)
     {
         try

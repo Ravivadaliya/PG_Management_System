@@ -9,7 +9,7 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
 {
     [CheckAccess]
     [Area("PG_Staff")]
-    [Route("Staff")]
+    [Route("PG_Staff/{controller}/{action}")]
     public class PG_StaffController : Controller
     {
         private readonly DatabaseHelper _dbHelper;
@@ -20,7 +20,7 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
             _dbHelper.OpenConnection();
         }
 
-        [HttpGet("AddStaff")]
+
         public IActionResult AddEditPG_Staff()
         {
             return View();
@@ -36,7 +36,7 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
 
         }
 
-        [HttpGet("AddEditStaff/{Id}")]
+ 
         public IActionResult Add(int? Id)
         {
             try
@@ -72,7 +72,7 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
             }
         }
 
-        [HttpPost("DeleteStaff")]
+
         public IActionResult DeleteStaff(int Id)
         {
             try
@@ -94,13 +94,13 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Message"] = $"An unexpected error occurred: {ex.Message}";
+                TempData["Message"] = $"An unexpected error occurred";
                 TempData["AlertType"] = "error";
                 return RedirectToAction("AllStaffList");
             }
         }
 
-        [HttpPost("SaveStaff")]
+     
         public IActionResult SaveStaff(Staff staff)
         {
             try
@@ -117,7 +117,7 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
                     }
                     else
                     {
-                        TempData["Message"] = "Error while inserting staff data"; // Use detailed error message
+                        TempData["Message"] = "Error while inserting staff data"; 
                         TempData["AlertType"] = "error";
                     }
                 }
@@ -130,7 +130,7 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
                     }
                     else
                     {
-                        TempData["Message"] = errorMessage; // Use detailed error message
+                        TempData["Message"] = "Error occure while updating staff"; 
                         TempData["AlertType"] = "error";
                     }
                 }
@@ -138,7 +138,7 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Message"] = $"An unexpected error occurred: {ex.Message}";
+                TempData["Message"] = $"An unexpected error occurred";
                 TempData["AlertType"] = "error";
                 return RedirectToAction("AllStaffList");
             }

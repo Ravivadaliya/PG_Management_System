@@ -10,78 +10,113 @@ namespace PG_Management_System.Areas.PG_Staff.Data
     {
         public DataTable GetStaffById(DatabaseHelper _dbHelper, int? StaffId)
         {
-            SqlParameter[] sqlParameter = new SqlParameter[]
+            try
             {
-                new SqlParameter("Id", SqlDbType.Int) { Value = StaffId }
-            };
-            return _dbHelper.ExecuteStoredProcedure("SP_PG_Staff_SelectById", sqlParameter);
+                SqlParameter[] sqlParameter = new SqlParameter[]
+                {
+                    new SqlParameter("Id", SqlDbType.Int) { Value = StaffId }
+                };
+                return _dbHelper.ExecuteStoredProcedure("SP_PG_Staff_SelectById", sqlParameter);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public DataTable GetAllStaffByOwnerId(DatabaseHelper _dbHelper)
         {
-            SqlParameter[] sqlParameter = new SqlParameter[]
+            try
             {
-                new SqlParameter("Owner_ID", SqlDbType.Int) { Value = CV.Owner_Id() }
-            };
-            return _dbHelper.ExecuteStoredProcedure("SP_PG_Staff_SelectByOwnerId", sqlParameter);
+                SqlParameter[] sqlParameter = new SqlParameter[]
+                {
+                    new SqlParameter("Owner_ID", SqlDbType.Int) { Value = CV.Owner_Id() }
+                };
+                return _dbHelper.ExecuteStoredProcedure("SP_PG_Staff_SelectByOwnerId", sqlParameter);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public bool InsertStaffData(Staff staff, DatabaseHelper _dbHelper)
         {
-            SqlParameter[] sqlParameter = new SqlParameter[]
+            try
             {
-                new SqlParameter("@Owner_ID", SqlDbType.Int) { Value = CV.Owner_Id() },
-                new SqlParameter("@Staff_Name", SqlDbType.VarChar) { Value = staff.Staff_Name },
-                new SqlParameter("@Staff_Surname", SqlDbType.VarChar) { Value = staff.Staff_Surname },
-                new SqlParameter("@Staff_Mobile_Number", SqlDbType.VarChar) { Value = staff.Staff_Mobile_Number },
-                new SqlParameter("@Staff_Address", SqlDbType.VarChar) { Value = staff.Staff_Address },
-                new SqlParameter("@Staff_Gender", SqlDbType.VarChar) { Value = staff.Staff_Gender },
-                new SqlParameter("@Staff_City", SqlDbType.VarChar) { Value = staff.Staff_City },
-            };
+                SqlParameter[] sqlParameter = new SqlParameter[]
+                {
+                    new SqlParameter("@Owner_ID", SqlDbType.Int) { Value = CV.Owner_Id() },
+                    new SqlParameter("@Staff_Name", SqlDbType.VarChar) { Value = staff.Staff_Name },
+                    new SqlParameter("@Staff_Surname", SqlDbType.VarChar) { Value = staff.Staff_Surname },
+                    new SqlParameter("@Staff_Mobile_Number", SqlDbType.VarChar) { Value = staff.Staff_Mobile_Number },
+                    new SqlParameter("@Staff_Address", SqlDbType.VarChar) { Value = staff.Staff_Address },
+                    new SqlParameter("@Staff_Gender", SqlDbType.VarChar) { Value = staff.Staff_Gender },
+                    new SqlParameter("@Staff_City", SqlDbType.VarChar) { Value = staff.Staff_City }
+                };
 
-            int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Staff_Insert", sqlParameter);
-            if (value == -1)
+                int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Staff_Insert", sqlParameter);
+                if (value == -1)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
             {
                 return false;
             }
-            return true;
         }
 
         public bool DeleteStaff(DatabaseHelper _dbHelper, int staffId)
         {
-            SqlParameter[] sqlParameter = new SqlParameter[]
+            try
             {
-                new SqlParameter("Id", SqlDbType.Int) { Value = staffId }
-            };
-            int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Staff_Delete", sqlParameter);
-            if (value == -1)
-            {
+                SqlParameter[] sqlParameter = new SqlParameter[]
+                {
+                    new SqlParameter("Id", SqlDbType.Int) { Value = staffId }
+                };
 
+                int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Staff_Delete", sqlParameter);
+                if (value == -1)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
                 return false;
             }
-            return true;
         }
 
         public bool UpdateStaffData(DatabaseHelper _dbHelper, Staff staff, ref string errorMessage)
         {
-            SqlParameter[] sqlParameter = new SqlParameter[]
+            try
             {
-                new SqlParameter("@Id", SqlDbType.Int) { Value = staff.Id },
-                new SqlParameter("@Owner_ID", SqlDbType.Int) { Value = staff.Owner_ID },
-                new SqlParameter("@Staff_Name", SqlDbType.VarChar) { Value = staff.Staff_Name },
-                new SqlParameter("@Staff_Surname", SqlDbType.VarChar) { Value = staff.Staff_Surname },
-                new SqlParameter("@Staff_Mobile_Number", SqlDbType.VarChar) { Value = staff.Staff_Mobile_Number },
-                new SqlParameter("@Staff_Address", SqlDbType.VarChar) { Value = staff.Staff_Address },
-                new SqlParameter("@Staff_Gender", SqlDbType.VarChar) { Value = staff.Staff_Gender },
-                new SqlParameter("@Staff_City", SqlDbType.VarChar) { Value = staff.Staff_City },
-            };
-            int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Staff_Update", sqlParameter);
-            if (value == -1)
+                SqlParameter[] sqlParameter = new SqlParameter[]
+                {
+                    new SqlParameter("@Id", SqlDbType.Int) { Value = staff.Id },
+                    new SqlParameter("@Owner_ID", SqlDbType.Int) { Value = staff.Owner_ID },
+                    new SqlParameter("@Staff_Name", SqlDbType.VarChar) { Value = staff.Staff_Name },
+                    new SqlParameter("@Staff_Surname", SqlDbType.VarChar) { Value = staff.Staff_Surname },
+                    new SqlParameter("@Staff_Mobile_Number", SqlDbType.VarChar) { Value = staff.Staff_Mobile_Number },
+                    new SqlParameter("@Staff_Address", SqlDbType.VarChar) { Value = staff.Staff_Address },
+                    new SqlParameter("@Staff_Gender", SqlDbType.VarChar) { Value = staff.Staff_Gender },
+                    new SqlParameter("@Staff_City", SqlDbType.VarChar) { Value = staff.Staff_City }
+                };
+
+                int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Staff_Update", sqlParameter);
+                if (value == -1)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
             {
-                errorMessage = "Failed to update staff data in the database.";
                 return false;
             }
-            return true;
         }
     }
 }

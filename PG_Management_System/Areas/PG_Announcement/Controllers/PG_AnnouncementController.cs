@@ -7,7 +7,7 @@ using PG_Management_System.Areas.PG_Announcement.Data;
 namespace PG_Management_System.Areas.PG_Announcement.Controllers;
 
 [Area("PG_Announcement")]
-[Route("Announcement")]
+[Route("PG_Announcement/{controller}/{action}")]
 public class PG_AnnouncementController : Controller
 {
     private readonly DatabaseHelper _dbHelper;
@@ -18,7 +18,6 @@ public class PG_AnnouncementController : Controller
         _dbHelper.OpenConnection();
     }
 
-    [HttpGet("AddAnnouncement")]
     public IActionResult AddAnnouncement()
     {
         PersonDal personDal = new PersonDal();
@@ -26,18 +25,10 @@ public class PG_AnnouncementController : Controller
         return View();
     }
 
-    [HttpPost("SaveAnnouncement")]
     public IActionResult SaveAnnouncement(Announcement announcement)
     {
         try
         {
-            if (!ModelState.IsValid)
-            {
-                TempData["Message"] = "Please correct the errors in the form.";
-                TempData["AlertType"] = "error";
-                return RedirectToAction("AddAnnouncement");
-            }
-
             AnnouncementDal announcementDal = new AnnouncementDal();
             if (announcementDal.InsertAnnouncement(_dbHelper, announcement))
             {
