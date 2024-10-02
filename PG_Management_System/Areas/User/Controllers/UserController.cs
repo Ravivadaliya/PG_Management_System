@@ -1,6 +1,8 @@
 ﻿using DatabaseHelperLibrary;
 using Microsoft.AspNetCore.Mvc;
+using PG_Management_System.Areas.PG_Payments.Models;
 using PG_Management_System.Areas.PG_Person.Data;
+using PG_Management_System.Areas.PG_Person.Models;
 using PG_Management_System.Areas.User.Data;
 using PG_Management_System.Areas.User.Models;
 using PG_Management_System.BAL;
@@ -26,6 +28,15 @@ namespace PG_Management_System.Areas.User.Controllers
         {
             return View();
         }
+
+        public IActionResult PaymentForm()
+        {
+            return View();
+        }
+        public IActionResult UserPaymentList()
+        {
+            return View();
+        }
         public IActionResult UserDashBoard()
         {
             try
@@ -46,7 +57,7 @@ namespace PG_Management_System.Areas.User.Controllers
         {
             try
             {
-                UserIssueDal userIssueDal = new UserIssueDal();
+                UserDal userIssueDal = new UserDal();
                 DataTable dataTable = userIssueDal.GetAllissueByRoomId(_dbHelper, Room_ID, out string errorMessage);
 
                 if (!string.IsNullOrEmpty(errorMessage))
@@ -66,18 +77,18 @@ namespace PG_Management_System.Areas.User.Controllers
             }
         }
 
-        public IActionResult SaveIssue(UserIssue userIssue)
+        public IActionResult SaveIssue(Models.User userIssue)
         {
             try
             {
-                UserIssueDal userIssueDal = new UserIssueDal();
+                UserDal userIssueDal = new UserDal();
                 string imgpath = userIssue.Issue_ImgPath;
                 string description = userIssue.Issue_Description;
 
                 PersonDal personDal = new PersonDal();
                 DataTable dataTable = personDal.GetPersonById(_dbHelper, Convert.ToInt32(CV.Person_Id()));
 
-                UserIssue userIssue1 = new UserIssue();
+                Models.User userIssue1 = new Models.User();
                 if (dataTable.Rows.Count > 0)
                 {
                     foreach (DataRow dataRow in dataTable.Rows)
@@ -124,7 +135,7 @@ namespace PG_Management_System.Areas.User.Controllers
             try
             {
                 int Person_Id = Convert.ToInt32(CV.Person_Id());
-                UserIssueDal userIssueDal = new UserIssueDal();
+                UserDal userIssueDal = new UserDal();
                 DataTable datatable = userIssueDal.GetUserNewNotification(_dbHelper, Person_Id);
 
                 if (userIssueDal.UpdateNotificationStatus(_dbHelper))
@@ -163,7 +174,43 @@ namespace PG_Management_System.Areas.User.Controllers
             }
             catch (Exception)
             {
-                return 0; 
+                return 0;
+            }
+        }
+
+        public IActionResult SavePayment(Payments payments)
+        {
+            try
+            {
+
+                if (payments.File != null)
+                {
+                    UserDal userDal = new UserDal();
+                    if (userDal.InsertPayments(_dbHelper, payments))
+                    {
+                        TempData["Message"] = "Your payment details has been submitted.";
+                        TempData["AlertType"] = "success";
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Error while Your payment details submiting";
+                        TempData["AlertType"] = "error";
+                    }
+                }
+                else
+                {
+                    TempData["Message"] = "Image not found try agian!";
+                    TempData["AlertType"] = "error";
+                    return RedirectToAction("PaymentForm");
+                }
+
+                return RedirectToAction("UserDashBoard");
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "An unexpected error occurred";
+                TempData["AlertType"] = "error";
+                return RedirectToAction("UserDashBoard");
             }
         }
     }

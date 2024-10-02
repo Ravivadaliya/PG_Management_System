@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "~/Views/Shared/Admin/AdminLayout.cshtml";
+}
+@using System.Data;
+@model DataTable
+
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">PG</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="#">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Beds</a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">PG List</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Select PG For View Payment List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="multi-filter-select"
+                                   class="display table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Building No</th>
+                                        <th>Address</th>
+                                        <th>Person List</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int i = 1;
+                                    }
+                                    @foreach (DataRow dr in Model.Rows)
+                                    {
+                                        <tr>
+                                            <td>@dr["Hostel_Building_Number"]</td>
+                                            <td>@dr["Hostel_Address"]</td>
+                                            <td>
+                                                <div class="form-button-action">
+                                                    <a asp-area="PG_Payments" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Payments" asp-action="PaymentsList" asp-route-Hostel_Id="@Convert.ToInt32(dr["Id"])">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete(OwnerId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You won't be able to revert this!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form for the specific adminId
+                document.getElementById(`deleteForm-${OwnerId}`).submit();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        var message = '@TempData["Message"]';
+        var alertType = '@TempData["AlertType"]';
+
+        if (message) {
+            Swal.fire({
+                icon: alertType,
+                title: message,
+                showConfirmButton: true
+            }).then((result) => {
+                // Reload the page after the alert is confirmed
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        }
+    });
+
+</script>

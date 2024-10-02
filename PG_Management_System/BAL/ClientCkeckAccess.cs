@@ -5,7 +5,7 @@ namespace PG_Management_System.BAL
     public class ClientCkeckAccess : ActionFilterAttribute, IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext filterContext)
-        {
+      {
             if (filterContext.HttpContext.Session.GetString("UserId") == null)
             {
                 filterContext.Result = new RedirectResult("~/Login/Login/Login");

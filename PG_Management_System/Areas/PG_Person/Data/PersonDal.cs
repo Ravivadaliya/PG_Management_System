@@ -500,14 +500,14 @@ public class PersonDal
                     Directory.CreateDirectory(full_path);
                 }
 
-                string file_name_with_path = Path.Combine(full_path, person.File.FileName);
+                string file_name_with_path = Path.Combine(full_path, person.File.FileName + person.Id);
 
                 if (File.Exists(file_name_with_path))
                 {
                     File.Delete(file_name_with_path);
                 }
 
-                person.Person_Image = Path.Combine("upload", person.Hostel_ID.ToString(), person.File.FileName);
+                person.Person_Image = Path.Combine("upload", person.Hostel_ID.ToString(), person.File.FileName+person.Id);
 
                 using (var stream = new FileStream(file_name_with_path, FileMode.Create))
                 {
@@ -561,7 +561,7 @@ public class PersonDal
         {
             SqlParameter[] sqlParameter = new SqlParameter[]
             {
-                new SqlParameter("ID", SqlDbType.Int) { Value = personId }
+                new SqlParameter("Id", SqlDbType.Int) { Value = personId }
             };
 
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Person_Delete", sqlParameter);

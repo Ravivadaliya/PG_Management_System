@@ -1,12 +1,11 @@
 ﻿@{
     Layout = "~/Views/Shared/Users/UserLayout.cshtml";
 }
-@model PG_Management_System.Areas.User.Models.User;
-
+@model PG_Management_System.Areas.PG_Payments.Models.Payments;
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">Report Yout Issue</h3>
+            <h3 class="fw-bold mb-3">Payment</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="#">
@@ -17,43 +16,37 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Create Issue</a>
+                    <a href="#">Payment</a>
                 </li>
                 <li class="separator">
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Add issue</a>
+                    <a href="#">Add Payment</a>
                 </li>
             </ul>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form asp-area="User" asp-controller="User" asp-action="SaveIssue" method="post">
+                <form asp-area="User" asp-controller="User" asp-action="SavePayment" enctype="multipart/form-data" method="post">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Add You Issue</div>
+                            <div class="card-title">Upload Your Payments ScreenShot</div>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 col-lg-12">
+
                                     <div class="form-group">
-                                        <label for="email2">Issue Image</label>
-                                        <input type="text"
-                                               asp-for="Issue_ImgPath"
+                                    <label for="email2">Upload You Payment Photo</label>
+                                    <span class="text-danger">(*Photo name must be same you name)</span>
+                                        
+                                        <input type="file"
+                                               asp-for="File"
                                                class="form-control"
                                                id="inlineinput"
                                                placeholder="Select Image" required />
-                                        <span asp-validation-for="Issue_ImgPath" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="comment">Issue Description</label>
-                                        <input type="text"
-                                               asp-for="Issue_Description"
-                                               class="form-control"
-                                               id="inlineinput"
-                                               placeholder="Enter Details" required />
-                                        <span asp-validation-for="Issue_Description" class="text-danger"></span>
+                                        <span asp-validation-for="File" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>

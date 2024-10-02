@@ -134,7 +134,7 @@ public class PG_PersonController : Controller
         {
             TempData["Message"] = $"An unexpected error occurred: {ex.Message}";
             TempData["AlertType"] = "error";
-            return RedirectToAction("ErrorPage");
+            return RedirectToAction("AllPersonList");
         }
     }
 

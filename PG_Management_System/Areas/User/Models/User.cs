@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PG_Management_System.Areas.User.Models;
 
-public class UserIssue
+public class User
 {
     [Key]
     public int Id { get; set; }

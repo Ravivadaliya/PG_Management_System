@@ -58,8 +58,8 @@
                         <img src="~/assets/img/Infinity-removebg.png"
                              alt="navbar brand"
                              class="navbar-brand"
-                             height="180"
-                             width="180" />
+                             height="100"
+                             width="100" />
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -88,14 +88,25 @@
                             <a asp-area="User" asp-controller="User" asp-action="IssueForm">
                                 <i class="fas fa-exclamation-circle"></i>
                                 <p>Create Issues</p>
-                                @* <span class="badge bg-warning"></span> *@
                             </a>
                         </li>
                         <li class="nav-item">
                             <a asp-area="User" asp-controller="User" asp-action="AnnouncementList">
-                                <i class="fas fa-exclamation-circle"></i>
+                                <i class="fas fa-bullhorn"></i>
                                 <p>New Announcement</p>
                                 <span id="NewNotificationBadge" class="badge bg-warning">0</span>
+                            </a>
+                        </li>
+                          <li class="nav-item">
+                            <a asp-area="User" asp-controller="User" asp-action="PaymentForm">
+                                <i class="fas fa-rupee-sign"></i>
+                                <p>Pay Rent</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="User" asp-controller="User" asp-action="UserPaymentList">
+                                <i class="fas fa-money-check"></i>
+                                <p>Your Payment List</p>
                             </a>
                         </li>
                     </ul>

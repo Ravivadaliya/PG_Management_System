@@ -58,8 +58,8 @@
                         <img src="~/assets/img/Infinity-removebg.png"
                              alt="navbar brand"
                              class="navbar-brand"
-                             height="180"
-                             width="180" />
+                             height="100"
+                             width="100" />
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -206,8 +206,14 @@
                         </li>
                         <li class="nav-item">
                             <a asp-area="PG_Announcement" asp-controller="PG_Announcement" asp-action="AddAnnouncement">
-                                <i class="fas fa-volume-up"></i>
+                                <i class="fas fa-bullhorn"></i>
                                 <p>Announcemet</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="PG_Payments" asp-controller="PG_Payments" asp-action="PGList">
+                                <i class="fas fa-rupee-sign"></i>
+                                <p>Payments</p>
                             </a>
                         </li>
                     </ul>
