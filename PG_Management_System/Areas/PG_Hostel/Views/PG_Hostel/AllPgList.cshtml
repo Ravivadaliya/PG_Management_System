@@ -26,13 +26,19 @@
                 <li class="nav-item">
                     <a href="#">PG List</a>
                 </li>
+
             </ul>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
+                        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
                         <h4 class="card-title">PG View and Delete</h4>
+                            <div class="ms-md-auto py-2 py-md-0">
+                                <a asp-area="PG_Hostel" asp-controller="PG_Hostel" asp-action="Add" asp-route-Room_Id="" class="btn btn-primary btn-round me-2">Add PG</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -42,6 +48,7 @@
                                     <tr>
                                         <th>Building No</th>
                                         <th>Address</th>
+                                        <th>Type</th>
                                         <th>Created Date</th>
                                         <th>Modification Date</th>
                                         <th>Action</th>
@@ -54,8 +61,9 @@
                                     @foreach (DataRow dr in Model.Rows)
                                     {
                                         <tr>
-                                            <td>@dr["Hostel_Building_Number"]</td>
+                                            <td>@dr["PG_Number"]</td>
                                             <td>@dr["Hostel_Address"]</td>
+                                            <td>@dr["Hostel_Type"]</td>
                                             <td>@Convert.ToDateTime(dr["Hostel_CreatedDate"]).ToString("dd-MM-yyyy")</td>
                                             <td>@Convert.ToDateTime(dr["Hostel_Modificationdate"]).ToString("dd-MM-yyyy")</td>
                                             <td>

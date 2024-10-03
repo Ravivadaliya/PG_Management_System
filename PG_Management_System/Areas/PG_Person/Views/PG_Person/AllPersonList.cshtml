@@ -32,7 +32,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Person View and Delete</h4>
+                        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+                            <h4 class="card-title">Person View and Delete</h4>
+                            <div class="ms-md-auto py-2 py-md-0">
+                                <a asp-area="PG_Person" asp-controller="PG_Person" asp-action="Add"  class="btn btn-primary btn-round me-2">Add Person</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -42,9 +47,9 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>SurName</th>
-                                        <th>Bed_Number</th>
-                                        <th>Room_Number</th>
-                                        <th>Hostel_Building_Number</th>
+                                        <th>Bed Number</th>
+                                        <th>Sharing</th>
+                                        <th>PG Number</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -64,8 +69,8 @@
                                             <td>@dr["Person_Name"]</td>
                                             <td>@dr["Person_SurName"]</td>
                                             <td>@dr["Bed_Number"]</td>
-                                            <td>@dr["Room_Number"]</td>
-                                            <td>@dr["Hostel_Building_Number"]</td>
+                                            <td>@dr["Room_SharingType"]</td>
+                                            <td>@dr["PG_Number"]</td>
                                             <td>
                                                 <div class="form-button-action">
                                                     <a asp-area="PG_Person" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Person" asp-action="PersonDetails" asp-route-Person_Id="@Convert.ToInt32(dr["Id"])">

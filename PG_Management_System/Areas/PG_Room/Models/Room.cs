@@ -14,8 +14,8 @@ public class Room
 
     public Hostel Hostel { get; set; }
 
-    [Required]
-    public string Room_Number { get; set; }
+    //[Required]
+    //public string Room_Number { get; set; }
     
     [Required]
     public string Room_GenderAllowed { get; set; }
@@ -28,11 +28,16 @@ public class Room
 
     [Required]
     public string Room_Type { get; set; }
+
+    [Required]
+    public string Room_Rent { get; set; }
+    [Required]
+    public string Room_Floor { get; set; }
     public DateOnly Room_CreatedDate { get; set; }
     public DateOnly Room_ModificationDate { get; set; }
 }
 public class Room_DropDownModel
 {
     public int Id { get; set; }
-    public string Room_Number { get; set; }
+    public string Room_SharingType { get; set; }
 }

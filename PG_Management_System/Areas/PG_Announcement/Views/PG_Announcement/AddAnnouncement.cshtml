@@ -71,7 +71,7 @@
                                         <label for="inlineinput"
                                                class="col-md-3 col-form-label">Select PG Hostel to Send</label>
                                         <div class="col-md-9 p-0">
-                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Hostel_ID" asp-items="@(new SelectList(ViewBag.HostelList, "Id", "Hostel_Building_Number"))">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Hostel_ID" asp-items="@(new SelectList(ViewBag.HostelList, "Id", "PG_Number"))">
                                                 <option value="">Select Hostel</option>
                                             </select>
                                             <span asp-validation-for="Hostel_ID" class="text-danger"></span>

@@ -39,18 +39,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 col-lg-12">
-                                    <div class="form-group form-inline">
-                                        <label for="inlineinput"
-                                               class="col-md-3 col-form-label">Enter Room Number*</label>
-                                        <div class="col-md-9 p-0">
-                                            <input type="text"
-                                                   asp-for="Room_Number"
-                                                   class="form-control input-full"
-                                                   id="inlineinput"
-                                                   placeholder="101" />
-                                            <span asp-validation-for="Room_Number" class="text-danger"></span>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="form-group form-inline">
                                         <label for="inlineinput"
                                                class="col-md-3 col-form-label">Enter Sharing Capacity*</label>
@@ -61,6 +50,30 @@
                                                    id="inlineinput"
                                                    placeholder="5,4 or 3 " />
                                             <span asp-validation-for="Room_SharingType" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter Room Rent*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Room_Rent"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="Rent" />
+                                            <span asp-validation-for="Room_Rent" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter Room Floor*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Room_Floor"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="Floor" />
+                                            <span asp-validation-for="Room_Floor" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="form-group form-inline">

@@ -40,7 +40,7 @@
                                    class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Building No</th>
+                                        <th>PG No</th>
                                         <th>Address</th>
                                         <th>Add Room</th>
                                         <th>View Rooms</th>
@@ -53,7 +53,7 @@
                                     @foreach (DataRow dr in Model.Rows)
                                     {
                                         <tr>
-                                            <td>@dr["Hostel_Building_Number"]</td>
+                                            <td>@dr["PG_Number"]</td>
                                             <td>@dr["Hostel_Address"]</td>
                                             <td>
                                                 <div class="form-button-action">

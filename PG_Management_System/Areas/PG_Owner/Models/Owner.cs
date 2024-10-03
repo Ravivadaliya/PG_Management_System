@@ -55,3 +55,11 @@ public class Owner
 
     public DateOnly Owner_ModificationDate { get; set; }
 }
+
+public class DashBoardDetail()
+{
+    public int TotalHostel {  get; set; }
+    public int TotalRoom { get; set; }
+    public int TotalBed { get; set; }
+    public int TotalPerson { get; set; }
+}

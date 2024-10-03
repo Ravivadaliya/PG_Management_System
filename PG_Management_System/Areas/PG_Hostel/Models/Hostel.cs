@@ -17,7 +17,18 @@ public class Hostel
 
     [Required]
     [StringLength(10)]
-    public string Hostel_Building_Number { get; set; }
+    public string PG_Number { get; set; }
+
+
+    [Required]
+    [StringLength(10)]
+    public string Hostel_MinimumPayment { get; set; }
+    [Required]
+    [StringLength(10)]
+    public string Hostel_Property_Category { get; set; }
+    [Required]
+    [StringLength(10)]
+    public string Hostel_Type { get; set; }
 
     [Required]
     [StringLength(100)]
@@ -30,5 +41,5 @@ public class Hostel
 public class Hostel_DropDownModel
 {
     public int Id { get; set; }
-    public string Hostel_Building_Number { get; set; }
+    public string PG_Number { get; set; }
 }

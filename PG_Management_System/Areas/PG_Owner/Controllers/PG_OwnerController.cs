@@ -4,6 +4,7 @@ using PG_Management_System.BAL;
 using PG_Management_System.Areas.PG_Owner.Data;
 using PG_Management_System.Areas.PG_Owner.Models;
 using System.Data;
+using PG_Management_System.Areas.PG_Person.Data;
 
 namespace PG_Management_System.Areas.PG_Owner.Controllers;
 
@@ -23,6 +24,23 @@ public class PG_OwnerController : Controller
     public IActionResult Dashboard()
     {
         return View();
+    }
+
+    public IActionResult SelectPGDetalsForDashBoard()
+    {
+        try
+        {
+            OwnerDal personDal = new OwnerDal();
+            ViewBag.DashBoardDetails = personDal.PGDetalsForDashBoard(_dbHelper);
+            var dashboardModel = ViewBag.DashBoardDetails;
+            return Json(dashboardModel);
+        }
+        catch (Exception ex)
+        {
+            TempData["Message"] = $"An unexpected error occurred";
+            TempData["AlertType"] = "error";
+            return Json(null);
+        }
     }
 
     public IActionResult AdminRegistration()

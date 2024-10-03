@@ -59,8 +59,11 @@ namespace PG_Management_System.Areas.PG_Hostel.Controllers
                         DataRow dr = dataTable.Rows[0];
                         hostel.Id = Convert.ToInt32(dr["Id"]);
                         hostel.Owner_ID = Convert.ToInt32(dr["Owner_Id"]);
-                        hostel.Hostel_Building_Number = dr["Hostel_Building_Number"].ToString();
+                        hostel.PG_Number = dr["PG_Number"].ToString();
                         hostel.Hostel_Address = dr["Hostel_Address"].ToString();
+                        hostel.Hostel_MinimumPayment = dr["Hostel_MinimumPayment"].ToString();
+                        hostel.Hostel_Type = dr["Hostel_Type"].ToString();
+                        hostel.Hostel_Property_Category = dr["Hostel_Property_Category"].ToString();
                     }
 
                     return View("AddEditPG_Hostel", hostel);

@@ -42,9 +42,9 @@
 
                                         <div class="form-group form-inline">
                                             <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Select Room</label>
+                                                   class="col-md-3 col-form-label">Select Room Sharing</label>
                                             <div class="col-md-9 p-0">
-                                                <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList, "Id", "Room_Number"))">
+                                                <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList, "Id", "Room_SharingType"))">
                                                     <option value="">Select Room</option>
                                                 </select>
                                                 <span asp-validation-for="Room_ID" class="text-danger"></span>

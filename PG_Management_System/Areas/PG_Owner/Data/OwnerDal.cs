@@ -2,6 +2,8 @@
 using System.Data.SqlClient;
 using System.Data;
 using DatabaseHelperLibrary;
+using PG_Management_System.Areas.PG_Bed.Models;
+using PG_Management_System.BAL;
 
 namespace PG_Management_System.Areas.PG_Owner.Data;
 
@@ -63,5 +65,29 @@ public class OwnerDal
         {
             return null;
         }
+    }
+
+    public DashBoardDetail PGDetalsForDashBoard(DatabaseHelper _dbHelper)
+    {
+        SqlParameter[] sqlParameter = new SqlParameter[]
+        {
+        new SqlParameter("Owner_Id", SqlDbType.Int) { Value = CV.Owner_Id() }
+        };
+
+        // Execute the stored procedure and get the DataTable
+        DataTable dt = _dbHelper.ExecuteStoredProcedure("SP_SelectPGDetalsForDashBoard", sqlParameter);
+        DashBoardDetail dashBoardDetail = new DashBoardDetail();
+
+        // Check if the DataTable has rows
+        if (dt.Rows.Count > 0)
+        {
+            // Populate the dashBoardDetail object with the data from the DataTable
+            DataRow dr = dt.Rows[0]; // Assuming you want the first row
+            dashBoardDetail.TotalHostel = Convert.ToInt32(dr["TotalHostel"]);
+            dashBoardDetail.TotalRoom = Convert.ToInt32(dr["TotalRoom"]);
+            dashBoardDetail.TotalPerson = Convert.ToInt32(dr["TotalPerson"]);
+            dashBoardDetail.TotalBed = Convert.ToInt32(dr["TotalBed"]);
+        }
+        return dashBoardDetail;
     }
 }

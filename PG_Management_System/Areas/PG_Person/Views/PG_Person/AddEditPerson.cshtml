@@ -67,9 +67,9 @@
 
                                         <div class="form-group form-inline">
                                             <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Select PG Hostel</label>
+                                                   class="col-md-3 col-form-label">Select PG</label>
                                             <div class="col-md-9 p-0">
-                                                <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" asp-for="Hostel_ID" asp-items="@(new SelectList(ViewBag.HostelList, "Id", "Hostel_Building_Number"))" onchange="OnHostelChange();">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" asp-for="Hostel_ID" asp-items="@(new SelectList(ViewBag.HostelList, "Id", "PG_Number"))" onchange="OnHostelChange();">
                                                     <option value="">Select Hostel</option>
                                                 </select>
                                                 <span asp-validation-for="Hostel_ID" class="text-danger"></span>
@@ -78,10 +78,10 @@
 
                                         <div class="form-group form-inline">
                                             <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Select Room</label>
+                                                   class="col-md-3 col-form-label">Select Room Sharing</label>
                                             <div class="col-md-9 p-0">
-                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room"  asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList,"Id","Room_Number"))" onchange="OnRoomChange();">
-                                                    <option value="">Select Room</option>
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room"  asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList,"Id","Room_SharingType"))" onchange="OnRoomChange();">
+                                                    <option value="">Select Room Sharing</option>
                                                 </select>
                                                 <span asp-validation-for="Room_ID" class="text-danger"></span>
                                             </div>
@@ -107,7 +107,7 @@
                                                        asp-for="Person_Mobile_Number"
                                                        class="form-control input-full"
                                                        id="inlineinput"
-                                                       placeholder="1234567890" />
+                                                   placeholder="Enter Mobile Number" />
                                                 <span asp-validation-for="Person_Mobile_Number" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@
                                                        asp-for="Person_Parent_Mobile_Number"
                                                        class="form-control input-full"
                                                        id="inlineinput"
-                                                       placeholder="1234567890" />
+                                                       placeholder="Enter Mobile Number" />
                                                 <span asp-validation-for="Person_Parent_Mobile_Number" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -133,7 +133,7 @@
                                                        asp-for="Person_Email_ID"
                                                        class="form-control input-full"
                                                        id="inlineinput"
-                                                       placeholder="" />
+                                                       placeholder="Your Email" />
                                                 <span asp-validation-for="Person_Email_ID" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -179,7 +179,7 @@
                                         <label for="inlineinput"
                                                class="col-md-3 col-form-label">Select Gender*</label>
                                         <div class="col-md-9 p-0">
-                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Person_Gender">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select PG" data-allow-clear="true" asp-for="Person_Gender">
                                                 <option value="">Select Gender*</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
@@ -307,7 +307,7 @@
                         dataType: "json",
                         success: function (Result) {
                             $.each(Result, function (index, item) {
-                                $("#Room_ID").append($("<option></option>").val(item.id).html(item.room_Number));
+                                $("#Room_ID").append($("<option></option>").val(item.id).html(item.room_SharingType));
                                 // alert(JSON.stringify(item));
                             });
                         },

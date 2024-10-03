@@ -45,7 +45,7 @@ public class HostelDal
         }
         catch (Exception ex)
         {
-           
+
             return null;
         }
     }
@@ -57,8 +57,11 @@ public class HostelDal
             SqlParameter[] sqlParameter = new SqlParameter[]
             {
                 new SqlParameter("@Owner_ID", SqlDbType.Int) { Value = CV.Owner_Id() },
-                new SqlParameter("@Hostel_Building_Number", SqlDbType.VarChar) { Value = hostel.Hostel_Building_Number },
+                new SqlParameter("@PG_Number", SqlDbType.VarChar) { Value = hostel.PG_Number },
                 new SqlParameter("@Hostel_Address", SqlDbType.VarChar) { Value = hostel.Hostel_Address },
+                new SqlParameter("@Hostel_MinimumPayment", SqlDbType.VarChar) { Value = hostel.Hostel_MinimumPayment },
+                new SqlParameter("@Hostel_Type", SqlDbType.VarChar) { Value = hostel.Hostel_Type },
+                new SqlParameter("@Hostel_Property_Category", SqlDbType.VarChar) { Value = hostel.Hostel_Property_Category },
             };
 
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Insert", sqlParameter);
@@ -114,8 +117,11 @@ public class HostelDal
             {
                 new SqlParameter("Id", SqlDbType.Int) { Value = hostel.Id },
                 new SqlParameter("Owner_ID", SqlDbType.Int) { Value = hostel.Owner_ID },
-                new SqlParameter("Hostel_Building_Number", SqlDbType.VarChar) { Value = hostel.Hostel_Building_Number },
-                new SqlParameter("Hostel_Address", SqlDbType.VarChar) { Value = hostel.Hostel_Address }
+                new SqlParameter("PG_Number", SqlDbType.VarChar) { Value = hostel.PG_Number },
+                new SqlParameter("Hostel_Address", SqlDbType.VarChar) { Value = hostel.Hostel_Address },
+                 new SqlParameter("@Hostel_MinimumPayment", SqlDbType.VarChar) { Value = hostel.Hostel_MinimumPayment },
+                new SqlParameter("@Hostel_Type", SqlDbType.VarChar) { Value = hostel.Hostel_Type },
+                new SqlParameter("@Hostel_Property_Category", SqlDbType.VarChar) { Value = hostel.Hostel_Property_Category },
             };
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Update", sqlParameter);
             if (value == -1)

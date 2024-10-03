@@ -29,7 +29,7 @@
                                 <div class="col col-stats ms-3 ms-sm-0">
                                     <div class="numbers">
                                         <p class="card-category">PG Building Number</p>
-                                        <h4 class="card-title">@dr["Hostel_Building_Number"]</h4>
+                                        <h4 class="card-title">@dr["PG_Number"]</h4>
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                 <div class="col col-stats ms-3 ms-sm-0">
                                     <div class="numbers">
                                         <p class="card-category">Room Number</p>
-                                        <h4 class="card-title">@dr["Room_Number"]</h4>
+                                        <h4 class="card-title">@dr["Room_SharingType"]</h4>
                                     </div>
                                 </div>
                             </div>
@@ -421,34 +421,4 @@
         }
     });
 
-</script>
-<script language="javascript">
-    function printDiv(divName) {
-        // Get the contents of the div to print
-        var printContents = document.getElementById(divName).innerHTML;
-
-        // Create a new iframe element
-        var printFrame = document.createElement('iframe');
-        printFrame.name = "printFrame";
-        printFrame.style.position = "absolute";
-        printFrame.style.top = "-1000px";
-        document.body.appendChild(printFrame);
-
-        // Get the iframe document and write the content
-        var frameDoc = printFrame.contentWindow ? printFrame.contentWindow : printFrame.contentDocument.document ? printFrame.contentDocument.document : printFrame.contentDocument;
-        frameDoc.document.open();
-        frameDoc.document.write('<html><head><title>Print Preview</title>');
-        frameDoc.document.write('<link rel="stylesheet" type="text/css" href="path/to/your/styles.css">'); // Link to your stylesheets if needed
-        frameDoc.document.write('</head><body>');
-        frameDoc.document.write(printContents);
-        frameDoc.document.write('</body></html>');
-        frameDoc.document.close();
-
-        // Print the iframe contents
-        setTimeout(function () {
-            frameDoc.focus();
-            frameDoc.print();
-            document.body.removeChild(printFrame); // Remove the iframe after printing
-        }, 500);
-    }
 </script>

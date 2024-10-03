@@ -41,8 +41,8 @@
                                 <thead>
                                     <tr>
                                         <th>Bed Number</th>
-                                        <th>Room Number</th>
-                                        <th>Hostel Building No</th> 
+                                        <th>Sharing Type</th>
+                                        <th>PG No</th> 
                                         @* <th>AllowcateBed</th> *@
                                         @* <th>Profession</th> *@
                                         <th>Action</th>
@@ -62,8 +62,8 @@
                                     {
                                         <tr>
                                             <td>@dr["Bed_Number"]</td>
-                                            <td>@dr["Room_Number"]</td>
-                                             <td>@dr["Hostel_Building_Number"]</td> 
+                                            <td>@dr["Room_SharingType"]</td>
+                                             <td>@dr["PG_Number"]</td> 
                                             <td>
                                                 <div class="form-button-action">
                                                     <a asp-area="PG_Room" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Room" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">

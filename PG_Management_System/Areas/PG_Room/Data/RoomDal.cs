@@ -53,17 +53,16 @@ namespace PG_Management_System.Areas.PG_Room.Data
         {
             try
             {
-                string baseRoomNumber = room.Room_Number.Split('-')[0];
-                string newRoomNumber = baseRoomNumber + "-" + room.Room_SharingType + "-" + room.Room_Type;
 
                 SqlParameter[] sqlParameter = new SqlParameter[]
                 {
                     new SqlParameter("Id", SqlDbType.Int) { Value = room.Id },
                     new SqlParameter("Hostel_ID", SqlDbType.Int) { Value = room.Hostel_ID },
-                    new SqlParameter("Room_Number", SqlDbType.VarChar) { Value = newRoomNumber },
                     new SqlParameter("Room_SharingType", SqlDbType.VarChar) { Value = room.Room_SharingType },
                     new SqlParameter("Room_Type", SqlDbType.VarChar) { Value = room.Room_Type },
-                    new SqlParameter("Room_GenderAllowed", SqlDbType.VarChar) { Value = room.Room_GenderAllowed }
+                    new SqlParameter("Room_GenderAllowed", SqlDbType.VarChar) { Value = room.Room_GenderAllowed },
+                    new SqlParameter("Room_Rent", SqlDbType.VarChar) { Value = room.Room_Rent},
+                    new SqlParameter("Room_Rent", SqlDbType.VarChar) { Value = room.Room_Floor }
                 };
 
                 int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Room_Update", sqlParameter);
@@ -88,11 +87,10 @@ namespace PG_Management_System.Areas.PG_Room.Data
         {
             try
             {
-                string checkroom = room.Room_Number + "-" + room.Room_SharingType + "-" + room.Room_Type;
 
                 SqlParameter[] checkParams = new SqlParameter[]
                 {
-                    new SqlParameter("Room_Number", SqlDbType.VarChar) { Value = checkroom },
+                    new SqlParameter("Room_SharingType", SqlDbType.VarChar) { Value = room.Room_SharingType },
                     new SqlParameter("Hostel_ID", SqlDbType.VarChar) { Value = room.Hostel_ID }
                 };
 
@@ -107,12 +105,13 @@ namespace PG_Management_System.Areas.PG_Room.Data
                 SqlParameter[] sqlParameter = new SqlParameter[]
                 {
                     new SqlParameter("Hostel_ID", SqlDbType.Int) { Value = room.Hostel_ID },
-                    new SqlParameter("Room_Number", SqlDbType.VarChar) { Value = room.Room_Number + "-" + room.Room_SharingType + "-" + room.Room_Type },
                     new SqlParameter("Room_SharingType", SqlDbType.VarChar) { Value = room.Room_SharingType },
                     new SqlParameter("Room_AllowcateBed", SqlDbType.VarChar) { Value = 0 },
                     new SqlParameter("Room_Createbed", SqlDbType.VarChar) { Value = 0 },
                     new SqlParameter("Room_Type", SqlDbType.VarChar) { Value = room.Room_Type },
-                    new SqlParameter("Room_GenderAllowed", SqlDbType.VarChar) { Value = room.Room_GenderAllowed }
+                    new SqlParameter("Room_GenderAllowed", SqlDbType.VarChar) { Value = room.Room_GenderAllowed },
+                    new SqlParameter("Room_Rent", SqlDbType.VarChar) { Value = room.Room_Rent},
+                    new SqlParameter("Room_Floor", SqlDbType.VarChar) { Value = room.Room_Floor }
                 };
 
                 int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Room_Insert", sqlParameter);

@@ -22,7 +22,7 @@ public class PG_AnnouncementController : Controller
     {
         PersonDal personDal = new PersonDal();
         ViewBag.HostelList = personDal.GetHostelListByOwnerID(_dbHelper);
-        return View();
+        return View("AddAnnouncement");
     }
 
     public IActionResult SaveAnnouncement(Announcement announcement)

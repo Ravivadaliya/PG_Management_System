@@ -192,7 +192,7 @@ public class PersonDal
             Hostel_DropDownModel model = new Hostel_DropDownModel
             {
                 Id = Convert.ToInt32(dr["Id"]),
-                Hostel_Building_Number = dr["Hostel_Building_Number"].ToString()
+                PG_Number = dr["PG_Number"].ToString()
             };
 
             // Add the mapped model to the list
@@ -215,7 +215,7 @@ public class PersonDal
             Room_DropDownModel model = new Room_DropDownModel
             {
                 Id = Convert.ToInt32(dr["Id"]),
-                Room_Number = dr["Room_Number"].ToString()
+                Room_SharingType = dr["Room_SharingType"].ToString()
             };
 
             // Add the mapped model to the list
@@ -237,7 +237,7 @@ public class PersonDal
             Room_DropDownModel model = new Room_DropDownModel
             {
                 Id = Convert.ToInt32(dr["Id"]),
-                Room_Number = dr["Room_Number"].ToString()
+                Room_SharingType = dr["Room_SharingType"].ToString()
             };
 
             // Add the mapped model to the list
@@ -318,7 +318,7 @@ public class PersonDal
             return new Room_DropDownModel
             {
                 Id = Convert.ToInt32(dr["Id"]),
-                Room_Number = dr["Room_Number"].ToString()
+                Room_SharingType = dr["Room_SharingType"].ToString()
             };
         }
         return null;
@@ -339,7 +339,7 @@ public class PersonDal
             return new Hostel_DropDownModel
             {
                 Id = Convert.ToInt32(dr["Id"]),
-                Hostel_Building_Number = dr["Hostel_Building_Number"].ToString()
+                PG_Number = dr["PG_Number"].ToString()
             };
         }
         return null;

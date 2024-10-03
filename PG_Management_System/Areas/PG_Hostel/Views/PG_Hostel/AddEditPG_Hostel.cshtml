@@ -6,7 +6,7 @@
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">Add Building</h3>
+            <h3 class="fw-bold mb-3">Add PG</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="#">
@@ -23,7 +23,7 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Add Building</a>
+                    <a href="#">Add PG</a>
                 </li>
             </ul>
         </div>
@@ -34,36 +34,76 @@
                     @Html.HiddenFor(x => x.Owner_ID)
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Fill PG_Hostel Details</div>
+                            <div class="card-title">Fill PG Details</div>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 col-lg-12">
                                     <div class="form-group">
                                         <label for="email2">Building Number</label>
-                                        <input type="text"
-                                               asp-for="Hostel_Building_Number"
-                                               class="form-control"
-                                               id="inlineinput"
-                                               placeholder="Enter Pg building number" required />
-                                        <span asp-validation-for="Hostel_Building_Number" class="text-danger"></span>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="PG_Number"
+                                                   class="form-control"
+                                                   id="inlineinput"
+                                                   placeholder="Enter Pg  number" required />
+                                            <span asp-validation-for="PG_Number" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email2">Minimum Payment</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Hostel_MinimumPayment"
+                                                   class="form-control"
+                                                   id="inlineinput"
+                                                   placeholder="Enter MinimumPayment" required />
+                                            <span asp-validation-for="Hostel_MinimumPayment" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Property Category</label>
+                                        <div class="col-md-9 p-0">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Hostel_Property_Category">
+                                                <option value="">Select Property Category *</option>
+                                                <option value="Own">Own</option>
+                                                <option value="Contract">Contract</option>
+                                            </select>
+                                            <span asp-validation-for="Hostel_Property_Category" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email2">PG Type</label>
+                                        <div class="col-md-9 p-0">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select PG" data-allow-clear="true" asp-for="Hostel_Type">
+                                                <option value="">Select PG Type*</option>
+                                                <option value="Flat">Flat</option>
+                                                <option value="Banglow">Banglow</option>
+                                            </select>
+                                            <span asp-validation-for="Hostel_Type" class="text-danger"></span>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="comment">Address</label>
-                                        <textarea type="text"
-                                                  asp-for="Hostel_Address"
-                                                  class="form-control input-full"
-                                                  id="inlineinput"
-                                                  form-control input-full
-                                                  placeholder="Enter Pg building Address" required>
+                                        <div class="col-md-9 p-0">
+                                            <textarea type="text"
+                                                      asp-for="Hostel_Address"
+                                                      class="form-control input-full"
+                                                      id="inlineinput"
+                                                      form-control input-full
+                                                      placeholder="Enter Pg building Address" required>
 
                                             </textarea>
-                                       @*  <input type="text"
-                                               asp-for="Hostel_Address"
-                                               class="form-control"
-                                               id="inlineinput"
-                                               placeholder="Enter Pg building Address" required /> *@
-                                        <span asp-validation-for="Hostel_Address" class="text-danger"></span>
+                                            @*  <input type="text"
+                                            asp-for="Hostel_Address"
+                                            class="form-control"
+                                            id="inlineinput"
+                                            placeholder="Enter Pg building Address" required /> *@
+                                            <span asp-validation-for="Hostel_Address" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
