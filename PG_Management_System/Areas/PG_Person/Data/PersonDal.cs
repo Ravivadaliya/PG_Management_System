@@ -7,6 +7,7 @@ using PG_Management_System.BAL;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PG_Management_System.Areas.PG_Person.Data;
 
@@ -224,7 +225,7 @@ public class PersonDal
         return room_DropDownModels;
     }
 
-    public List<Room_DropDownModel> GetRoomListByHostelIdForbed(DatabaseHelper _dbHelper, int Hostel_Id)
+    public List<Room_DropDownModel> GetRoomListByHostelIdForbed(DatabaseHelper _dbHelper, int? Hostel_Id)
     {
         SqlParameter[] sqlParameter = new SqlParameter[]
           {
@@ -347,16 +348,6 @@ public class PersonDal
 
 
 
-
-
-
-
-
-
-
-
-
-
     public DataTable GetAllPersonByOwnerId(DatabaseHelper _dbHelper)
     {
         try
@@ -366,6 +357,18 @@ public class PersonDal
                 new SqlParameter("Owner_Id", SqlDbType.Int) { Value = CV.Owner_Id() }
             };
             DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_PG_Person_SelectAllByOwnerId", sqlParameter);
+            return dataTable;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+    public DataTable GetAllPerson(DatabaseHelper _dbHelper)
+    {
+        try
+        {
+            DataTable dataTable = _dbHelper.ExecuteStoredProcedure("[SP_PG_Person_SelectAll]", null);
             return dataTable;
         }
         catch (Exception ex)
@@ -434,28 +437,30 @@ public class PersonDal
         {
             if (person.File != null)
             {
-                string file_loc = Path.Combine("wwwroot", "upload", person.Hostel_ID.ToString());
+                string file_loc = Path.Combine("wwwroot", "upload");
                 string full_path = Path.Combine(Directory.GetCurrentDirectory(), file_loc);
 
                 if (!Directory.Exists(full_path))
                 {
                     Directory.CreateDirectory(full_path);
                 }
-
                 string file_name_with_path = Path.Combine(full_path, person.File.FileName);
-                person.Person_Image = Path.Combine("upload", person.Hostel_ID.ToString(), person.File.FileName);
+                if (File.Exists(file_name_with_path))
+                {
+                    File.Delete(file_name_with_path);
+                }
+
+
+                person.Person_Image = Path.Combine("upload", person.File.FileName);
 
                 using (var stream = new FileStream(file_name_with_path, FileMode.Create))
                 {
                     person.File.CopyTo(stream);
                 }
             }
-            
+
             SqlParameter[] sqlParameter = new SqlParameter[]
             {
-                new SqlParameter("Bed_ID", SqlDbType.Int) { Value = person.Bed_ID },
-                new SqlParameter("Room_ID", SqlDbType.Int) { Value = person.Room_ID },
-                new SqlParameter("Hostel_ID", SqlDbType.Int) { Value = person.Hostel_ID },
                 new SqlParameter("Owner_Id", SqlDbType.Int) { Value = CV.Owner_Id() },
                 new SqlParameter("Person_Name", SqlDbType.VarChar) { Value = person.Person_Name },
                 new SqlParameter("Person_Surname", SqlDbType.VarChar) { Value = person.Person_Surname },
@@ -470,11 +475,13 @@ public class PersonDal
                 new SqlParameter("Person_WorkPlace_MobileNumber", SqlDbType.VarChar) { Value = person.Person_WorkPlace_MobileNumber },
                 new SqlParameter("Person_JoningDate", SqlDbType.Date) { Value = person.Person_JoningDate.ToDateTime(TimeOnly.MinValue) },
                 new SqlParameter("Person_Image", SqlDbType.NVarChar) { Value = person.Person_Image },
+                //new SqlParameter("Person_PaymentMode", SqlDbType.NVarChar) { Value = person.Person_PaymentMode },
+                new SqlParameter("Person_AadharCard", SqlDbType.NVarChar) { Value = person.Person_AadharCard },
                 new SqlParameter("Person_PassWord", SqlDbType.VarChar) { Value = person.Person_PassWord }
             };
 
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Person_Insert", sqlParameter);
-            return value != -1;
+            return value == -1 ? false : true;
         }
         catch (SqlException ex)
         {
@@ -482,6 +489,7 @@ public class PersonDal
         }
         catch (Exception ex)
         {
+
             return false;
         }
     }
@@ -492,7 +500,7 @@ public class PersonDal
         {
             if (person.File != null)
             {
-                string file_loc = Path.Combine("wwwroot", "upload", person.Hostel_ID.ToString());
+                string file_loc = Path.Combine("wwwroot", "upload");
                 string full_path = Path.Combine(Directory.GetCurrentDirectory(), file_loc);
 
                 if (!Directory.Exists(full_path))
@@ -507,7 +515,7 @@ public class PersonDal
                     File.Delete(file_name_with_path);
                 }
 
-                person.Person_Image = Path.Combine("upload", person.Hostel_ID.ToString(), person.File.FileName+person.Id);
+                person.Person_Image = Path.Combine("upload", person.File.FileName + person.Id);
 
                 using (var stream = new FileStream(file_name_with_path, FileMode.Create))
                 {
@@ -521,9 +529,6 @@ public class PersonDal
             SqlParameter[] sqlParameter = new SqlParameter[]
             {
                 new SqlParameter("Id", SqlDbType.Int) { Value = person.Id },
-                new SqlParameter("Bed_ID", SqlDbType.Int) { Value = person.Bed_ID },
-                new SqlParameter("Room_ID", SqlDbType.Int) { Value = person.Room_ID },
-                new SqlParameter("Hostel_ID", SqlDbType.Int) { Value = person.Hostel_ID },
                 new SqlParameter("Owner_Id", SqlDbType.Int) { Value = CV.Owner_Id() },
                 new SqlParameter("Person_Name", SqlDbType.VarChar) { Value = person.Person_Name },
                 new SqlParameter("Person_Surname", SqlDbType.VarChar) { Value = person.Person_Surname },
@@ -538,6 +543,8 @@ public class PersonDal
                 new SqlParameter("Person_WorkPlace_MobileNumber", SqlDbType.VarChar) { Value = person.Person_WorkPlace_MobileNumber },
                 new SqlParameter("Person_JoningDate", SqlDbType.Date) { Value = person.Person_JoningDate.ToDateTime(TimeOnly.MinValue) },
                 new SqlParameter("Person_Image", SqlDbType.NVarChar) { Value = person.Person_Image },
+                //new SqlParameter("Person_PaymentMode", SqlDbType.NVarChar) { Value = person.Person_PaymentMode },
+                new SqlParameter("Person_AadharCard", SqlDbType.NVarChar) { Value = person.Person_AadharCard },
                 new SqlParameter("Person_PassWord", SqlDbType.VarChar) { Value = person.Person_PassWord }
             };
 

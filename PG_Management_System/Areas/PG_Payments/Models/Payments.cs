@@ -29,6 +29,9 @@ namespace PG_Management_System.Areas.PG_Payments.Models
         [StringLength(100, ErrorMessage = "Payment Image path cannot exceed 100 characters.")]
         public string Payment_Image { get; set; }
 
+        [Required]
+
+        public DateTime Payment_DueDate { get; set; }
 
         [Required(ErrorMessage = "Payment Date is required.")]
         public DateTime PaymentDate { get; set; } = DateTime.Now;

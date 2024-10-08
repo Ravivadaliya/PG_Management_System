@@ -1,5 +1,6 @@
 ﻿using DatabaseHelperLibrary;
 using Microsoft.AspNetCore.Mvc;
+using PG_Management_System.Areas.Login.Models;
 using PG_Management_System.Areas.PG_Owner.Data;
 using PG_Management_System.Areas.PG_Owner.Models;
 using PG_Management_System.Areas.PG_Person.Data;
@@ -83,7 +84,7 @@ public class LoginController(DatabaseHelper dbHelper) : Controller
 				{
 					foreach (DataRow dr in dataTable.Rows)
 					{
-						HttpContext.Session.SetString("AdminId", dr["Id"].ToString());
+                        HttpContext.Session.SetString("AdminId", dr["Id"].ToString());
 						HttpContext.Session.SetString("Owner_Name", dr["Owner_Name"].ToString());
 						HttpContext.Session.SetString("Owner_PassWord", dr["Owner_PassWord"].ToString());
 						HttpContext.Session.SetString("Owner_EmailId", dr["Owner_EmailId"].ToString());

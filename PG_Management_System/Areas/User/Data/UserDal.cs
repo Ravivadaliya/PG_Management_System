@@ -148,10 +148,9 @@ public class UserDal
                 new SqlParameter("Person_Id",SqlDbType.Int){Value=payments.Person_Id},
                 new SqlParameter("Owner_Id",SqlDbType.Int){Value=payments.Owner_Id},
                 new SqlParameter("Payment_Image",SqlDbType.VarChar){Value = payments.Payment_Image},
-                new SqlParameter("Payment_Status",SqlDbType.Bit){Value = false}
             };
 
-            int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_InsertPGPayment", sqlParameters);
+            int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_InsertPGPaymentFromUser", sqlParameters);
             return value==-1 ? false : true;
         }
         catch (Exception ex)

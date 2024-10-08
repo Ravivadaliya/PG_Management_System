@@ -17,9 +17,7 @@ public class Room
     //[Required]
     //public string Room_Number { get; set; }
     
-    [Required]
-    public string Room_GenderAllowed { get; set; }
-    
+  
     [Required]
     public int Room_SharingType { get; set; }
 

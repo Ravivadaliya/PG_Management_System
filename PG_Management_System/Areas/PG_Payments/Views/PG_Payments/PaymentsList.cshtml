@@ -1,9 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/Admin/AdminLayout.cshtml";
 }
-@{
-    Layout = "~/Views/Shared/Admin/AdminLayout.cshtml";
-}
 
 @using System.Data;
 
@@ -48,8 +45,7 @@
                                         <th>Bed</th>
                                         <th>Room</th>
                                         <th>Hostel </th>
-                                        <th>Payment Date</th>
-                                        <th>Proof</th>
+                                        <th>Payment Duedate</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -74,22 +70,10 @@
                                             <td>@dr["PG_Number"]</td>
                                             <td>
                                                 @{
-                                                    var paymentDate = dr["Payment_Date"] == DBNull.Value ? "N/A" : Convert.ToDateTime(dr["Payment_Date"]).ToString("yyyy-MM-dd HH:mm");
+                                                    var paymentDate = dr["Payment_DueDate"] == DBNull.Value ? "N/A" : Convert.ToDateTime(dr["Payment_DueDate"]).ToString("yyyy-MM-dd");
                                                 }
                                                 @paymentDate
                                             </td>
-                                            <td>
-
-                                                <div class="avatar">
-                                                    <img src="@Url.Content("~/" + dr["Payment_Image"])"
-                                                         alt="@Url.Content("~/" + dr["Payment_Image"])"
-                                                         data-bs-toggle="modal"
-                                                         data-bs-target="#imageModal"
-                                                         class="avatar-img rounded-circle"
-                                                         onclick="showImageModal('@Url.Content("~/" + dr["Payment_Image"]).Replace("\\", "/")')">
-                                                </div>
-                                            </td>
-
                                             <td>
                                                 @{
                                                     int paymentStatus = dr["Payment_Status"] != DBNull.Value ? Convert.ToInt32(dr["Payment_Status"]) : 0;
@@ -97,10 +81,10 @@
                                                     if (paymentStatus == 0)
                                                     {
                                                         <div class="form-button-action">
-                                                            <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Issues" asp-controller="PG_Issues" asp-action="UpdateStatus" asp-route-Issue_Id="@dr["Id"]">
-                                                                <input type="hidden" name="Id" value="@Convert.ToInt32(dr["Id"])" />
+                                                            <form id="deleteForm-@dr["ID"]" method="post" asp-area="PG_Issues" asp-controller="PG_Issues" asp-action="UpdateStatus" asp-route-Issue_Id="@dr["ID"]">
+                                                                <input type="hidden" name="Id" value="@Convert.ToInt32(dr["ID"])" />
                                                                 <button class="btn btn-warning"
-                                                                        onclick="confirmDelete('@dr["Id"]')"
+                                                                        onclick="confirmDelete('@dr["ID"]')"
                                                                         type="button">
                                                                     <span class="btn-label">
                                                                         <i class="fa fa-exclamation-circle"></i>

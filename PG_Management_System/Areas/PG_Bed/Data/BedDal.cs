@@ -5,22 +5,22 @@ using System.Data;
 
 public class BedDal
 {
-    public bool InsertRoomData(DatabaseHelper _dbHelper, Bed bed)
+    public bool InsertBedData(DatabaseHelper _dbHelper, Bed bed)
     {
         try
         {
-            SqlParameter[] checkParams = new SqlParameter[]
-            {
-                new SqlParameter("Room_ID", SqlDbType.Int) { Value = bed.Room_ID },
-                new SqlParameter("Bed_Number", SqlDbType.VarChar) { Value = bed.Bed_Number }
-            };
+            //SqlParameter[] checkParams = new SqlParameter[]
+            //{
+            //    new SqlParameter("Room_ID", SqlDbType.Int) { Value = bed.Room_ID },
+            //    new SqlParameter("Bed_Number", SqlDbType.VarChar) { Value = bed.Bed_Number }
+            //};
 
-            object result = _dbHelper.ExecuteScalar("SP_CheckBedDuplicateEntry", checkParams);
+            //object result = _dbHelper.ExecuteScalar("SP_CheckBedDuplicateEntry", checkParams);
 
-            if (result != null && Convert.ToInt32(result) > 0)
-            {
-                return false;
-            }
+            //if (result != null && Convert.ToInt32(result) > 0)
+            //{
+            //    return false;
+            //}
 
             SqlParameter[] sqlParameter = new SqlParameter[]
             {
@@ -42,6 +42,7 @@ public class BedDal
         }
     }
 
+    
     public DataTable GetAllBedFromHostelId(DatabaseHelper _dbHelper, int hostelid)
     {
         try
@@ -84,5 +85,17 @@ public class BedDal
         {
             return false;
         }
+    }
+
+    public bool insertPersonOnBed(DatabaseHelper _dbHelper,int Bed_ID, int Person_ID)
+    {
+        SqlParameter[] sqlParameter = new SqlParameter[]
+        {
+            new SqlParameter("Bed_ID",SqlDbType.Int){Value= Bed_ID},
+            new SqlParameter("Person_ID",SqlDbType.Int){Value= Person_ID},
+        };
+
+        int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_InsertPersonOnBed", sqlParameter);
+        return value == -1 ? false : true;  
     }
 }

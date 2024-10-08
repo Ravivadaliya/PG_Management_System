@@ -1,5 +1,6 @@
 ﻿using DatabaseHelperLibrary;
 using Microsoft.AspNetCore.Mvc;
+using PG_Management_System.Areas.PG_Payments.Data;
 using PG_Management_System.Areas.PG_Payments.Models;
 using PG_Management_System.Areas.PG_Person.Data;
 using PG_Management_System.Areas.PG_Person.Models;
@@ -35,7 +36,9 @@ namespace PG_Management_System.Areas.User.Controllers
         }
         public IActionResult UserPaymentList()
         {
-            return View();
+            PaymentsDal paymentsDal = new PaymentsDal();
+            DataTable dataTable = paymentsDal.selectPaymentListFromPersonID(_dbHelper);
+            return View("UserPaymentList",dataTable);
         }
         public IActionResult UserDashBoard()
         {

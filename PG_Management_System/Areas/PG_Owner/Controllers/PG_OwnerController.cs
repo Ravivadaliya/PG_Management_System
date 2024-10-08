@@ -37,7 +37,7 @@ public class PG_OwnerController : Controller
         }
         catch (Exception ex)
         {
-            TempData["Message"] = $"An unexpected error occurred";
+            TempData["Message"] = $"A error occurred";
             TempData["AlertType"] = "error";
             return Json(null);
         }

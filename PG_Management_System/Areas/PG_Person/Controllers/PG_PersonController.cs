@@ -1,6 +1,8 @@
 ﻿using DatabaseHelperLibrary;
 using Microsoft.AspNetCore.Mvc;
 using PG_Management_System.Areas.PG_Bed.Models;
+using PG_Management_System.Areas.PG_Payments.Data;
+using PG_Management_System.Areas.PG_Payments.Models;
 using PG_Management_System.Areas.PG_Person.Data;
 using PG_Management_System.Areas.PG_Person.Models;
 using PG_Management_System.Areas.PG_Room.Models;
@@ -64,9 +66,9 @@ public class PG_PersonController : Controller
                     foreach (DataRow dr in dataTable.Rows)
                     {
                         person.Id = Convert.ToInt32(dr["Id"]);
-                        person.Bed_ID = Convert.ToInt32(dr["Bed_Id"]);
-                        person.Room_ID = Convert.ToInt32(dr["Room_Id"]);
-                        person.Hostel_ID = Convert.ToInt32(dr["Hostel_ID"]);
+                        //person.Bed_ID = Convert.ToInt32(dr["Bed_Id"]);
+                        //person.Room_ID = Convert.ToInt32(dr["Room_Id"]);
+                        //person.Hostel_ID = Convert.ToInt32(dr["Hostel_ID"]);
                         person.Person_Name = dr["Person_Name"].ToString();
                         person.Person_Surname = dr["Person_Surname"].ToString();
                         person.Person_Mobile_Number = dr["Person_Mobile_Number"].ToString();
@@ -80,53 +82,55 @@ public class PG_PersonController : Controller
                         person.Person_WorkPlace_MobileNumber = dr["Person_WorkPlace_MobileNumber"].ToString();
                         person.Person_JoningDate = DateOnly.FromDateTime(Convert.ToDateTime(dr["Person_JoningDate"]));
                         person.Person_Image = dr["Person_Image"].ToString();
+                        //person.Person_PaymentMode= dr["Person_PaymentMode"].ToString();
+                        person.Person_AadharCard = dr["Person_AadharCard"].ToString();
                         person.Person_PassWord = dr["Person_PassWord"].ToString();
 
-                        // Get the bed list based on the room ID
-                        var bedList = personDal.GetBedListByRoomID(_dbHelper, person.Room_ID);
-                        if (bedList.All(b => b.Id != person.Bed_ID))
-                        {
-                            var selectedBed = personDal.GetBedById(_dbHelper, person.Bed_ID);
-                            if (selectedBed != null)
-                            {
-                                bedList.Add(selectedBed);
-                            }
-                        }
-                        ViewBag.BedList = bedList;
+                        //// Get the bed list based on the room ID
+                        //var bedList = personDal.GetBedListByRoomID(_dbHelper, person.Room_ID);
+                        //if (bedList.All(b => b.Id != person.Bed_ID))
+                        //{
+                        //    var selectedBed = personDal.GetBedById(_dbHelper, person.Bed_ID);
+                        //    if (selectedBed != null)
+                        //    {
+                        //        bedList.Add(selectedBed);
+                        //    }
+                        //}
+                        //ViewBag.BedList = bedList;
 
-                        // Get the room list based on the hostel ID
-                        var roomList = personDal.GetRoomListByHostelId(_dbHelper, person.Hostel_ID);
-                        if (roomList.All(r => r.Id != person.Room_ID))
-                        {
-                            var selectedRoom = personDal.GetRoomById(_dbHelper, person.Room_ID);
-                            if (selectedRoom != null)
-                            {
-                                roomList.Add(selectedRoom);
-                            }
-                        }
-                        ViewBag.RoomList = roomList;
+                        //// Get the room list based on the hostel ID
+                        //var roomList = personDal.GetRoomListByHostelId(_dbHelper, person.Hostel_ID);
+                        //if (roomList.All(r => r.Id != person.Room_ID))
+                        //{
+                        //    var selectedRoom = personDal.GetRoomById(_dbHelper, person.Room_ID);
+                        //    if (selectedRoom != null)
+                        //    {
+                        //        roomList.Add(selectedRoom);
+                        //    }
+                        //}
+                        //ViewBag.RoomList = roomList;
 
-                        // Get the hostel list
-                        var hostelList = personDal.GetHostelListByOwnerID(_dbHelper);
-                        if (hostelList.All(h => h.Id != person.Hostel_ID))
-                        {
-                            var selectedHostel = personDal.GetHostelById(_dbHelper, person.Hostel_ID);
-                            if (selectedHostel != null)
-                            {
-                                hostelList.Add(selectedHostel);
-                            }
-                        }
-                        ViewBag.HostelList = hostelList;
+                        //// Get the hostel list
+                        //var hostelList = personDal.GetHostelListByOwnerID(_dbHelper);
+                        //if (hostelList.All(h => h.Id != person.Hostel_ID))
+                        //{
+                        //    var selectedHostel = personDal.GetHostelById(_dbHelper, person.Hostel_ID);
+                        //    if (selectedHostel != null)
+                        //    {
+                        //        hostelList.Add(selectedHostel);
+                        //    }
+                        //}
+                        //ViewBag.HostelList = hostelList;
                     }
                     Person_Image = person.Person_Image;
                     return View("AddEditPerson", person);
                 }
             }
 
-            // Set default lists if no Person_Id is provided
-            ViewBag.HostelList = personDal.GetHostelListByOwnerID(_dbHelper);
-            ViewBag.RoomList = new List<Room_DropDownModel>();
-            ViewBag.BedList = new List<Bed_DropDownmodel>();
+            //// Set default lists if no Person_Id is provided
+            //ViewBag.HostelList = personDal.GetHostelListByOwnerID(_dbHelper);
+            //ViewBag.RoomList = new List<Room_DropDownModel>();
+            //ViewBag.BedList = new List<Bed_DropDownmodel>();
 
             return View("AddEditPerson");
         }
@@ -256,4 +260,135 @@ public class PG_PersonController : Controller
             return Json(null);
         }
     }
+
+
+    #region Automatic payment genrate
+
+
+    //public void GeneratePaymentRequests()
+    //{
+    //    PersonDal personDal = new PersonDal();
+    //    DataTable personTable = personDal.GetAllPerson(_dbHelper);
+
+    //    foreach (DataRow dr in personTable.Rows)
+    //    {
+    //        PaymentPerson person = MapDataRowToPerson(dr); // Map DataRow to Person object
+
+    //        // Check if a new payment request should be generated based on the person's plan
+    //        if (ShouldGeneratePaymentRequest(person))
+    //        {
+    //            // Create a new payment request for the person
+    //            Payments payment = new Payments
+    //            {
+    //                Person_Id = person.Id,
+    //                Owner_Id = person.Owner_ID,
+    //                Payment_DueDate = CalculatePaymentDeadline(person),
+    //                PaymentStatus = false,
+    //                Payment_Image = string.Empty
+    //            };
+
+    //            // Save payment request to the database
+    //            SavePaymentRequestToDatabase(payment);
+    //        }
+    //    }
+    //}
+
+    //// Method to map DataRow to Person object
+    //private PaymentPerson MapDataRowToPerson(DataRow dr)
+    //{
+    //    return new PaymentPerson
+    //    {
+    //        Id = Convert.ToInt32(dr["Id"]),
+    //        Bed_ID = Convert.ToInt32(dr["Bed_ID"]),
+    //        Room_ID = Convert.ToInt32(dr["Room_ID"]),
+    //        Hostel_ID = Convert.ToInt32(dr["Hostel_ID"]),
+    //        Owner_ID = Convert.ToInt32(dr["Owner_ID"]),
+    //        Person_PaymentMode = dr["Person_PaymentMode"].ToString()
+    //    };
+    //}
+
+    //// Check if a payment request should be generated
+    //private bool ShouldGeneratePaymentRequest(PaymentPerson person)
+    //{
+    //    Payments latestPayment = GetLatestPaymentForPerson(person.Id);
+
+    //    if (latestPayment == null)
+    //    {
+    //        // No previous payment exists, create a new one
+    //        return true;
+    //    }
+
+    //    // Determine if the payment request should be generated based on the person's plan
+    //    switch (person.Person_PaymentMode.ToLower())
+    //    {
+    //        case "daily":
+    //            return latestPayment.PaymentDate.AddDays(1) <= DateTime.Now;
+
+    //        case "weekly":
+    //            return latestPayment.PaymentDate.AddDays(7) <= DateTime.Now;
+
+    //        case "monthly":
+    //            return latestPayment.PaymentDate.AddMonths(1) <= DateTime.Now;
+
+    //        default:
+    //            return false;
+    //    }
+    //}
+
+    //// Calculate the payment deadline based on the person's chosen plan
+    //private DateTime CalculatePaymentDeadline(PaymentPerson person)
+    //{
+    //    switch (person.Person_PaymentMode.ToLower())
+    //    {
+    //        case "daily":
+    //            return DateTime.Now.AddDays(1);
+
+    //        case "weekly":
+    //            return DateTime.Now.AddDays(2);
+
+    //        case "monthly":
+    //            return DateTime.Now.AddDays(4);
+
+    //        default:
+    //            throw new Exception("Invalid plan chosen by the person");
+    //    }
+    //}
+
+    //// Save payment request to the database
+    //private void SavePaymentRequestToDatabase(Payments payment)
+    //{
+    //    // Assuming there's a PaymentDal that handles saving payment data
+    //    PaymentsDal paymentDal = new PaymentsDal();
+    //    paymentDal.SavePayment(_dbHelper, payment);
+    //}
+
+    //// Fetch the latest payment for a person
+    //private Payments GetLatestPaymentForPerson(int personId)
+    //{
+    //    PaymentsDal paymentDal = new PaymentsDal();
+    //    DataTable paymentTable = paymentDal.GetLatestPaymentByPersonId(_dbHelper, personId);
+
+    //    if (paymentTable.Rows.Count > 0)
+    //    {
+    //        DataRow dr = paymentTable.Rows[0];
+    //        return new Payments
+    //        {
+    //            ID = Convert.ToInt32(dr["ID"]),
+    //            Person_Id = Convert.ToInt32(dr["Person_Id"]),
+    //            Owner_Id = Convert.ToInt32(dr["Owner_Id"]),
+    //            Payment_DueDate = Convert.ToDateTime(dr["Payment_DueDate"]).Date,
+    //            PaymentStatus = Convert.ToBoolean(dr["Payment_Status"]),
+    //        };
+    //    }
+
+    //    return null;
+    //}
+
+
+    #endregion 
+
+
 }
+
+
+

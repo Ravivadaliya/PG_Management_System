@@ -64,6 +64,9 @@ namespace PG_Management_System.Areas.PG_Hostel.Controllers
                         hostel.Hostel_MinimumPayment = dr["Hostel_MinimumPayment"].ToString();
                         hostel.Hostel_Type = dr["Hostel_Type"].ToString();
                         hostel.Hostel_Property_Category = dr["Hostel_Property_Category"].ToString();
+                        hostel.Hostel_Floor = dr["Hostel_Floor"].ToString();
+                        hostel.Hostel_Society = dr["Hostel_Society"].ToString();
+                        hostel.Hostel_Gender = dr["Hostel_Gender"].ToString();
                     }
 
                     return View("AddEditPG_Hostel", hostel);

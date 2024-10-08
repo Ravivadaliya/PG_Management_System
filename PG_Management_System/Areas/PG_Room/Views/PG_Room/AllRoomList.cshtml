@@ -40,8 +40,8 @@
                                    class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Floor</th>
-                                        <th>GenderAllowed</th>
+                                        @* <th>Floor</th> *@
+                                        @* <th>GenderAllowed</th> *@
                                         <th>SharingType</th>
                                         <th>AllowcateBed</th>
                                         <th>Available Bed</th> 
@@ -50,8 +50,8 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
+                                        @* <th>Name</th> *@
+                                   @*      <th>Position</th> *@
                                         <th>Office</th>
                                         <th>Age</th>
                                         <th>Age</th>
@@ -62,8 +62,6 @@
                                    @foreach (DataRow dr in Model.Rows)
                                     {
                                         <tr>
-                                            <td>@dr["Room_Floor"]</td>
-                                            <td>@dr["Room_GenderAllowed"]</td>
                                             <td>@dr["Room_SharingType"]</td>
                                             <td>@dr["Room_AllowcateBed"]</td>
                                             <td>@dr["Room_Createbed"]</td>

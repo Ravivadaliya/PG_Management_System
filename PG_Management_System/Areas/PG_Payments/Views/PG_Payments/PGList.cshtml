@@ -42,7 +42,8 @@
                                     <tr>
                                         <th>Building No</th>
                                         <th>Address</th>
-                                        <th>Person List</th>
+                                        <th>Pendding Payment</th>
+                                        <th>Complete Payment</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,7 +57,14 @@
                                             <td>@dr["Hostel_Address"]</td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a asp-area="PG_Payments" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Payments" asp-action="PaymentsList" asp-route-Hostel_Id="@Convert.ToInt32(dr["Id"])">
+                                                    <a asp-area="PG_Payments" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Payments" asp-action="penddingfPaymentsList" asp-route-Hostel_Id="@Convert.ToInt32(dr["Id"])">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-button-action">
+                                                    <a asp-area="PG_Payments" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Payments" asp-action="completePaymentsList" asp-route-Hostel_Id="@Convert.ToInt32(dr["Id"])">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 </div>

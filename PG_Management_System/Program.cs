@@ -1,9 +1,36 @@
 using DatabaseHelperLibrary;
+using Hangfire;
+using Hangfire.SqlServer;
+using PG_Management_System.Areas.PG_Person.Controllers;
+using PG_Management_System.Areas.PG_Person.Data;
+using PG_Management_System.Areas.PG_Person.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+// Add Hangfire services
+builder.Services.AddHangfire(config =>
+{
+    config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+          .UseSimpleAssemblyNameTypeSerializer()
+          .UseRecommendedSerializerSettings()
+          .UseSqlServerStorage(builder.Configuration.GetConnectionString("myConnectionStrings"), new SqlServerStorageOptions
+          {
+              CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+              SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+              QueuePollInterval = TimeSpan.Zero,
+              UseRecommendedIsolationLevel = true,
+              DisableGlobalLocks = true
+          });
+});
+
+// Add Hangfire server
+builder.Services.AddHangfireServer();
+
+
 builder.Services.AddSingleton<DatabaseHelper>(sp =>
     new DatabaseHelper(builder.Configuration.GetConnectionString("myConnectionStrings")));
 builder.Services.AddHostedService<DatabaseService>(); // Register the lifecycle service
@@ -102,4 +129,12 @@ app.MapControllerRoute(
     pattern: "{area:exists}/{controller=Home}/{action=Dashboard}/{id?}");
 
 
+//using (var scope = app.Services.CreateScope())
+//{
+//    var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+//    recurringJobManager.AddOrUpdate<PG_PersonController>(
+//        "generate-payment-requests",
+//        service => service.GeneratePaymentRequests(),
+//        "*/1 * * * *");
+//}
 app.Run();

@@ -29,10 +29,20 @@ public class PG_PaymentsController(DatabaseHelper _dbHelper) : Controller
         }
     }
 
-    public IActionResult PaymentsList(int Hostel_Id)
+    public IActionResult penddingfPaymentsList(int Hostel_Id)
     {
         PaymentsDal paymentsDal = new PaymentsDal();
-        DataTable dataTable = paymentsDal.GetPaymentListByOwnerId(_dbHelper,Hostel_Id);
+        DataTable dataTable = paymentsDal.GetPenddingPaymentListByOwnerId(_dbHelper, Hostel_Id);
         return View("PaymentsList", dataTable);
     }
+
+    public IActionResult completePaymentsList(int Hostel_Id)
+    {
+        PaymentsDal paymentsDal = new PaymentsDal();
+        DataTable dataTable = paymentsDal.GetCompletePaymentListByOwnerId(_dbHelper, Hostel_Id);
+        return View("PaymentsList", dataTable);
+    }
+
+
+
 }

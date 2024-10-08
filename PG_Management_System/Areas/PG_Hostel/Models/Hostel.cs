@@ -16,12 +16,11 @@ public class Hostel
     public Owner Owner { get; set; }
 
     [Required]
-    [StringLength(10)]
+    [StringLength(20)]
     public string PG_Number { get; set; }
 
-
     [Required]
-    [StringLength(10)]
+    [StringLength(20)]
     public string Hostel_MinimumPayment { get; set; }
     [Required]
     [StringLength(10)]
@@ -33,6 +32,19 @@ public class Hostel
     [Required]
     [StringLength(100)]
     public string Hostel_Address { get; set; }
+
+    [Required]
+    [StringLength(30)]
+    public string Hostel_Floor { get; set; }
+
+    [Required]
+    [StringLength(30)]
+    public string Hostel_Society { get; set; }
+
+    [Required]
+    [StringLength(10)]
+    public string Hostel_Gender{ get; set; }
+
 
     public DateOnly Hostel_CreatedDate { get; set; }
     public DateOnly Hostel_ModificationDate { get; set; }

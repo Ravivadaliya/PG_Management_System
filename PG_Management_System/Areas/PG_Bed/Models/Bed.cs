@@ -20,6 +20,11 @@ public class Bed
     public bool Bed_Status { get; set; } = false; // Default value is false
 
     [Required]
+    public int Person_Id { get; set; }
+
+    public string Mobile_Number { get; set; }
+
+    [Required]
     public DateTime Bed_CreatedDate { get; set; } = DateTime.Now;
 
     [Required]
@@ -32,3 +37,11 @@ public class Bed_DropDownmodel
    public  int Id { get; set; }
    public string Bed_Number { get; set; }
 }
+
+
+public class Bed_PersonIdMobile
+{
+    public int Person_ID { get; set; }
+    public string Mobile_Number { get; set; }
+}
+

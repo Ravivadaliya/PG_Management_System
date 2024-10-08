@@ -39,31 +39,27 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 col-lg-12">
-
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Select Room Sharing</label>
-                                            <div class="col-md-9 p-0">
-                                                <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList, "Id", "Room_SharingType"))">
-                                                    <option value="">Select Room</option>
-                                                </select>
-                                                <span asp-validation-for="Room_ID" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                
                                     <div class="form-group form-inline">
-                                        <label for="inlineinput"
-                                               class="col-md-3 col-form-label">Enter Bed Number*</label>
+                                        <label for="inlineinput" class="col-md-3 col-form-label">Select Room Sharing</label>
                                         <div class="col-md-9 p-0">
-                                            <input type="text"
-                                                   asp-for="Bed_Number"
-                                                   class="form-control input-full"
-                                                   id="inlineinput"
-                                                   placeholder="101" />
+                                            <select id="roomSelect" class="form-control input-full" onchange="onRoomSharingChange()" data-control="select2" data-placeholder="Select PG Hostel" data-allow-clear="true" asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList, "Id", "Room_SharingType"))">
+                                                <option value="">Select Room</option>
+                                            </select>
+                                            <span asp-validation-for="Room_ID" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput" class="col-md-3 col-form-label">Enter Bed Number*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text" asp-for="Bed_Number" class="form-control input-full" id="inlineinput" value="@ViewBag.PG_Number" placeholder="" readonly />
                                             <span asp-validation-for="Bed_Number" class="text-danger"></span>
                                         </div>
                                     </div>
-                                  
+
+                                    <input type="hidden" asp-for="Bed_Number" />
+    
+
                                 </div>
                             </div>
                         </div>
@@ -82,3 +78,20 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+<script>
+    function onRoomSharingChange() {
+        // Get the selected room sharing text from the dropdown
+        var roomSelectElement = document.getElementById('roomSelect');
+        var selectedOptionText = roomSelectElement.options[roomSelectElement.selectedIndex].text;
+
+        // Get the PG_Number from ViewBag
+        var pgNumber = "@ViewBag.PG_Number";
+
+        // Update the value of the input field
+        document.getElementById('inlineinput').value = pgNumber + ' - ' + selectedOptionText;
+
+        // Optional: Log the result to verify
+        console.log(pgNumber + ' - ' + selectedOptionText);
+    }
+</script>

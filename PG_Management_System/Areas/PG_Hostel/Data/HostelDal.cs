@@ -62,6 +62,9 @@ public class HostelDal
                 new SqlParameter("@Hostel_MinimumPayment", SqlDbType.VarChar) { Value = hostel.Hostel_MinimumPayment },
                 new SqlParameter("@Hostel_Type", SqlDbType.VarChar) { Value = hostel.Hostel_Type },
                 new SqlParameter("@Hostel_Property_Category", SqlDbType.VarChar) { Value = hostel.Hostel_Property_Category },
+                new SqlParameter("@Hostel_Floor", SqlDbType.VarChar) { Value = hostel.Hostel_Floor },
+                new SqlParameter("@Hostel_Society", SqlDbType.VarChar) { Value = hostel.Hostel_Society },
+                new SqlParameter("@Hostel_Gender", SqlDbType.VarChar) { Value = hostel.Hostel_Gender },
             };
 
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Insert", sqlParameter);
@@ -119,10 +122,13 @@ public class HostelDal
                 new SqlParameter("Owner_ID", SqlDbType.Int) { Value = hostel.Owner_ID },
                 new SqlParameter("PG_Number", SqlDbType.VarChar) { Value = hostel.PG_Number },
                 new SqlParameter("Hostel_Address", SqlDbType.VarChar) { Value = hostel.Hostel_Address },
-                 new SqlParameter("@Hostel_MinimumPayment", SqlDbType.VarChar) { Value = hostel.Hostel_MinimumPayment },
+                new SqlParameter("@Hostel_MinimumPayment", SqlDbType.VarChar) { Value = hostel.Hostel_MinimumPayment },
                 new SqlParameter("@Hostel_Type", SqlDbType.VarChar) { Value = hostel.Hostel_Type },
                 new SqlParameter("@Hostel_Property_Category", SqlDbType.VarChar) { Value = hostel.Hostel_Property_Category },
-            };
+                new SqlParameter("@Hostel_Floor", SqlDbType.VarChar) { Value = hostel.Hostel_Floor },
+                new SqlParameter("@Hostel_Society", SqlDbType.VarChar) { Value = hostel.Hostel_Society },
+                new SqlParameter("@Hostel_Gender", SqlDbType.VarChar) { Value = hostel.Hostel_Gender},
+          };
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Update", sqlParameter);
             if (value == -1)
             {

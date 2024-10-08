@@ -57,7 +57,7 @@
                                             <td>@dr["Hostel_Address"]</td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a asp-area="PG_Bed" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Bed" asp-action="AddBed" asp-route-Hostel_Id="@Convert.ToInt32(dr["Id"])">
+                                                    <a asp-area="PG_Bed" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Bed" asp-action="AddBed" asp-route-Hostel_Id="@Convert.ToInt32(dr["Id"])" asp-route-PG_Number="@dr["PG_Number"]">
                                                         <i class="fas fa-plus-circle"></i>
                                                     </a>
                                                 </div>

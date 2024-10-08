@@ -46,9 +46,11 @@
                                    class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Building No</th>
+                                        <th>Pg No</th>
                                         <th>Address</th>
                                         <th>Type</th>
+                                        <th>Gender</th>
+                                        <th>Floor</th>
                                         <th>Created Date</th>
                                         <th>Modification Date</th>
                                         <th>Action</th>
@@ -64,6 +66,8 @@
                                             <td>@dr["PG_Number"]</td>
                                             <td>@dr["Hostel_Address"]</td>
                                             <td>@dr["Hostel_Type"]</td>
+                                            <td>@dr["Hostel_Gender"]</td>
+                                            <td>@dr["Hostel_Floor"]</td>
                                             <td>@Convert.ToDateTime(dr["Hostel_CreatedDate"]).ToString("dd-MM-yyyy")</td>
                                             <td>@Convert.ToDateTime(dr["Hostel_Modificationdate"]).ToString("dd-MM-yyyy")</td>
                                             <td>

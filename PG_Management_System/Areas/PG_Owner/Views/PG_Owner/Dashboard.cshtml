@@ -455,7 +455,7 @@
         </div>
     </div>
 </div>
-
+@* 
 <script>
     $(document).ready(function () {
         $.ajax({
@@ -467,6 +467,7 @@
             success: function (Result) {
                 // Assuming Result is an object containing counts
                 if (Result) {
+                    alert(JSON.stringify(Result))
                     $("#TotalPg").text(Result.totalHostel||0); 
                     $("#TotalRoom").text(Result.totalRoom || 0); 
                     $("#TotalPerson").text(Result.totalPerson || 0);
@@ -483,4 +484,4 @@
             }
         });
     });
-</script>
+</script> *@

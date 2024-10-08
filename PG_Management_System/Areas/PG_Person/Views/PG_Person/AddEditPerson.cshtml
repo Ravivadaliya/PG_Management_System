@@ -1,91 +1,91 @@
-﻿    @{
-        Layout = "~/Views/Shared/Admin/AdminLayout.cshtml";
-    }
+﻿@{
+    Layout = "~/Views/Shared/Admin/AdminLayout.cshtml";
+}
     @model PG_Management_System.Areas.PG_Person.Models.Person;
-    <div class="container">
-        <div class="page-inner">
-            <div class="page-header">
-                <h3 class="fw-bold mb-3">Add Person</h3>
-                <ul class="breadcrumbs mb-3">
-                    <li class="nav-home">
-                        <a href="#">
-                            <i class="icon-home"></i>
-                        </a>
-                    </li>
-                    <li class="separator">
-                        <i class="icon-arrow-right"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">Person</a>
-                    </li>
-                    <li class="separator">
-                        <i class="icon-arrow-right"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">Add Person</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Add Person</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="#">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Person</a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Add Person</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <form asp-area="PG_Person" asp-controller="PG_Person" asp-action="SavePerson" enctype="multipart/form-data" method="post">
-                        @Html.HiddenFor(x => x.Id)
-                        @Html.HiddenFor(x => x.Owner_ID)
-                        @Html.HiddenFor(x=>x.Person_Image)
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">Fill Person Details</div>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6 col-lg-12">
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Enter Name*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text"
-                                                       asp-for="Person_Name"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                       placeholder="xyz" />
-                                                <span asp-validation-for="Person_Name" class="text-danger"></span>
-                                            </div>
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.HiddenFor(x => x.Owner_ID)
+                    @Html.HiddenFor(x => x.Person_Image)
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Fill Person Details</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-12">
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter Name*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Person_Name"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="xyz" />
+                                            <span asp-validation-for="Person_Name" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Enter Surname*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text"
-                                                       asp-for="Person_Surname"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                       placeholder="abc" />
-                                                <span asp-validation-for="Person_Surname" class="text-danger"></span>
-                                            </div>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter Surname*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Person_Surname"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="abc" />
+                                            <span asp-validation-for="Person_Surname" class="text-danger"></span>
                                         </div>
+                                    </div>
 
-
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Select PG</label>
-                                            <div class="col-md-9 p-0">
+@* 
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Select PG</label>
+                                        <div class="col-md-9 p-0">
                                             <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" asp-for="Hostel_ID" asp-items="@(new SelectList(ViewBag.HostelList, "Id", "PG_Number"))" onchange="OnHostelChange();">
-                                                    <option value="">Select Hostel</option>
-                                                </select>
-                                                <span asp-validation-for="Hostel_ID" class="text-danger"></span>
-                                            </div>
+                                                <option value="">Select Hostel</option>
+                                            </select>
+                                            <span asp-validation-for="Hostel_ID" class="text-danger"></span>
                                         </div>
+                                    </div>
 
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Select Room Sharing</label>
-                                            <div class="col-md-9 p-0">
-                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room"  asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList,"Id","Room_SharingType"))" onchange="OnRoomChange();">
-                                                    <option value="">Select Room Sharing</option>
-                                                </select>
-                                                <span asp-validation-for="Room_ID" class="text-danger"></span>
-                                            </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Select Room Sharing</label>
+                                        <div class="col-md-9 p-0">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room" asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList,"Id","Room_SharingType"))" onchange="OnRoomChange();">
+                                                <option value="">Select Room Sharing</option>
+                                            </select>
+                                            <span asp-validation-for="Room_ID" class="text-danger"></span>
                                         </div>
+                                    </div>
 
                                     <div class="form-group form-inline">
                                         <label for="inlineinput"
@@ -96,84 +96,84 @@
                                             </select>
                                             <span asp-validation-for="Bed_ID" class="text-danger"></span>
                                         </div>
+                                    </div> *@
+
+
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter Mobile Number*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Person_Mobile_Number"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="Enter Mobile Number" />
+                                            <span asp-validation-for="Person_Mobile_Number" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter Parent Mobile Number*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Person_Parent_Mobile_Number"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="Enter Mobile Number" />
+                                            <span asp-validation-for="Person_Parent_Mobile_Number" class="text-danger"></span>
+                                        </div>
                                     </div>
 
 
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Enter Mobile Number*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text"
-                                                       asp-for="Person_Mobile_Number"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                   placeholder="Enter Mobile Number" />
-                                                <span asp-validation-for="Person_Mobile_Number" class="text-danger"></span>
-                                            </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter EmailId*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="email"
+                                                   asp-for="Person_Email_ID"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="Your Email" />
+                                            <span asp-validation-for="Person_Email_ID" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Enter Parent Mobile Number*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text"
-                                                       asp-for="Person_Parent_Mobile_Number"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                       placeholder="Enter Mobile Number" />
-                                                <span asp-validation-for="Person_Parent_Mobile_Number" class="text-danger"></span>
-                                            </div>
-                                        </div>
+                                    </div>
 
-
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Enter EmailId*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="email"
-                                                       asp-for="Person_Email_ID"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                       placeholder="Your Email" />
-                                                <span asp-validation-for="Person_Email_ID" class="text-danger"></span>
-                                            </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter City*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Person_City"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="" />
+                                            <span asp-validation-for="Person_City" class="text-danger"></span>
                                         </div>
-
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Enter City*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text"
-                                                       asp-for="Person_City"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                       placeholder="" />
-                                                <span asp-validation-for="Person_City" class="text-danger"></span>
-                                            </div>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter WorkPlace*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Person_WorkPlace"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="" />
+                                            <span asp-validation-for="Person_WorkPlace" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Enter WorkPlace*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text"
-                                                       asp-for="Person_WorkPlace"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                       placeholder="" />
-                                                <span asp-validation-for="Person_WorkPlace" class="text-danger"></span>
-                                            </div>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter WorkPlace Contact number*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Person_WorkPlace_MobileNumber"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="" />
+                                            <span asp-validation-for="Person_WorkPlace_MobileNumber" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Enter WorkPlace Contact number*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text"
-                                                       asp-for="Person_WorkPlace_MobileNumber"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                       placeholder="" />
-                                                <span asp-validation-for="Person_WorkPlace_MobileNumber" class="text-danger"></span>
-                                            </div>
-                                        </div>
+                                    </div>
 
                                     <div class="form-group form-inline">
                                         <label for="inlineinput"
@@ -187,143 +187,138 @@
                                             <span asp-validation-for="Person_Gender" class="text-danger"></span>
                                         </div>
                                     </div>
-                                        @* <div class="form-group">
-                                            <label>Gender*</label><br />
-                                            <div class="d-flex">
-                                                <div class="form-check">
-                                                    <input class="form-check-input"
-                                                           asp-for="Person_Gender"
-                                                           type="radio"
-                                                           name="flexRadioDefault"
-                                                           value="Male"
-                                                           id="flexRadioDefault1" />
-                                                    <label class="form-check-label"
-                                                           for="flexRadioDefault1">
-                                                        Male
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input"
-                                                           asp-for="Person_Gender"
-                                                           type="radio"
-                                                           name="flexRadioDefault"
-                                                           value="Female"
-                                                           id="flexRadioDefault2" />
-                                                    <label class="form-check-label"
-                                                           for="flexRadioDefault2">''
-                                                        Female
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <span asp-validation-for="Person_Gender" class="text-danger"></span>
-                                        </div> *@
 
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Enter Profession*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text"
-                                                       asp-for="Person_Profession"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                       placeholder="" />
-                                                <span asp-validation-for="Person_Profession" class="text-danger"></span>
-                                            </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter Profession*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Person_Profession"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="" />
+                                            <span asp-validation-for="Person_Profession" class="text-danger"></span>
                                         </div>
+                                    </div>
 
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Enter Address*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text"
-                                                       asp-for="Person_Address"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                       placeholder="" />
-                                                <span asp-validation-for="Person_Address" class="text-danger"></span>
-                                            </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter Address*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Person_Address"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="" />
+                                            <span asp-validation-for="Person_Address" class="text-danger"></span>
                                         </div>
+                                    </div>
 
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Enter Person JoningDate*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="date"
-                                                       asp-for="Person_JoningDate"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                       placeholder="" />
-                                                <span asp-validation-for="Person_JoningDate" class="text-danger"></span>
-                                            </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Enter Person JoningDate*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="date"
+                                                   asp-for="Person_JoningDate"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="" />
+                                            <span asp-validation-for="Person_JoningDate" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlFile1">Upload Your Photo</label>
-                                            <input type="file"
+                                    </div>
+                                   @*  <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Select Payment Mode*</label>
+                                        <div class="col-md-9 p-0">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Mode" data-allow-clear="true" asp-for="Person_PaymentMode">
+                                                <option value="">Select Gender*</option>
+                                                <option value="Daily">Daily</option>
+                                                <option value="Weekly">Weekly</option>
+                                                <option value="Monthly">Monthly</option>
+                                            </select>
+                                            <span asp-validation-for="Person_PaymentMode" class="text-danger"></span>
+                                        </div>
+                                    </div> *@
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload Your Photo</label>
+                                        <input type="file"
                                                asp-for="File"
-                                                   class="form-control-file"
-                                                   id="exampleFormControlFile1" />
+                                               class="form-control-file"
+                                               id="exampleFormControlFile1" />
                                         <span asp-validation-for="File" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Upload AadharCard*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Person_AadharCard"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="" />
+                                            <span asp-validation-for="Person_AadharCard" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput"
-                                                   class="col-md-3 col-form-label">Set Password*</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text"
-                                                       asp-for="Person_PassWord"
-                                                       class="form-control input-full"
-                                                       id="inlineinput"
-                                                       placeholder="" />
-                                                <span asp-validation-for="Person_PassWord" class="text-danger"></span>
-                                            </div>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Set Password*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Person_PassWord"
+                                                   class="form-control input-full"
+                                                   id="inlineinput"
+                                                   placeholder="" />
+                                            <span asp-validation-for="Person_PassWord" class="text-danger"></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-action">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="reset" class="btn btn-danger">Cancel</button>
-                            </div>
                         </div>
-                    </form>
-                </div>
+                        <div class="card-action">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="reset" class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        function OnHostelChange() {
-            var Hostel_Id = $("#Hostel_ID").val();
-            // var UserID = $("#Room_Id").val();
+<script>
+    function OnHostelChange() {
+        var Hostel_Id = $("#Hostel_ID").val();
+        // var UserID = $("#Room_Id").val();
 
-            if (Hostel_Id !== "") {
-                $("#Room_ID").empty();
-                $("#Room_ID").append($("<option></option>").val("").html("Select Room"));
-                $.ajax(
-                    {
-                        type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        url: "@Url.Action("PG_Room_RoomDropDownByHostelId", "PG_Person", new { area = "PG_Person" })" + "?&Hostel_Id=" + Hostel_Id,
-                        data: {},
-                        dataType: "json",
-                        success: function (Result) {
-                            $.each(Result, function (index, item) {
-                                $("#Room_ID").append($("<option></option>").val(item.id).html(item.room_SharingType));
-                                // alert(JSON.stringify(item));
-                            });
-                        },
+        if (Hostel_Id !== "") {
+            $("#Room_ID").empty();
+            $("#Room_ID").append($("<option></option>").val("").html("Select Room"));
+            $.ajax(
+                {
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "@Url.Action("PG_Room_RoomDropDownByHostelId", "PG_Person", new { area = "PG_Person" })" + "?&Hostel_Id=" + Hostel_Id,
+                    data: {},
+                    dataType: "json",
+                    success: function (Result) {
+                        $.each(Result, function (index, item) {
+                            $("#Room_ID").append($("<option></option>").val(item.id).html(item.room_SharingType));
+                            // alert(JSON.stringify(item));
+                        });
+                    },
 
-                        error: function (err) {
+                    error: function (err) {
                         console.error("Error While Running AJAX in hostel :", err); // Log the error details
-                            alert("Error While Running AJAX");
-                        }
+                        alert("Error While Running AJAX");
                     }
-                )
-            }
-            else {
-                $("#Room_ID").empty();
-                $("#Room_ID").append($("<option></option>").val("").html("Select Room"));
-            }
+                }
+            )
         }
+        else {
+            $("#Room_ID").empty();
+            $("#Room_ID").append($("<option></option>").val("").html("Select Room"));
+        }
+    }
 
     function OnRoomChange() {
         var Room_ID = $("#Room_ID").val();
@@ -340,8 +335,8 @@
                     dataType: "json",
                     success: function (Result) {
                         $.each(Result, function (index, item) {
-                             // alert(JSON.stringify(Result));
-                        // console.log(Result); // Inspect the data
+                            // alert(JSON.stringify(Result));
+                            // console.log(Result); // Inspect the data
                             $("#Bed_ID").append($("<option></option>").val(item.id).html(item.bed_Number));
                         });
                     },
@@ -358,10 +353,10 @@
             $("#Bed_ID").append($("<option></option>").val("").html("Select Room"));
         }
     }
-    </script>
+</script>
 
-    @section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+}

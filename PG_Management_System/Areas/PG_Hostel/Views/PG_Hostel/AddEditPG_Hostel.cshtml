@@ -40,28 +40,51 @@
                             <div class="row">
                                 <div class="col-md-6 col-lg-12">
                                     <div class="form-group">
-                                        <label for="email2">Building Number</label>
+                                        <label for="email2">PG Number*</label>
                                         <div class="col-md-9 p-0">
                                             <input type="text"
                                                    asp-for="PG_Number"
                                                    class="form-control"
                                                    id="inlineinput"
-                                                   placeholder="Enter Pg  number" required />
+                                                   placeholder="Enter Pg number" required />
                                             <span asp-validation-for="PG_Number" class="text-danger"></span>
                                         </div>
                                     </div>
+                                    
                                     <div class="form-group">
-                                        <label for="email2">Minimum Payment</label>
+                                        <label for="email2">PG Floor*</label>
                                         <div class="col-md-9 p-0">
                                             <input type="text"
-                                                   asp-for="Hostel_MinimumPayment"
+                                                   asp-for="Hostel_Floor"
                                                    class="form-control"
                                                    id="inlineinput"
-                                                   placeholder="Enter MinimumPayment" required />
-                                            <span asp-validation-for="Hostel_MinimumPayment" class="text-danger"></span>
+                                                   placeholder="Enter PG Floor" required />
+                                            <span asp-validation-for="Hostel_Floor" class="text-danger"></span>
                                         </div>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="email2">PG Society*</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Hostel_Society"
+                                                   class="form-control"
+                                                   id="inlineinput"
+                                                   placeholder="Enter PG Society" required />
+                                            <span asp-validation-for="Hostel_Society" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="inlineinput"
+                                               class="col-md-3 col-form-label">Gender For*</label>
+                                        <div class="col-md-9 p-0">
+                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Gender" data-allow-clear="true" asp-for="Hostel_Gender">
+                                                <option value="">Select Gender*</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                            <span asp-validation-for="Hostel_Gender" class="text-danger"></span>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group form-inline">
                                         <label for="inlineinput"
@@ -84,6 +107,17 @@
                                                 <option value="Banglow">Banglow</option>
                                             </select>
                                             <span asp-validation-for="Hostel_Type" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email2">Minimum Payment</label>
+                                        <div class="col-md-9 p-0">
+                                            <input type="text"
+                                                   asp-for="Hostel_MinimumPayment"
+                                                   class="form-control"
+                                                   id="inlineinput"
+                                                   placeholder="Enter MinimumPayment" required />
+                                            <span asp-validation-for="Hostel_MinimumPayment" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">

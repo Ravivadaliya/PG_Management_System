@@ -3,12 +3,11 @@
 }
 
 @using System.Data;
-
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">Beds</h3>
-            <ul class="breadcrumbs mb-3">
+            <h3 class="fw-bold mb-3"></h3>
+            <ul class="breadcrumbs mb-2">
                 <li class="nav-home">
                     <a href="#">
                         <i class="icon-home"></i>
@@ -42,8 +41,8 @@
                                     <tr>
                                         <th>Bed Number</th>
                                         <th>Sharing Type</th>
-                                        <th>PG No</th> 
-                                        @* <th>AllowcateBed</th> *@
+                                        <th>PG No</th>
+                                        <th>Assign Person</th>
                                         @* <th>Profession</th> *@
                                         <th>Action</th>
                                     </tr>
@@ -53,8 +52,7 @@
                                         <th>Name</th>
                                         <th>Position</th>
                                         <th>Office</th>
-                                        @* <th>Age</th> *@
-                                        <th>Start date</th>
+                                        @* <th>Age</th>  *@
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -63,10 +61,27 @@
                                         <tr>
                                             <td>@dr["Bed_Number"]</td>
                                             <td>@dr["Room_SharingType"]</td>
-                                             <td>@dr["PG_Number"]</td> 
+                                            <td>@dr["PG_Number"]</td>
+                                            <td>
+                                                @{
+
+                                                    if (Convert.ToInt32(dr["Bed_Status"]) == 0)
+                                                    {
+                                                        <a href="javascript:void(0)"
+                                                           class="btn btn-link btn-primary"
+                                                           onclick="openAssignBedModal('@Convert.ToInt32(dr["Id"])')">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-info">Assigned</span>
+                                                    }
+                                                }
+                                            </td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a asp-area="PG_Room" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Room" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">
+                                                    <a asp-area="PG_Bed" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Bed" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                     <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Bed" asp-controller="PG_Bed" asp-action="DeleteBed" asp-route-Bed_Id="@Convert.ToInt32(dr["Id"])">
@@ -93,7 +108,102 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="assignBedModal" tabindex="-1" aria-labelledby="assignBedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignBedModalLabel">Assign Bed to Person</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form for assigning bed -->
+                <form id="assignBedForm" method="post">
+                    <input type="hidden" id="Bed_ID" name="Bed_ID" value="" />
+                    <input type="hidden" id="Person_ID" name="Person_ID" value="" />
+                    <div class="form-group">
+                        <label for="Person_MobileNumber">Person Mobile Number</label>
+                        <input type="text" maxlength="10" id="Person_MobileNumber" name="Person_MobileNumber" oninput="OnMobileNumberChange()" class="form-control" required autocomplete="off" />
+                        <div id="suggestions" class="suggestions-dropdown">
+                            <!-- Suggestions will be dynamically populated here -->
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+
+    function OnMobileNumberChange() {
+        var mobileNumber = $('#Person_MobileNumber').val();
+
+        if (mobileNumber) {
+            $.ajax({
+                url: "@Url.Action("getPersonsByPartialMobileNumber", "PG_Bed", new { area = "PG_Bed" })", // Ensure this URL is correctly formatted
+                type: 'GET',
+                data: { partialMobileNumber: mobileNumber }, // Send the mobile number to the server
+                success: function (response) {
+                    // Clear previous suggestions
+                    $('#suggestions').empty();
+
+                    // Check if we have any matching persons
+                    if (response.length > 0) {
+                        // Show the dropdown
+                        $('#suggestions').show();
+
+                        response.forEach(function (person) {
+                            $('#suggestions').append(
+                                `<div class="suggestion-item" data-person-id="${person.person_Id}">${person.mobileNumber}</div>`
+                            );
+                        });
+                    } else {
+                        $('#suggestions').append('<div class="suggestion-item">No matches found</div>');
+                    }
+                },
+                error: function () {
+                    alert('Error fetching person data. Please try again.');
+                }
+            });
+        } else {
+            $('#suggestions').hide(); // Hide suggestions if input is empty
+        }
+    }
+
+    // Hide suggestions when clicking outside
+    $(document).on('click', function (event) {
+        if (!$(event.target).closest('#Person_MobileNumber').length) {
+            $('#suggestions').hide(); // Hide suggestions
+        }
+    });
+
+    // Handle selection of a suggestion
+    $(document).on('click', '.suggestion-item', function () {
+        var selectedNumber = $(this).text(); // Get the selected mobile number
+        var personId = $(this).data('person-id'); // Get the associated person ID
+
+        $('#Person_MobileNumber').val(selectedNumber); // Set input value to selected number
+        $('#Person_ID').val(personId); // Set input value to selected number
+        $('#suggestions').hide(); // Hide suggestions
+    });
+
+    function openAssignBedModal(bedId) {
+        $('#Bed_ID').val(bedId);
+        // Show the modal
+        $('#assignBedModal').modal('show');
+    }
+
+
+
+
     function confirmDelete(OwnerId) {
         Swal.fire({
             title: 'Are you sure?',
@@ -123,4 +233,52 @@
             });
         }
     });
+
+
+
+    $(document).ready(function () {
+        $('#assignBedForm').on('submit', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Gather form data
+            var formData = $(this).serialize(); // Serializes form elements for AJAX
+
+            // AJAX request
+            $.ajax({
+                url: "@Url.Action("AssignBedToPerson", "PG_Bed", new { area = "PG_Bed" })",
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        // SweetAlert for Success message
+                        Swal.fire({
+                            title: 'Success!',
+                            text: response.message, // Message from TempData
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    } else {
+                        // SweetAlert for Error message
+                        Swal.fire({
+                            title: 'Error!',
+                            text: response.message, // Error message from TempData
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: response.message, // Error message from TempData
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        });
+    });
+
+
 </script>

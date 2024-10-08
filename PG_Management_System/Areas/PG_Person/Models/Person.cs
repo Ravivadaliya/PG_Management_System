@@ -13,21 +13,21 @@ public class Person
     public int? Id { get; set; }
 
 
-    [ForeignKey("Room")]
-    public int Bed_ID { get; set; }
+    //[ForeignKey("Room")]
+    //public int Bed_ID { get; set; }
 
-    public Bed Bed { get; set; }
+    //public Bed Bed { get; set; }
 
 
-    [ForeignKey("Room")]
-    public int Room_ID { get; set; }
+    //[ForeignKey("Room")]
+    //public int Room_ID { get; set; }
 
-    public Room Room { get; set; }
+    //public Room Room { get; set; }
 
-    [ForeignKey("Hostel")]
-    public int Hostel_ID { get; set; }
+    //[ForeignKey("Hostel")]
+    //public int Hostel_ID { get; set; }
 
-    public Hostel Hostel { get; set; }
+    //public Hostel Hostel { get; set; }
 
     [ForeignKey("Owner")]
     public int Owner_ID { get; set; }
@@ -43,7 +43,7 @@ public class Person
     public string Person_Surname { get; set; }
 
     [Required]
-    [StringLength(10),MinLength(10)]
+    [StringLength(10), MinLength(10)]
     public string Person_Mobile_Number { get; set; }
 
     [Required]
@@ -85,12 +85,52 @@ public class Person
     [Required]
     [StringLength(50)]
     public string Person_PassWord { get; set; }
-    
+
+    //[Required]
+    //[StringLength(20)]
+    //public string Person_PaymentMode { get; set; }
+
+    [Required]
+    [StringLength(20)]
+    public string Person_AadharCard { get; set; }
     public IFormFile File { get; set; }
 
     [Required]
     [StringLength(120)]
     public string Person_Image { get; set; }
-    public DateOnly Person_CreatedDate { get; set; } 
-    public DateOnly Person_ModificationDate { get; set; } 
+    public DateOnly Person_CreatedDate { get; set; }
+    public DateOnly Person_ModificationDate { get; set; }
+}
+
+public class PaymentPerson
+{
+    [Key]
+    public int Id { get; set; }
+
+
+    [ForeignKey("Room")]
+    public int Bed_ID { get; set; }
+
+    public Bed Bed { get; set; }
+
+
+    [ForeignKey("Room")]
+    public int Room_ID { get; set; }
+
+    public Room Room { get; set; }
+
+    [ForeignKey("Hostel")]
+    public int Hostel_ID { get; set; }
+
+    public Hostel Hostel { get; set; }
+
+    [ForeignKey("Owner")]
+    public int Owner_ID { get; set; }
+
+    public Owner Owner { get; set; }
+
+    [Required]
+    [StringLength(20)]
+    public string Person_PaymentMode { get; set; }
+
 }

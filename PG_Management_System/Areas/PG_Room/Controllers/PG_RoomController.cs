@@ -64,12 +64,10 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
                         {
                             ViewBag.HostelId = Convert.ToInt32(dr["Hostel_ID"]);
                             room.Hostel_ID = Convert.ToInt32(dr["Hostel_ID"]);
-                            room.Room_GenderAllowed = dr["Room_GenderAllowed"].ToString();
                             room.Room_SharingType = Convert.ToInt32(dr["Room_SharingType"]);
                             room.Room_AllowcateBed = Convert.ToInt32(dr["Room_AllowcateBed"]);
                             room.Room_Type = dr["Room_Type"].ToString();
-                            room.Room_Rent = dr["Room_Type"].ToString();
-                            room.Room_Floor = dr["Room_Type"].ToString();
+                            room.Room_Rent = dr["Room_Rent"].ToString();
                         }
                     }
                     return View("AddEditRoom", room);

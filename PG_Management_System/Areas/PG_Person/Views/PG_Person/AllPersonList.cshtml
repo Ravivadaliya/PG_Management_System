@@ -47,9 +47,9 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>SurName</th>
-                                        <th>Bed Number</th>
-                                        <th>Sharing</th>
-                                        <th>PG Number</th>
+                                        @* <th>Bed Number</th>
+                                        <th>Sharing</th> *@
+                                        @* <th>PG Number</th> *@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -57,9 +57,9 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
+                                        @* <th>Office</th>
+                                        <th>Age</th> *@
+                                        @* <th>Start date</th> *@
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -68,9 +68,9 @@
                                         <tr>
                                             <td>@dr["Person_Name"]</td>
                                             <td>@dr["Person_SurName"]</td>
-                                            <td>@dr["Bed_Number"]</td>
-                                            <td>@dr["Room_SharingType"]</td>
-                                            <td>@dr["PG_Number"]</td>
+                                            @* <td>@dr["Bed_Number"]</td> *@
+                                            @* <td>@dr["Room_SharingType"]</td> *@
+                                            @* <td>@dr["PG_Number"]</td> *@
                                             <td>
                                                 <div class="form-button-action">
                                                     <a asp-area="PG_Person" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Person" asp-action="PersonDetails" asp-route-Person_Id="@Convert.ToInt32(dr["Id"])">
