@@ -87,12 +87,15 @@ public class BedDal
         }
     }
 
-    public bool insertPersonOnBed(DatabaseHelper _dbHelper,int Bed_ID, int Person_ID)
+    public bool insertPersonOnBed(DatabaseHelper _dbHelper,int Bed_ID, int Person_ID,int Deposit,string Payment_Cycle,DateOnly Payment_Date)
     {
         SqlParameter[] sqlParameter = new SqlParameter[]
         {
             new SqlParameter("Bed_ID",SqlDbType.Int){Value= Bed_ID},
             new SqlParameter("Person_ID",SqlDbType.Int){Value= Person_ID},
+            new SqlParameter("Deposit",SqlDbType.Int){Value= Deposit},
+            new SqlParameter("Payment_Cycle",SqlDbType.VarChar){Value= Payment_Cycle},
+           new SqlParameter("@Payment_Date", Payment_Date.ToDateTime(TimeOnly.MinValue).Date) // Pass only the Date component
         };
 
         int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_InsertPersonOnBed", sqlParameter);
