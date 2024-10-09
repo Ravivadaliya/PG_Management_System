@@ -50,12 +50,12 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
     }
 
     [HttpPost]
-    public IActionResult AssignBedToPerson(int Bed_ID, int Person_ID,string Payment_Cycle,int Deposit, DateOnly Payment_Date)
+    public IActionResult AssignBedToPerson(int Bed_ID, int Person_ID, string Payment_Cycle, int Deposit, DateOnly Payment_Date)
     {
         BedDal bedDal = new BedDal();
         try
         {
-            if (bedDal.insertPersonOnBed(_dbHelper, Bed_ID, Person_ID,Deposit,Payment_Cycle,Payment_Date))
+            if (bedDal.insertPersonOnBed(_dbHelper, Bed_ID, Person_ID, Deposit, Payment_Cycle, Payment_Date))
             {
                 return Json(new { success = true, message = "Bed assigned successfully." });
             }
@@ -71,6 +71,22 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
         }
     }
 
+    public IActionResult removePersonFromBed(int Bed_Id)
+    {
+        BedDal bedDal = new BedDal();
+        if (bedDal.RemovePersonFromBed(_dbHelper, Bed_Id))
+        {
+           
+            return Json(new { success = true, message = "Remove Person From Bed!" });
+
+        }
+        else
+        {
+            
+            return Json(new { success = false, message = "Error occur while assign bed to person" });
+        }
+
+    }
 
     [HttpGet]
     public IActionResult GetPersonsByPartialMobileNumber(string partialMobileNumber)

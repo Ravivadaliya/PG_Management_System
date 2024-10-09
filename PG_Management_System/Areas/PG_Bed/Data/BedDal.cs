@@ -42,7 +42,7 @@ public class BedDal
         }
     }
 
-    
+
     public DataTable GetAllBedFromHostelId(DatabaseHelper _dbHelper, int hostelid)
     {
         try
@@ -87,7 +87,7 @@ public class BedDal
         }
     }
 
-    public bool insertPersonOnBed(DatabaseHelper _dbHelper,int Bed_ID, int Person_ID,int Deposit,string Payment_Cycle,DateOnly Payment_Date)
+    public bool insertPersonOnBed(DatabaseHelper _dbHelper, int Bed_ID, int Person_ID, int Deposit, string Payment_Cycle, DateOnly Payment_Date)
     {
         SqlParameter[] sqlParameter = new SqlParameter[]
         {
@@ -99,6 +99,24 @@ public class BedDal
         };
 
         int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_InsertPersonOnBed", sqlParameter);
-        return value == -1 ? false : true;  
+        return value == -1 ? false : true;
+    }
+
+    public bool RemovePersonFromBed(DatabaseHelper _dbhelper, int Bed_Id)
+    {
+        try
+        {
+
+            SqlParameter[] sqlParameter = new SqlParameter[] {
+            new SqlParameter ("Bed_Id",SqlDbType.Int){Value = Bed_Id  }
+            };
+
+            int value = _dbhelper.ExecuteStoredProcedureNonQuery("SP_RemovePersonFromBed", sqlParameter);
+            return value == -1 ? false : true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
     }
 }
