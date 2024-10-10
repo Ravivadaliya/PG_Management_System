@@ -131,6 +131,6 @@ public class PaymentPerson
 
     [Required]
     [StringLength(20)]
-    public string Person_PaymentMode { get; set; }
+    public string Payment_Cycle { get; set; }
 
 }

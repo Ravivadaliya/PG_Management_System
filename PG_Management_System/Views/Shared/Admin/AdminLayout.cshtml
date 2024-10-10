@@ -189,7 +189,7 @@
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#PGHostel">
                                 <i class="fas fa-building"></i>
-                                <p>PG Hotel</p>
+                                <p>PG</p>
                                 <span class="caret"></span>
                             </a>
                             <div class="collapse" id="PGHostel">
@@ -199,6 +199,47 @@
                                             <span class="sub-item">See All PG</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a asp-area="PG_Hostel" asp-controller="PG_Hostel" asp-action="Add">
+                                            <span class="sub-item">Add PG</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#Room">
+                                <i class="fas fa-home"></i>
+                                <p>Rooms</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="Room">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a asp-area="PG_Room" asp-controller="PG_Room" asp-action="PGList">
+                                            <span class="sub-item">See All Rooms</span>
+                                        </a>
+
+                                    </li>
+                                  
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#Beds">
+                                <i class="fas fa-bed"></i>
+                                <p>Beds</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="Beds">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a asp-area="PG_Bed" asp-controller="PG_Bed" asp-action="PGList">
+                                            <span class="sub-item">See All Beds</span>
+                                        </a>
+                                    </li>
+
                                 </ul>
                             </div>
                         </li>
@@ -236,41 +277,12 @@
                                             <span class="sub-item">See All Persons</span>
                                         </a>
                                     </li>
-                                
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#Room">
-                                <i class="fas fa-home"></i>
-                                <p>Rooms</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="Room">
-                                <ul class="nav nav-collapse">
                                     <li>
-                                        <a asp-area="PG_Room" asp-controller="PG_Room" asp-action="PGList">
-                                            <span class="sub-item">See All Rooms</span>
+                                        <a asp-area="PG_Person" asp-controller="PG_Person" asp-action="Add">
+                                            <span class="sub-item">Add Person</span>
                                         </a>
+                                    </li>
 
-                                    </li>
-                                  
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#Beds">
-                                <i class="fas fa-bed"></i>
-                                <p>Beds</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="Beds">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a asp-area="PG_Bed" asp-controller="PG_Bed" asp-action="PGList">
-                                            <span class="sub-item">See All Beds</span>
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
                         </li>

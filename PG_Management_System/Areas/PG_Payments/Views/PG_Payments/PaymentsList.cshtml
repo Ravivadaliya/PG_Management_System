@@ -43,8 +43,8 @@
                                         <th>Name</th>
                                         <th>SurName</th>
                                         <th>Bed</th>
-                                        <th>Room</th>
-                                        <th>Hostel </th>
+                                        <th>Room Sharing</th>
+                                        <th>Hostel</th>
                                         <th>Payment Duedate</th>
                                         <th>Action</th>
                                     </tr>
@@ -63,11 +63,12 @@
                                     @foreach (DataRow dr in Model.Rows)
                                     {
                                         <tr>
-                                            <td>@dr["Person_Name"]</td>
-                                            <td>@dr["Person_SurName"]</td>
-                                            <td>@dr["Bed_Number"]</td>
-                                            <td>@dr["Room_Sharingtype"]</td>
-                                            <td>@dr["PG_Number"]</td>
+                                            <td>@(dr["Person_Name"]?.ToString() ?? "N/A")</td>
+                                            <td>@(dr["Person_SurName"]?.ToString() ?? "N/A")</td>
+                                            <td>@(dr["Bed_Number"]?.ToString() ?? "N/A")</td>
+                                            <td>@(dr["Room_Sharingtype"]?.ToString() ?? "N/A")</td>
+                                            <td>@(dr["PG_Number"]?.ToString() ?? "N/A")</td>
+
                                             <td>
                                                 @{
                                                     var paymentDate = dr["Payment_DueDate"] == DBNull.Value ? "N/A" : Convert.ToDateTime(dr["Payment_DueDate"]).ToString("yyyy-MM-dd");

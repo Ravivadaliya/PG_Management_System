@@ -75,19 +75,24 @@ public class OwnerDal
         };
 
         // Execute the stored procedure and get the DataTable
-        DataTable dt = _dbHelper.ExecuteStoredProcedure("SP_SelectPGDetalsForDashBoard", sqlParameter);
+        DataSet ds = _dbHelper.ExecuteStoredProcedureReturnDataSet("SP_SelectPGDetalsForDashBoard", sqlParameter);
         DashBoardDetail dashBoardDetail = new DashBoardDetail();
 
-        // Check if the DataTable has rows
-        if (dt.Rows.Count > 0)
+        // Check if the DataSet has tables and rows
+        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
-            // Populate the dashBoardDetail object with the data from the DataTable
-            DataRow dr = dt.Rows[0]; // Assuming you want the first row
-            dashBoardDetail.TotalHostel = Convert.ToInt32(dr["TotalHostel"]);
-            dashBoardDetail.TotalRoom = Convert.ToInt32(dr["TotalRoom"]);
-            dashBoardDetail.TotalPerson = Convert.ToInt32(dr["TotalPerson"]);
-            dashBoardDetail.TotalBed = Convert.ToInt32(dr["TotalBed"]);
+            DataRow drHostelRoomBed = ds.Tables[0].Rows[0]; // First result set for hostels, rooms, and beds
+            dashBoardDetail.TotalHostel = Convert.ToInt32(drHostelRoomBed["TotalHostel"]);
+            dashBoardDetail.TotalRoom = Convert.ToInt32(drHostelRoomBed["TotalRoom"]);
+            dashBoardDetail.TotalBed = Convert.ToInt32(drHostelRoomBed["TotalBed"]);
         }
+
+        if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
+        {
+            DataRow drPerson = ds.Tables[1].Rows[0]; // Second result set for persons
+            dashBoardDetail.TotalPerson = Convert.ToInt32(drPerson["TotalPerson"]);
+        }
+
         return dashBoardDetail;
     }
 }

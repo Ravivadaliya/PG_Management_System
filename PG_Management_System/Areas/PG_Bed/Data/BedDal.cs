@@ -2,6 +2,8 @@
 using PG_Management_System.Areas.PG_Bed.Models;
 using System.Data.SqlClient;
 using System.Data;
+using PG_Management_System.Areas.PG_Person.Models;
+using Hangfire.Common;
 
 public class BedDal
 {
@@ -14,7 +16,7 @@ public class BedDal
             //    new SqlParameter("Room_ID", SqlDbType.Int) { Value = bed.Room_ID },
             //    new SqlParameter("Bed_Number", SqlDbType.VarChar) { Value = bed.Bed_Number }
             //};
-
+                
             //object result = _dbHelper.ExecuteScalar("SP_CheckBedDuplicateEntry", checkParams);
 
             //if (result != null && Convert.ToInt32(result) > 0)
@@ -118,5 +120,42 @@ public class BedDal
         {
             return false;
         }
+    }
+
+
+    public List<Person> GetPersonIdUsingMobile(DatabaseHelper _dbhelper,string partialMobileNumber)
+    {
+        try
+        {
+            List<Person> persons = new List<Person>();
+
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+            new SqlParameter("PartialMobileNumber", SqlDbType.VarChar) { Value = partialMobileNumber }
+            };
+
+            DataTable dt = _dbhelper.ExecuteStoredProcedure("SP_GetPersonByPartialMobileNumber", sqlParameters);
+
+
+            foreach (DataRow row in dt.Rows)
+            {
+                Person person = new Person
+                {
+                    Id = Convert.ToInt32(row["Id"]),
+                    Person_Mobile_Number = row["Person_Mobile_Number"].ToString()
+                };
+
+                persons.Add(person);
+            }
+
+            return persons;
+        }
+        catch (Exception ex)
+        {
+            // You can log the exception here if necessary
+            return new List<Person>(); // Return an empty list if an error occurs
+        }
+
+
     }
 }

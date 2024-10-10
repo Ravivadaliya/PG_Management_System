@@ -4,7 +4,9 @@ using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using PG_Management_System.Areas.PG_Bed.Models;
 using PG_Management_System.Areas.PG_Hostel.Data;
 using PG_Management_System.Areas.PG_Person.Data;
+using PG_Management_System.Areas.PG_Person.Models;
 using PG_Management_System.BAL;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -76,13 +78,13 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
         BedDal bedDal = new BedDal();
         if (bedDal.RemovePersonFromBed(_dbHelper, Bed_Id))
         {
-           
+
             return Json(new { success = true, message = "Remove Person From Bed!" });
 
         }
         else
         {
-            
+
             return Json(new { success = false, message = "Error occur while assign bed to person" });
         }
 
@@ -98,31 +100,8 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
 
         try
         {
-            List<object> persons = new List<object>();
-
-            string connectionString = "Data Source=MSI\\MSSQLSERVER01;Initial Catalog=PG_ManagementSystem;Integrated Security=true;MultipleActiveResultSets=True;"; // Replace with your actual connection string
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand("GetPersonIdByPartialMobileNumber", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@PartialMobileNumber", partialMobileNumber);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            persons.Add(new
-                            {
-                                Person_Id = reader["Id"],
-                                MobileNumber = reader["Person_Mobile_Number"]
-                            });
-                        }
-                    }
-                }
-            }
+            BedDal bedDal = new BedDal();
+            List<Person> persons = bedDal.GetPersonIdUsingMobile(_dbHelper, partialMobileNumber);
 
             return Ok(persons);
         }

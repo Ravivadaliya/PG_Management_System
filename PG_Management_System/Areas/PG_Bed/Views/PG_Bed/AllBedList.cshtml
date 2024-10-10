@@ -194,8 +194,9 @@
                         $('#suggestions').show();
 
                         response.forEach(function (person) {
+                            // alert(JSON.stringify(person));
                             $('#suggestions').append(
-                                `<div class="suggestion-item" data-person-id="${person.person_Id}">${person.mobileNumber}</div>`
+                                `<div class="suggestion-item" data-person-id="${person.id}">${person.person_Mobile_Number}</div>`
                             );
                         });
                     } else {

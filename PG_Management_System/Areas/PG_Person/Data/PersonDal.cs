@@ -364,11 +364,11 @@ public class PersonDal
             return null;
         }
     }
-    public DataTable GetAllPerson(DatabaseHelper _dbHelper)
+    public DataTable GetAllPersonByBedAssign(DatabaseHelper _dbHelper)
     {
         try
         {
-            DataTable dataTable = _dbHelper.ExecuteStoredProcedure("[SP_PG_Person_SelectAll]", null);
+            DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_PG_Person_SelectAllByBedAssign", null);
             return dataTable;
         }
         catch (Exception ex)

@@ -129,12 +129,12 @@ app.MapControllerRoute(
     pattern: "{area:exists}/{controller=Home}/{action=Dashboard}/{id?}");
 
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
-//    recurringJobManager.AddOrUpdate<PG_PersonController>(
-//        "generate-payment-requests",
-//        service => service.GeneratePaymentRequests(),
-//        "*/1 * * * *");
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+    recurringJobManager.AddOrUpdate<PG_PersonController>(
+        "generate-payment-requests",
+        service => service.GeneratePaymentRequests(),
+        "*/1 * * * *");
+}
 app.Run();
