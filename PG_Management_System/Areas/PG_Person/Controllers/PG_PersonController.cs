@@ -285,7 +285,6 @@ public class PG_PersonController : Controller
                     Owner_Id = person.Owner_ID,
                     Payment_DueDate = CalculatePaymentDeadline(person),
                     PaymentStatus = false,
-                    Payment_Image = string.Empty
                 };
 
                 // Save payment request to the database

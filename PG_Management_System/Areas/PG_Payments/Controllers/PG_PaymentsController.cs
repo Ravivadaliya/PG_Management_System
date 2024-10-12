@@ -44,5 +44,25 @@ public class PG_PaymentsController(DatabaseHelper _dbHelper) : Controller
     }
 
 
-
+    public IActionResult UpdatePaymentCompleteStatus(int Payment_Id)
+    {
+        try
+        {
+            PaymentsDal paymentsDal = new PaymentsDal();
+            if (paymentsDal.UpdatePaymentStatus(_dbHelper, Payment_Id))
+            {
+                return Json(new { success = true, message = "Payment Confirmed." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Error to payment confirmed!" });
+            }
+        }
+        catch (Exception ex)
+        {
+            TempData["Message"] = "Error Update Status, Please try again.";
+            TempData["AlertType"] = "error";
+            return Json(new { success = false, message = "Error to payment confirmed!" });
+        }
+    }
 }

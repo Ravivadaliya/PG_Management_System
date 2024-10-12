@@ -6,7 +6,7 @@
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3"></h3>
+            <h3 class="fw-bold mb-">Bed</h3>
             <ul class="breadcrumbs mb-2">
                 <li class="nav-home">
                     <a href="#">
@@ -74,18 +74,18 @@
 
                                                     if (Convert.ToInt32(dr["Bed_Status"]) == 0)
                                                     {
-                                                        <a href="javascript:void(0)"
-                                                           class="btn btn-link btn-primary"
-                                                           onclick="openAssignBedModal('@Convert.ToInt32(dr["Id"])')">
-                                                            <i class="fas fa-plus-circle"></i>
-                                                        </a>
+                                                            <a href="javascript:void(0)"
+                                                               class="btn btn-link btn-primary"
+                                                               onclick="openAssignBedModal('@Convert.ToInt32(dr["Id"])')">
+                                                                <i class="fas fa-plus-circle"></i>
+                                                            </a>
                                                     }
                                                     else
                                                     {
-                                                        <span class="badge badge-success">Assigned <a class="badge badge-black" asp-area="PG_Person" asp-controller="PG_Person" asp-action="PersonDetails" asp-route-Person_Id="@Convert.ToInt32(dr["Person_ID"])">View Person</a></span>
-                                                        <span>
-                                                            <a class="badge badge-danger unassign-person" href="javascript:void(0)"  data-bed-id="@Convert.ToInt32(dr["Id"])">UnAssign</a>
-                                                        </span>
+                                                            <span class="badge badge-success">Assigned <a class="badge badge-black" asp-area="PG_Person" asp-controller="PG_Person" asp-action="PersonDetails" asp-route-Person_Id="@Convert.ToInt32(dr["Person_ID"])">View Person</a></span>
+                                                            <span>
+                                                                <a class="badge badge-danger unassign-person" href="javascript:void(0)"  data-bed-id="@Convert.ToInt32(dr["Id"])">UnAssign</a>
+                                                            </span>
                                                         
                                                     }
                                                 }
@@ -177,40 +177,42 @@
 
 
     function OnMobileNumberChange() {
-        var mobileNumber = $('#Person_MobileNumber').val();
+    var mobileNumber = $('#Person_MobileNumber').val();
 
-        if (mobileNumber) {
-            $.ajax({
-                url: "@Url.Action("getPersonsByPartialMobileNumber", "PG_Bed", new { area = "PG_Bed" })", // Ensure this URL is correctly formatted
-                type: 'GET',
-                data: { partialMobileNumber: mobileNumber }, // Send the mobile number to the server
-                success: function (response) {
-                    // Clear previous suggestions
-                    $('#suggestions').empty();
+    if (mobileNumber) {
+        $.ajax({
+            url: "@Url.Action("getPersonsByPartialMobileNumber", "PG_Bed", new { area = "PG_Bed" })", // Ensure this URL is correctly formattedtype: 'GET',
+            data: { partialMobileNumber: mobileNumber }, // Send the mobile number to the server
+            success: function (response) {
+                // Clear previous suggestions
+                $('#suggestions').empty();
 
-                    // Check if we have any matching persons
-                    if (response.length > 0) {
-                        // Show the dropdown
-                        $('#suggestions').show();
+                // Check if we have any matching persons
+                if (response.length > 0) {
+                    // Show the dropdown
+                    $('#suggestions').show();
 
-                        response.forEach(function (person) {
-                            // alert(JSON.stringify(person));
-                            $('#suggestions').append(
-                                `<div class="suggestion-item" data-person-id="${person.id}">${person.person_Mobile_Number}</div>`
-                            );
-                        });
-                    } else {
-                        $('#suggestions').append('<div class="suggestion-item">No matches found</div>');
-                    }
-                },
-                error: function () {
-                    alert('Error fetching person data. Please try again.');
+                    response.forEach(function (person) {
+                        $('#suggestions').append(
+                            `<div class="suggestion-item" data-person-id="${person.id}">${person.person_Mobile_Number}</div>`
+                        );
+                    });
+                } else {
+                    // Hide the alert since it's working and append "No matches found"
+                    console.log(response); // This can help you debug response structure
+                    $('#suggestions').append('<div class="suggestion-item">No matches found</div>');
+                    $('#suggestions').show(); // Ensure the suggestions box is visible
                 }
-            });
-        } else {
-            $('#suggestions').hide(); // Hide suggestions if input is empty
-        }
+            },
+            error: function () {
+                alert('Error fetching person data. Please try again.');
+            }
+        });
+    } else {
+        $('#suggestions').hide(); // Hide suggestions if input is empty
     }
+}
+
 
 
     // Handle selection of a suggestion
@@ -233,7 +235,22 @@
 
     $(document).ready(function () {
         $('#assignBedForm').on('submit', function (e) {
+            // Get the value of Person_ID
+            var personID = $('#Person_ID').val(); // Assuming the input field for Person_ID has an ID of 'Person_ID'
             e.preventDefault(); // Prevent the default form submission
+
+            if (!personID) {
+                // Show error message using SweetAlert and wait for user to click OK
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Person mobile is not found',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    $('#assignBedForm').trigger('reset'); // This will reset the form fields
+                });
+                return; 
+            }
 
             // Gather form data
             var formData = $(this).serialize(); // Serializes form elements for AJAX
@@ -325,8 +342,6 @@
                 }
             });
         });
-
-
 
     });
 

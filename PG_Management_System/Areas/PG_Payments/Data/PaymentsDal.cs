@@ -87,5 +87,17 @@ namespace PG_Management_System.Areas.PG_Payments.Data
             return dt;
         }
 
+        public bool UpdatePaymentStatus(DatabaseHelper _dbHelper,int Payment_Id)
+        {
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("ID",SqlDbType.Int){Value = Payment_Id},
+                new SqlParameter("Payment_Status",SqlDbType.Bit){Value = true}
+            };
+
+            int rvalue = _dbHelper.ExecuteStoredProcedureNonQuery("SP_UpdatePGPaymentStatus", sqlParameters);
+            return rvalue ==-1?false:true;
+        }
+
     }
 }
