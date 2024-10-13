@@ -74,27 +74,27 @@
 
                                                     if (Convert.ToInt32(dr["Bed_Status"]) == 0)
                                                     {
-                                                            <a href="javascript:void(0)"
-                                                               class="btn btn-link btn-primary"
-                                                               onclick="openAssignBedModal('@Convert.ToInt32(dr["Id"])')">
-                                                                <i class="fas fa-plus-circle"></i>
-                                                            </a>
+                                                        <a href="javascript:void(0)"
+                                                           class="btn btn-link btn-primary"
+                                                           onclick="openAssignBedModal('@Convert.ToInt32(dr["Id"])')">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </a>
                                                     }
                                                     else
                                                     {
-                                                            <span class="badge badge-success">Assigned <a class="badge badge-black" asp-area="PG_Person" asp-controller="PG_Person" asp-action="PersonDetails" asp-route-Person_Id="@Convert.ToInt32(dr["Person_ID"])">View Person</a></span>
-                                                            <span>
-                                                                <a class="badge badge-danger unassign-person" href="javascript:void(0)"  data-bed-id="@Convert.ToInt32(dr["Id"])">UnAssign</a>
-                                                            </span>
-                                                        
+                                                        <span class="badge badge-success">Assigned <a class="badge badge-black" asp-area="PG_Person" asp-controller="PG_Person" asp-action="PersonDetails" asp-route-Person_Id="@Convert.ToInt32(dr["Person_ID"])">View Person</a></span>
+                                                        <span>
+                                                            <a class="badge badge-danger unassign-person" href="javascript:void(0)" data-bed-id="@Convert.ToInt32(dr["Id"])">UnAssign</a>
+                                                        </span>
+
                                                     }
                                                 }
                                             </td>
                                             <td>
                                                 <div class="form-button-action">
-                                                   @*  <a asp-area="PG_Bed" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Bed" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a> *@
+                                                    @*  <a asp-area="PG_Bed" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Bed" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">
+                                                <i class="fa fa-edit"></i>
+                                                </a> *@
                                                     <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Bed" asp-controller="PG_Bed" asp-action="DeleteBed" asp-route-Bed_Id="@Convert.ToInt32(dr["Id"])">
                                                         <input type="hidden" name="Id" value="@Convert.ToInt32(dr["Id"])" />
                                                         <button type="button"
@@ -177,41 +177,41 @@
 
 
     function OnMobileNumberChange() {
-    var mobileNumber = $('#Person_MobileNumber').val();
+        var mobileNumber = $('#Person_MobileNumber').val();
 
-    if (mobileNumber) {
-        $.ajax({
-            url: "@Url.Action("getPersonsByPartialMobileNumber", "PG_Bed", new { area = "PG_Bed" })", // Ensure this URL is correctly formattedtype: 'GET',
-            data: { partialMobileNumber: mobileNumber }, // Send the mobile number to the server
-            success: function (response) {
-                // Clear previous suggestions
-                $('#suggestions').empty();
+        if (mobileNumber) {
+            $.ajax({
+                url: "@Url.Action("getPersonsByPartialMobileNumber", "PG_Bed", new { area = "PG_Bed" })", // Ensure this URL is correctly formattedtype: 'GET',
+                data: { partialMobileNumber: mobileNumber }, // Send the mobile number to the server
+                success: function (response) {
+                    // Clear previous suggestions
+                    $('#suggestions').empty();
 
-                // Check if we have any matching persons
-                if (response.length > 0) {
-                    // Show the dropdown
-                    $('#suggestions').show();
+                    // Check if we have any matching persons
+                    if (response.length > 0) {
+                        // Show the dropdown
+                        $('#suggestions').show();
 
-                    response.forEach(function (person) {
-                        $('#suggestions').append(
-                            `<div class="suggestion-item" data-person-id="${person.id}">${person.person_Mobile_Number}</div>`
-                        );
-                    });
-                } else {
-                    // Hide the alert since it's working and append "No matches found"
-                    console.log(response); // This can help you debug response structure
-                    $('#suggestions').append('<div class="suggestion-item">No matches found</div>');
-                    $('#suggestions').show(); // Ensure the suggestions box is visible
+                        response.forEach(function (person) {
+                            $('#suggestions').append(
+                                `<div class="suggestion-item" data-person-id="${person.id}">${person.person_Mobile_Number}</div>`
+                            );
+                        });
+                    } else {
+                        // Hide the alert since it's working and append "No matches found"
+                        console.log(response); // This can help you debug response structure
+                        $('#suggestions').append('<div class="suggestion-item">No matches found</div>');
+                        $('#suggestions').show(); // Ensure the suggestions box is visible
+                    }
+                },
+                error: function () {
+                    alert('Error fetching person data. Please try again.');
                 }
-            },
-            error: function () {
-                alert('Error fetching person data. Please try again.');
-            }
-        });
-    } else {
-        $('#suggestions').hide(); // Hide suggestions if input is empty
+            });
+        } else {
+            $('#suggestions').hide(); // Hide suggestions if input is empty
+        }
     }
-}
 
 
 
@@ -249,7 +249,7 @@
                 }).then((result) => {
                     $('#assignBedForm').trigger('reset'); // This will reset the form fields
                 });
-                return; 
+                return;
             }
 
             // Gather form data
@@ -312,7 +312,7 @@
                 if (result.isConfirmed) {
                     // Proceed with the AJAX request if confirmed
                     $.ajax({
-                        url: "@Url.Action("removePersonFromBed", "PG_Bed", new { area = "PG_Bed"})",  // The URL to your action
+                        url: "@Url.Action("removePersonFromBed", "PG_Bed", new { area = "PG_Bed" })",  // The URL to your action
                         type: 'POST',  // Assuming it's a POST request
                         data: { Bed_Id: bedId },  // Sending the Bed_Id
                         success: function (response) {

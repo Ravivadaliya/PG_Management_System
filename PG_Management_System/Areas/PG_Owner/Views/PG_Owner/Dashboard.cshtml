@@ -5,7 +5,7 @@
     <div class="page-inner">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
             <div>
-                <h3 class="fw-bold mb-3">Dashboard</h3>
+                <h3 class="fw-bold">Dashboard</h3>
                 <!-- <h6 class="op-7 mb-2">Free Bootstrap 5 Admin Dashboard</h6> -->
             </div>
             <!-- <div class="ms-md-auto py-2 py-md-0">
@@ -112,43 +112,43 @@
 
         <div class="row">
             @* <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Striped Rows</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <input type="text"
-                                   class="form-control"
-                                   id="defaultInput"
-                                   placeholder="Default Input" />
-                        </div>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jacob</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td colspan="2">Larry the Bird</td>
+            <div class="card">
+            <div class="card-header">
+            <div class="card-title">Striped Rows</div>
+            </div>
+            <div class="card-body">
+            <div class="form-group">
+            <input type="text"
+            class="form-control"
+            id="defaultInput"
+            placeholder="Default Input" />
+            </div>
+            <table class="table table-hover">
+            <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>1</td>
+            <td>Mark</td>
+            </tr>
+            <tr>
+            <td>2</td>
+            <td>Jacob</td>
+            </tr>
+            <tr>
+            <td>3</td>
+            <td colspan="2">Larry the Bird</td>
 
-                                </tr>
-                            </tbody>
-                        </table>
+            </tr>
+            </tbody>
+            </table>
 
-                    </div>
-                </div>
+            </div>
+            </div>
             </div> *@
             <div class="col-md-8">
                 <div class="card">
@@ -310,7 +310,9 @@
                         <div class="form-group">
                             <input type="text"
                                    class="form-control"
-                                   id="defaultInput"
+                                   id="PersonDetailInput"
+                                   name="PersonDetailInput"
+                                   oninput="SearchPerson()"
                                    placeholder="Default Input" />
                         </div>
                         <div class="table-responsive">
@@ -320,75 +322,15 @@
                                         <tr>
                                             <th>Sr.</th>
                                             <th>Name</th>
-                                            <th>Mobile No.</th>
+                                            <th>Details</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Name</td>
-                                            <td>View Details</td>
-                                        </tr>
+                                    <tbody id="personTableBody">
+                                        @*  <tr>
+                                        <th scope="row">1</th>
+                                        <td>Name</td>
+                                        <td>View Details</td>
+                                        </tr> *@
                                     </tbody>
                                 </table>
                             </div>
@@ -400,6 +342,50 @@
     </div>
 </div>
 
+<script>
+    function SearchPerson() {
+        var searchinput = $('#PersonDetailInput').val();
+        if (searchinput) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetPersonsByNameMobileNumber", "PG_Owner", new { area = "PG_Owner" })',
+                data: { SearchInput: searchinput },
+                success: function (response) {
+                    // Clear the current table body
+                    var tbody = $("#personTableBody");
+                    tbody.empty(); // Clear the current table body
+
+                    // Loop through the response and append new rows
+                    if (response && response.length > 0) {
+                        response.forEach(function (person, index) {
+                            var row = `<tr>
+                                                <th scope="row">${index + 1}</th>-
+                                                <td>${person.person_Name}</td>
+                                                     <td><a href="/PG_Person/PG_Person/PersonDetails?Person_Id=${person.id}">
+                                                                <button  class="btn btn-warning btn-sm">View Person</button></a></td>
+                                            </tr>`;
+                            tbody.append(row);
+                            // alert(JSON.stringify(person))
+                        });
+                    } else {
+                        // If no results are found
+                        var emptyRow = `<tr>
+                                            <td colspan="3" class="text-center">No persons found</td>
+                                        </tr>`;
+                        tbody.append(emptyRow);
+                    }
+                },
+                error: function (err) {
+                    console.error("Error While Running AJAX:", err);
+                    alert("Error While Running AJAX", err);
+                }
+            });
+        } else {
+            var tbody = $("#personTableBody");
+            tbody.empty(); // Clear the current table body
+        }
+    }
+</script>
 <script>
     $(document).ready(function () {
         $.ajax({
@@ -428,4 +414,5 @@
             }
         });
     });
-</script> 
+
+</script>

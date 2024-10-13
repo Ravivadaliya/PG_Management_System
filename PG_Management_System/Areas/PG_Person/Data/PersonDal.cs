@@ -1,6 +1,8 @@
 ﻿using DatabaseHelperLibrary;
+using Microsoft.AspNetCore.Mvc;
 using PG_Management_System.Areas.PG_Bed.Models;
 using PG_Management_System.Areas.PG_Hostel.Models;
+using PG_Management_System.Areas.PG_Payments.Models;
 using PG_Management_System.Areas.PG_Person.Models;
 using PG_Management_System.Areas.PG_Room.Models;
 using PG_Management_System.BAL;
@@ -582,6 +584,108 @@ public class PersonDal
         {
 
             return false;
+        }
+    }
+    public List<Person> GetPersonIdUsingMobile(DatabaseHelper _dbhelper, string partialMobileNumber)
+    {
+        try
+        {
+            List<Person> persons = new List<Person>();
+
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+            new SqlParameter("PartialMobileNumber", SqlDbType.VarChar) { Value = partialMobileNumber }
+            };
+
+            DataTable dt = _dbhelper.ExecuteStoredProcedure("SP_GetPersonByPartialMobileNumber", sqlParameters);
+
+
+            foreach (DataRow row in dt.Rows)
+            {
+                Person person = new Person
+                {
+                    Id = Convert.ToInt32(row["Id"]),
+                    Person_Mobile_Number = row["Person_Mobile_Number"].ToString()
+                };
+
+                persons.Add(person);
+            }
+
+            return persons;
+        }
+        catch (Exception ex)
+        {
+            // You can log the exception here if necessary
+            return new List<Person>(); // Return an empty list if an error occurs
+        }
+    }
+
+    public List<Person> GetPersonByNameMobile(DatabaseHelper _dbhelper, string partialNameOrMobile)
+    {
+        try
+        {
+            List<Person> persons = new List<Person>();
+
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+            new SqlParameter("NameMobileInpute", SqlDbType.VarChar) { Value = partialNameOrMobile }
+            };
+
+            DataTable dt = _dbhelper.ExecuteStoredProcedure("SP_SearchpersonByNameAndMobile", sqlParameters);
+
+
+            foreach (DataRow row in dt.Rows)
+            {
+                Person person = new Person
+                {
+                    Id = Convert.ToInt32(row["Id"]),
+                    Person_Name = row["Person_Name"].ToString(),
+                    Person_Mobile_Number = row["Person_Mobile_Number"].ToString(),
+                    Person_Parent_Mobile_Number = row["Person_Parent_Mobile_Number"].ToString()
+                };
+                persons.Add(person);
+            }
+
+            return persons;
+        }
+        catch (Exception ex)
+        {
+            // You can log the exception here if necessary
+            return new List<Person>(); // Return an empty list if an error occurs
+        }
+    }
+
+
+
+    public List<Payments> selectPaymentHistoryByPersonId(DatabaseHelper _dbHelper, int personId)
+    {
+        try
+        {
+            List<Payments> payments = new List<Payments>();
+
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+             new SqlParameter("Person_Id",SqlDbType.Int){Value =personId}
+            };
+
+            DataTable dt = _dbHelper.ExecuteStoredProcedure("SP_SelectPaymentHistoryByPersonId", sqlParameters);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                Payments payments1 = new Payments()
+                {
+                    PaymentDate =Convert.ToDateTime(dr["Payment_Date"]),
+                    Payment_DueDate = Convert.ToDateTime(dr["Payment_DueDate"]),
+                    PaymentStatus = Convert.ToBoolean(dr["Payment_Status"]),
+                    Payment_Amount = dr["Room_Rent"].ToString(),
+                };
+                payments.Add(payments1);
+            }
+            return payments;
+        }
+        catch (Exception ex)
+        {
+            return new List<Payments>();
         }
     }
 }

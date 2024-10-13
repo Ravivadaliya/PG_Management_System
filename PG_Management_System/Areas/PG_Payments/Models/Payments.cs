@@ -39,5 +39,8 @@ namespace PG_Management_System.Areas.PG_Payments.Models
 
         [Required(ErrorMessage = "Payment Status is required.")]
         public bool PaymentStatus { get; set; }
+
+
+        public string Payment_Amount { get; set; }
     }
 }

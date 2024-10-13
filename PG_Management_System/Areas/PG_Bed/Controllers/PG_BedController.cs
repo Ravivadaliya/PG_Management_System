@@ -100,8 +100,8 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
 
         try
         {
-            BedDal bedDal = new BedDal();
-            List<Person> persons = bedDal.GetPersonIdUsingMobile(_dbHelper, partialMobileNumber);
+            PersonDal personDal = new PersonDal();
+            List<Person> persons = personDal.GetPersonIdUsingMobile(_dbHelper, partialMobileNumber);
 
             return Ok(persons);
         }

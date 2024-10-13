@@ -122,40 +122,4 @@ public class BedDal
         }
     }
 
-
-    public List<Person> GetPersonIdUsingMobile(DatabaseHelper _dbhelper,string partialMobileNumber)
-    {
-        try
-        {
-            List<Person> persons = new List<Person>();
-
-            SqlParameter[] sqlParameters = new SqlParameter[]
-            {
-            new SqlParameter("PartialMobileNumber", SqlDbType.VarChar) { Value = partialMobileNumber }
-            };
-
-            DataTable dt = _dbhelper.ExecuteStoredProcedure("SP_GetPersonByPartialMobileNumber", sqlParameters);
-
-
-            foreach (DataRow row in dt.Rows)
-            {
-                Person person = new Person
-                {
-                    Id = Convert.ToInt32(row["Id"]),
-                    Person_Mobile_Number = row["Person_Mobile_Number"].ToString()
-                };
-
-                persons.Add(person);
-            }
-
-            return persons;
-        }
-        catch (Exception ex)
-        {
-            // You can log the exception here if necessary
-            return new List<Person>(); // Return an empty list if an error occurs
-        }
-
-
-    }
 }

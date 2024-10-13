@@ -8,6 +8,7 @@ using PG_Management_System.Areas.PG_Person.Models;
 using PG_Management_System.Areas.PG_Room.Models;
 using PG_Management_System.BAL;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace PG_Management_System.Areas.PG_Person.Controllers;
 
@@ -260,6 +261,27 @@ public class PG_PersonController : Controller
             return Json(null);
         }
     }
+
+
+    [HttpGet]
+    public IActionResult SelectPaymentHistoryByPerson(int personId)
+    {
+        try
+        {
+            PersonDal personDal = new PersonDal();
+
+            List<Payments> Paymenthistory = personDal.selectPaymentHistoryByPersonId(_dbHelper, personId);
+
+            return Ok(Paymenthistory);
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = "Error Fetch Transaction History" });
+        }
+    }
+
+
+
 
 
     #region Automatic payment genrate

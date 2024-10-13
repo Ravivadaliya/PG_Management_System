@@ -5,6 +5,7 @@ using PG_Management_System.Areas.PG_Owner.Data;
 using PG_Management_System.Areas.PG_Owner.Models;
 using System.Data;
 using PG_Management_System.Areas.PG_Person.Data;
+using PG_Management_System.Areas.PG_Person.Models;
 
 namespace PG_Management_System.Areas.PG_Owner.Controllers;
 
@@ -47,5 +48,24 @@ public class PG_OwnerController : Controller
     {
         TempData["AddAdmin"] = null;
         return View();
+    }
+
+    [HttpPost]
+    public IActionResult GetPersonsByNameMobileNumber(string SearchInput)
+    {
+        if (string.IsNullOrEmpty(SearchInput))
+        {
+            return BadRequest("Mobile number is required.");
+        }
+        try
+        {
+            PersonDal personDal = new PersonDal();
+            List<Person> persons = personDal.GetPersonByNameMobile(_dbHelper, SearchInput);
+            return Ok(persons);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Internal server error: " + ex.Message);
+        }
     }
 }
