@@ -16,7 +16,7 @@
                 </li>
                 <li class="separator">
                     <i class="icon-arrow-right"></i>
-                </li>
+                </li>   
                 <li class="nav-item">
                     <a href="#">Payments</a>
                 </li>
@@ -75,13 +75,13 @@
                                             <td>@(dr["Room_Rent"]?.ToString() ?? "N/A")</td>
                                             <td>
                                                 @{
-                                                    var paymentDate = dr["Payment_Date"] == DBNull.Value ? "N/A" : Convert.ToDateTime(dr["Payment_Date"]).ToString("dd-MM-yyyyy");
+                                                    var paymentDate = dr["Payment_Date"] == DBNull.Value ? "N/A" : Convert.ToDateTime(dr["Payment_Date"]).ToString("dd-MM-yyyy");
                                                 }
                                                 @paymentDate
                                             </td>
                                             <td>
                                                 @{
-                                                    var paymentDueDate = dr["Payment_DueDate"] == DBNull.Value ? "N/A" : Convert.ToDateTime(dr["Payment_DueDate"]).ToString("dd-MM-yyyyy");
+                                                    var paymentDueDate = dr["Payment_DueDate"] == DBNull.Value ? "N/A" : Convert.ToDateTime(dr["Payment_DueDate"]).ToString("dd-MM-yyyy");
                                                 }
                                                 @paymentDate
                                             </td>

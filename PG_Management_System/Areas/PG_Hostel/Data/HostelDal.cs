@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Data;
 using PG_Management_System.Areas.PG_Hostel.Models;
 using PG_Management_System.BAL;
+using PG_Management_System.Areas.PG_Person.Models;
 
 namespace PG_Management_System.Areas.PG_Hostel.Data;
 
@@ -14,9 +15,9 @@ public class HostelDal
         {
             SqlParameter[] sqlParameter = new SqlParameter[]
             {
-                new SqlParameter("Owner_ID", SqlDbType.Int) { Value = CV.Owner_Id() }
-            };
-            return _dbHelper.ExecuteStoredProcedure("SP_PG_Hostel_SelectByOwnerId", sqlParameter);
+                new SqlParameter("OwnerID", SqlDbType.Int) { Value = CV.Owner_Id() }
+            }; 
+            return _dbHelper.ExecuteStoredProcedure("SP_GetHostelDetailsWithBedCounts", sqlParameter);
         }
         catch (SqlException ex)
         {
@@ -144,6 +145,39 @@ public class HostelDal
         catch (Exception ex)
         {
             return false;
+        }
+    }
+
+
+    public List<Hostel> GetRoomsByName(DatabaseHelper _dbHelper, string roomSearchInput)
+    {
+        try
+        {
+            List<Hostel> HostelDetails = new List<Hostel>();
+
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+             new SqlParameter("PG_Number",SqlDbType.Int){Value =roomSearchInput}
+            };
+
+            DataTable dt = _dbHelper.ExecuteStoredProcedure("SP_SelectPGByPgNumber", sqlParameters);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                Hostel hostel = new Hostel()
+                {
+                    Id = Convert.ToInt32(dr["ID"]),
+                    Hostel_Floor= dr["Hostel_Floor"].ToString(),
+                    Hostel_Gender = dr["Hostel_Gender"].ToString(),
+                    PG_Number = dr["PG_Number"].ToString(),
+                };
+                HostelDetails.Add(hostel);
+            }
+            return HostelDetails;
+        }
+        catch (Exception ex)
+        {
+            return new List<Hostel>();
         }
     }
 }

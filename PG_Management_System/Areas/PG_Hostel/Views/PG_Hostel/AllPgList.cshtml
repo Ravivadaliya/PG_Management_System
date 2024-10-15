@@ -34,7 +34,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
-                        <h4 class="card-title">PG View and Delete</h4>
+                            <h4 class="card-title">PG View and Delete</h4>
                             <div class="ms-md-auto py-2 py-md-0">
                                 <a asp-area="PG_Hostel" asp-controller="PG_Hostel" asp-action="Add" asp-route-Room_Id="" class="btn btn-primary btn-round me-2">Add PG</a>
                             </div>
@@ -51,8 +51,10 @@
                                         <th>Type</th>
                                         <th>Gender</th>
                                         <th>Floor</th>
+                                        <th>Empty Bed</th>
+                                        <th>Assign Bed</th>
                                         <th>Created Date</th>
-                                        <th>Modification Date</th>
+                                        @* <th>Modification Date</th> *@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -68,8 +70,45 @@
                                             <td>@dr["Hostel_Type"]</td>
                                             <td>@dr["Hostel_Gender"]</td>
                                             <td>@dr["Hostel_Floor"]</td>
+                                            <td>
+                                                @{
+
+                                                    int emptyBeds = Convert.ToInt32(dr["Total_Empty_Beds"]);
+
+                                                    if (emptyBeds == 0)
+                                                    {
+                                                        @emptyBeds
+                                                    }
+                                                    else
+                                                    {
+                                                        for (int j = 0; j < emptyBeds; j++)
+                                                        {
+                                                            <i class="fas fa-bed"></i>
+                                                        }
+                                                    }
+                                                }
+                                            </td>
+                                            <td>
+                                                @{
+
+                                                    int assign = Convert.ToInt32(dr["Total_Assigned_Beds"]);
+
+                                                    if (assign == 0)
+                                                    {
+                                                        @assign
+                                                    }
+                                                    else
+                                                    {
+                                                        for (int j = 0; j < assign; j++)
+                                                        {
+                                                            <i style="color:cornflowerblue" class="fas fa-bed"></i>
+                                                        }
+                                                    }
+                                                }
+                                            </td>
+
                                             <td>@Convert.ToDateTime(dr["Hostel_CreatedDate"]).ToString("dd-MM-yyyy")</td>
-                                            <td>@Convert.ToDateTime(dr["Hostel_Modificationdate"]).ToString("dd-MM-yyyy")</td>
+                                            @* <td>@Convert.ToDateTime(dr["Hostel_Modificationdate"]).ToString("dd-MM-yyyy")</td> *@
                                             <td>
                                                 <div class="form-button-action">
                                                     <a asp-area="PG_Hostel" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Hostel" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">

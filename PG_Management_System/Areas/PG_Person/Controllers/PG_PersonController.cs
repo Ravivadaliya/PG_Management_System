@@ -1,5 +1,6 @@
 ﻿using DatabaseHelperLibrary;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using PG_Management_System.Areas.PG_Bed.Models;
 using PG_Management_System.Areas.PG_Payments.Data;
 using PG_Management_System.Areas.PG_Payments.Models;
@@ -159,6 +160,22 @@ public class PG_PersonController : Controller
         }
     }
 
+    public IActionResult PersonWithBedDetails(int PG_ID)
+    {
+        try
+        {
+            PersonDal personDal = new PersonDal();
+            DataTable dataTable = personDal.GetAllPersonWithBedByHostelId(_dbHelper, PG_ID);
+            return View("PersonDetailsByRoom", dataTable);
+        }
+        catch (Exception ex)
+        {
+            TempData["Message"] = $"An unexpected error occurred: {ex.Message}";
+            TempData["AlertType"] = "error";
+            return RedirectToAction("AllPersonList");
+        }
+    }
+
     public IActionResult SavePerson(Person person)
     {
         try
@@ -282,6 +299,18 @@ public class PG_PersonController : Controller
 
 
 
+    //public IActionResult SelectPersonByHostelNumber()
+    //{
+    //    try
+    //    {
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return Json(new { success = false,message = "Error geting persons" })
+    //    }
+    //}
+
 
 
     #region Automatic payment genrate
@@ -341,13 +370,13 @@ public class PG_PersonController : Controller
         switch (person.Payment_Cycle.ToLower())
         {
             case "daily":
-                return latestPayment.PaymentDate.AddDays(1) <= DateTime.Now;
+                return latestPayment.PaymentDate?.AddDays(1) <= DateTime.Now;
 
             case "weekly":
-                return latestPayment.PaymentDate.AddDays(7) <= DateTime.Now;
+                return latestPayment.PaymentDate?.AddDays(7) <= DateTime.Now;
 
             case "monthly":
-                return latestPayment.PaymentDate.AddMonths(1) <= DateTime.Now;
+                return latestPayment.PaymentDate?.AddMonths(1) <= DateTime.Now;
 
             default:
                 return false;
@@ -396,6 +425,7 @@ public class PG_PersonController : Controller
                 Person_Id = Convert.ToInt32(dr["Person_Id"]),
                 Owner_Id = Convert.ToInt32(dr["Owner_Id"]),
                 Payment_DueDate = Convert.ToDateTime(dr["Payment_DueDate"]).Date,
+                PaymentDate = dr["Payment_Date"] != DBNull.Value ? Convert.ToDateTime(dr["Payment_Date"]).Date : (DateTime?)null,
                 PaymentStatus = Convert.ToBoolean(dr["Payment_Status"]),
             };
         }

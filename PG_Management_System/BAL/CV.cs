@@ -18,7 +18,18 @@ public class CV
 		}
 		return Owner_ID;
 	}
-	public static string? Owner_EmailId()
+
+    public static string? PG_Name()
+    {
+        string? PG_Name = null;
+
+        if (_httpContextAccessor.HttpContext.Session.GetString("PGName") != null)
+        {
+            PG_Name = _httpContextAccessor.HttpContext.Session.GetString("PGName").ToString();
+        }
+        return PG_Name;
+    }
+    public static string? Owner_EmailId()
 	{
 		string? Owner_EmailId = null;
 

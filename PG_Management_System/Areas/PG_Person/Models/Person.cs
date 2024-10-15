@@ -134,3 +134,27 @@ public class PaymentPerson
     public string Payment_Cycle { get; set; }
 
 }
+
+
+public class PersonWithBedDetails
+{
+
+    public int ID { get; set; }
+
+    public string PersonName { get; set; }
+
+    public string PersonSurname { get; set; }
+
+    public string PersonProfession { get; set; }
+
+    public string PersonMobile_Number { get; set; }
+
+    public string Person_Parent_Mobile_Number { get; set; }
+
+    public string Bed_Number { get; set; }
+
+    public string RoomType { get; set; }
+    public string RoomRent { get; set; }
+
+
+}

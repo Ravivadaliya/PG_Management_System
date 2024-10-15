@@ -1,4 +1,4 @@
-.gg-check {
+﻿/*.gg-check {
   box-sizing: border-box;
   position: relative;
   display: block;
@@ -52,9 +52,9 @@
     justify-content: center;
     text-align: center;
     border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    /*border-right: 1px solid #177dff;*/
-    cursor: pointer;
+    border-bottom-left-radius: 30px;*/
+/*border-right: 1px solid #177dff;*/
+/*cursor: pointer;
     color: #ffffff;
     box-shadow: -5px 5px 20px rgba(69, 65, 78, 0.21); }
     .custom-template .custom-toggle i {
@@ -307,6 +307,206 @@ body[data-background-color="dark"] .demo-icon .icon-class {
 @media screen and (max-width: 400px) {
   .custom-template {
     width: 85% !important;
-    right: -85%; } }
+    right: -85%; } }*/
 
 /*# sourceMappingURL=demo.css.map */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Filter Section */
+.filter-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+    .filter:focus {
+        border-color: #28a745;
+    }
+
+.refresh-btn {
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+    .refresh-btn:hover {
+        background-color: #218838;
+    }
+
+/* Legend Section */
+.legend {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Floor Section */
+.floors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.floor-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);*/
+    flex-grow: 1;
+    width: 100%;
+    /*transition: all 0.3s ease;*/
+}
+
+    .floor-card:hover {
+        transform: translateY(-5px);
+    }
+
+.floor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.floor-info span {
+    display: inline-block;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.room-search {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+    .room-search input {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #dcdcdc;
+        width: 100%;
+        margin-right: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+        .room-search input:focus {
+            border-color: #28a745;
+        }
+
+.search-btn {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    .search-btn:hover {
+        background-color: #0056b3;
+    }
+
+/* Room Cards */
+.room-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.room-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    transition: all 0.3s ease;
+}
+
+    .room-card:hover {
+        transform: translateY(-5px);
+    }
+
+.beds {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.bed {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+    .bed:hover {
+        background-color: #218838;
+    }
+
+    .bed.occupied {
+        background-color: #dc3545;
+    }
+
+.add-room-btn {
+    padding: 12px 20px;
+    background-color: #17a2b8;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+    .add-room-btn:hover {
+        background-color: #138496;
+    }
+
+@media (max-width: 768px) {
+    .filters, .legend {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .floor-card {
+        width: 100%;
+    }
+}

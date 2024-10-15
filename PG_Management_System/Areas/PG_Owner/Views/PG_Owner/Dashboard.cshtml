@@ -91,75 +91,48 @@
                 </div>
             </div>
         </div>
-        @*   <div class="row">
-        <div class="col-md-12">
-        <div class="card">
-        <div class="card-header">
-        <div class="card-title">Our Location</div>
-        </div>
-        <div class="card-body">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63536.63871717301!2d95.32870249999999!3d5.5611019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3040377ae63dbcdf%3A0x3039d80b220cb90!2sBanda%20Aceh%2C%20Kota%20Banda%20Aceh%2C%20Aceh!5e0!3m2!1sid!2sid!4v1701054428265!5m2!1sid!2sid"
-        width="600"
-        height="450"
-        style="border: 0; width: 100%"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        </div>
-        </div>
-        </div> *@
-
         <div class="row">
             @* <div class="col-md-4">
-            <div class="card">
-            <div class="card-header">
-            <div class="card-title">Striped Rows</div>
-            </div>
-            <div class="card-body">
-            <div class="form-group">
-            <input type="text"
-            class="form-control"
-            id="defaultInput"
-            placeholder="Default Input" />
-            </div>
-            <table class="table table-hover">
-            <thead>
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <td>1</td>
-            <td>Mark</td>
-            </tr>
-            <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            </tr>
-            <tr>
-            <td>3</td>
-            <td colspan="2">Larry the Bird</td>
-
-            </tr>
-            </tbody>
-            </table>
-
-            </div>
-            </div>
-            </div> *@
-            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">Search</div>
+                    </div>
+                    <div class="floors">
+                        <div class="floor-card">
+
+                            <div class="room-search">
+                                <input type="text" id="room-search" placeholder="Search with room number...">
+                                <button class="search-btn">Search</button>
+                            </div>
+
+                            <div class="room-container">
+                                <div class="room-card">
+                                    <h4>R-101, AC, 4 Sharing</h4>
+                                    <div class="beds">
+                                        <button class="bed available">B-1</button>
+                                        <button class="bed available">B-2</button>
+                                        <button class="bed available">B-3</button>
+                                        <button class="bed occupied">B-4</button>
+                                    </div>
+                                </div>
+                                <!-- Add more room cards here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> *@
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Search Room</div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
                             <input type="text"
                                    class="form-control"
-                                   id="defaultInput"
+                                   id="RoomInput"
+                                   name="RoomInput"
+                                   oninput="SearchRoom()"
                                    placeholder="Default Input" />
                         </div>
                         <div class="table-responsive">
@@ -167,133 +140,18 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Sr.</th>
-                                            <th>Table heading</th>
-                                            <th>Table heading</th>
-                                            <th>Table heading</th>
-                                            <th>Table heading</th>
-                                            <th>Table heading</th>
-                                            <th>Table heading</th>
+                                            <th>Room</th>
+                                            <th>Gender</th>
+                                            <th>Floor</th>
+                                            <th>Details</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
+                                    <tbody id="RoomTableBody">
+                                        @*  <tr>
+                                        <th scope="row">1</th>
+                                        <td>Name</td>
+                                        <td>View Details</td>
+                                        </tr> *@
                                     </tbody>
                                 </table>
                             </div>
@@ -301,7 +159,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">Search Person</div>
@@ -338,9 +196,56 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
+
 </div>
+<script>
+    function SearchRoom() {
+        var Roomsearchinput = $('#RoomInput').val();
+        if (Roomsearchinput) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetRoomsByName", "PG_Owner", new { area = "PG_Owner" })',
+                data: { roomSearchInput: Roomsearchinput },
+                success: function (response) {
+                    // Clear the current table body
+                    var tbody = $("#RoomTableBody");
+                    tbody.empty(); // Clear the current table body
+
+                    // Loop through the response and append new rows
+                    if (response && response.length > 0) {
+                        response.forEach(function (hostel, index) {
+                            var row = `<tr>
+                                            <td>${hostel.pG_Number}</td>
+                                                <th >${hostel.hostel_Gender}</th>-
+                                                <th >${hostel.hostel_Floor}</th>-
+                                                <td><a href="/PG_Person/PG_Person/PersonWithBedDetails?PG_ID=${hostel.id}">
+                                                <button  class="btn btn-warning btn-sm">View Room</button></a></td>
+                                      </tr>`;
+                            tbody.append(row);
+                            // alert(JSON.stringify(person))
+                        });
+                    } else {
+                        // If no results are found
+                        var emptyRow = `<tr>
+                                                        <td colspan="3" class="text-center">No Room found</td>
+                                                    </tr>`;
+                        tbody.append(emptyRow);
+                    }
+                },
+                error: function (err) {
+                    console.error("Error While Running AJAX:", err);
+                    alert("Error While Running AJAX", err);
+                }
+            });
+        } else {
+            var tbody = $("#RoomTableBody");
+            tbody.empty(); // Clear the current table body
+        }
+    }
+</script>
 
 <script>
     function SearchPerson() {
@@ -359,19 +264,19 @@
                     if (response && response.length > 0) {
                         response.forEach(function (person, index) {
                             var row = `<tr>
-                                                <th scope="row">${index + 1}</th>-
-                                                <td>${person.person_Name}</td>
-                                                     <td><a href="/PG_Person/PG_Person/PersonDetails?Person_Id=${person.id}">
-                                                                <button  class="btn btn-warning btn-sm">View Person</button></a></td>
-                                            </tr>`;
+                                                        <th scope="row">${index + 1}</th>-
+                                                        <td>${person.person_Name}</td>
+                                                             <td><a href="/PG_Person/PG_Person/PersonDetails?Person_Id=${person.id}">
+                                                                        <button  class="btn btn-warning btn-sm">View Person</button></a></td>
+                                                    </tr>`;
                             tbody.append(row);
                             // alert(JSON.stringify(person))
                         });
                     } else {
                         // If no results are found
                         var emptyRow = `<tr>
-                                            <td colspan="3" class="text-center">No persons found</td>
-                                        </tr>`;
+                                                    <td colspan="3" class="text-center">No persons found</td>
+                                                </tr>`;
                         tbody.append(emptyRow);
                     }
                 },

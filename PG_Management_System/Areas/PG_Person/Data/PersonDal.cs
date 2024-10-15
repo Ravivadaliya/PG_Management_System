@@ -1,4 +1,5 @@
 ﻿using DatabaseHelperLibrary;
+using Hangfire.Common;
 using Microsoft.AspNetCore.Mvc;
 using PG_Management_System.Areas.PG_Bed.Models;
 using PG_Management_System.Areas.PG_Hostel.Models;
@@ -397,6 +398,22 @@ public class PersonDal
         }
     }
 
+    public DataTable GetAllPersonWithBedByHostelId(DatabaseHelper _dbHelper, int PG_ID)
+    {
+        try
+        {
+            SqlParameter[] sqlParameter = new SqlParameter[]
+            {
+                new SqlParameter("PG_Id", SqlDbType.Int) { Value = PG_ID },
+            };
+            DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_GetPersonWithBedDetails", sqlParameter);
+            return dataTable;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
     public DataTable GetPersonById(DatabaseHelper _dbHelper, int? personId)
     {
         try
@@ -674,7 +691,7 @@ public class PersonDal
             {
                 Payments payments1 = new Payments()
                 {
-                    PaymentDate =Convert.ToDateTime(dr["Payment_Date"]),
+                    PaymentDate = Convert.ToDateTime(dr["Payment_Date"]),
                     Payment_DueDate = Convert.ToDateTime(dr["Payment_DueDate"]),
                     PaymentStatus = Convert.ToBoolean(dr["Payment_Status"]),
                     Payment_Amount = dr["Room_Rent"].ToString(),
@@ -688,4 +705,6 @@ public class PersonDal
             return new List<Payments>();
         }
     }
+
+    
 }

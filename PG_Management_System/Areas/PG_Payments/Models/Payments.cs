@@ -34,7 +34,7 @@ namespace PG_Management_System.Areas.PG_Payments.Models
         public DateTime Payment_DueDate { get; set; }
 
         [Required(ErrorMessage = "Payment Date is required.")]
-        public DateTime PaymentDate { get; set; } = DateTime.Now;
+        public DateTime? PaymentDate { get; set; } 
 
 
         [Required(ErrorMessage = "Payment Status is required.")]

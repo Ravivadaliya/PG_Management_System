@@ -45,6 +45,7 @@ public class Hostel
     [StringLength(10)]
     public string Hostel_Gender{ get; set; }
 
+    public int Total_Empty_Bed { get; set; }
 
     public DateOnly Hostel_CreatedDate { get; set; }
     public DateOnly Hostel_ModificationDate { get; set; }

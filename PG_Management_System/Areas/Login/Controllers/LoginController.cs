@@ -88,7 +88,8 @@ public class LoginController(DatabaseHelper dbHelper) : Controller
 						HttpContext.Session.SetString("Owner_Name", dr["Owner_Name"].ToString());
 						HttpContext.Session.SetString("Owner_PassWord", dr["Owner_PassWord"].ToString());
 						HttpContext.Session.SetString("Owner_EmailId", dr["Owner_EmailId"].ToString());
-						break;
+						HttpContext.Session.SetString("PGName", dr["PGName"].ToString());
+                        break;
 					}
 				}
 				else
