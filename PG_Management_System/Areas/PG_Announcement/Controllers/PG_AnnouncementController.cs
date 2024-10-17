@@ -7,10 +7,11 @@ using PG_Management_System.Areas.PG_Announcement.Data;
 namespace PG_Management_System.Areas.PG_Announcement.Controllers;
 
 [Area("PG_Announcement")]
-[Route("PG_Announcement/{controller}/{action}")]
+[Route("Announcement")]
 public class PG_AnnouncementController : Controller
 {
     private readonly DatabaseHelper _dbHelper;
+
 
     public PG_AnnouncementController(DatabaseHelper dbHelper)
     {
@@ -18,6 +19,7 @@ public class PG_AnnouncementController : Controller
         _dbHelper.OpenConnection();
     }
 
+    [HttpGet("AddAnnouncement")]
     public IActionResult AddAnnouncement()
     {
         PersonDal personDal = new PersonDal();
@@ -25,6 +27,7 @@ public class PG_AnnouncementController : Controller
         return View("AddAnnouncement");
     }
 
+    [HttpPost("SaveAnnouncement")]
     public IActionResult SaveAnnouncement(Announcement announcement)
     {
         try

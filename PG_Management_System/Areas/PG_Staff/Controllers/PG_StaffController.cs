@@ -9,7 +9,7 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
 {
     [CheckAccess]
     [Area("PG_Staff")]
-    [Route("PG_Staff/{controller}/{action}")]
+    [Route("Staff")]
     public class PG_StaffController : Controller
     {
         private readonly DatabaseHelper _dbHelper;
@@ -21,22 +21,21 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
         }
 
 
-        public IActionResult AddEditPG_Staff()
-        {
-            return View();
-        }
+        //public IActionResult AddEditPG_Staff()
+        //{
+        //    return View();
+        //}
 
         [HttpGet("StaffList")]
         public IActionResult AllStaffList()
         {
-
                 StaffDal staffDal = new StaffDal();
                 DataTable dataTable = staffDal.GetAllStaffByOwnerId(_dbHelper);
                 return View("AllStaffList", dataTable);
-
         }
 
- 
+
+        [HttpGet("AddStaff")]
         public IActionResult Add(int? Id)
         {
             try
@@ -73,6 +72,7 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
         }
 
 
+        [HttpPost("DeleteStaff")]
         public IActionResult DeleteStaff(int Id)
         {
             try
@@ -100,7 +100,8 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
             }
         }
 
-     
+
+        [HttpPost("SaveStaff")]
         public IActionResult SaveStaff(Staff staff)
         {
             try

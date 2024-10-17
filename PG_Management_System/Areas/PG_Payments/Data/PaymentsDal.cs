@@ -67,7 +67,8 @@ namespace PG_Management_System.Areas.PG_Payments.Data
             new SqlParameter("@Person_Id", SqlDbType.Int) { Value = payments.Person_Id },
             new SqlParameter("@Owner_Id", SqlDbType.Int) { Value = payments.Owner_Id },
             new SqlParameter("@Payment_Status", SqlDbType.Int) { Value = payments.PaymentStatus },
-            new SqlParameter("@Payment_DueDate", SqlDbType.Date) { Value = payments.Payment_DueDate }
+            new SqlParameter("@Payment_DueDate", SqlDbType.Date) { Value = payments.Payment_DueDate },
+            new SqlParameter("@Payment_Date", SqlDbType.Date) { Value = payments.PaymentDate }
             };
 
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_InsertPaymentByAdmin", sqlParameters);
@@ -82,7 +83,7 @@ namespace PG_Management_System.Areas.PG_Payments.Data
             new SqlParameter("@Person_Id", SqlDbType.Int) { Value = CV.Person_Id() }
             };
 
-            DataTable dt = _dbHelper.ExecuteStoredProcedure("SP_PG_Payment_SelectByPersonId", sqlParameters);
+            DataTable dt = _dbHelper.ExecuteStoredProcedure("SP_SelectPaymentHistoryByPersonId", sqlParameters);
 
             return dt;
         }
@@ -92,7 +93,8 @@ namespace PG_Management_System.Areas.PG_Payments.Data
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
                 new SqlParameter("ID",SqlDbType.Int){Value = Payment_Id},
-                new SqlParameter("Payment_Status",SqlDbType.Bit){Value = true}
+                new SqlParameter("Payment_Status",SqlDbType.Bit){Value = true},
+                new SqlParameter("Payment_ReceivedDate",SqlDbType.Date){Value = DateTime.Now.Date}
             };
 
             int rvalue = _dbHelper.ExecuteStoredProcedureNonQuery("SP_UpdatePGPaymentStatus", sqlParameters);

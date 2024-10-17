@@ -36,22 +36,28 @@
                             <table class="table align-items-center mb-0">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col">Person Name</th>
-                                        <th scope="col">Person Surname</th>
+                                        @* <th scope="col">Person Name</th> *@
                                         <th scope="col" >Amount</th>
-                                        <th scope="col" >Payment Due date</th>
+                                        <th scope="col">Payment Created date</th>
+                                        <th scope="col">Accept date</th>
                                         <th scope="col" >Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @{
+
+                                    }
                                     @foreach (DataRow dr in Model.Rows)
                                     {
                                         <tr>
-                                            <td>@dr["Person_Name"]</td>
-                                            <td>@dr["Person_SurName"]</td>
+                                            @* <td>@dr["Person_Name"]</td> *@
+                                            
                                             <td>@dr["Room_Rent"]</td>
                                             <td>
-                                                @Convert.ToDateTime(dr["Payment_DueDate"]).ToString("dd-MM-yyyy")
+                                                @Convert.ToDateTime(dr["Payment_Date"]).ToString("dd-MM-yyyy")
+                                            </td>
+                                            <td>
+                                                @Convert.ToDateTime(dr["Payment_ReceivedDate"]).ToString("dd-MM-yyyy")
                                             </td>
                                             <td>
                                                 @{
@@ -63,7 +69,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <span class="badge badge-warning">Accept</span>
+                                                        <span class="badge badge-success">Accept</span>
                                                     }
                                                 }
                                             </td>

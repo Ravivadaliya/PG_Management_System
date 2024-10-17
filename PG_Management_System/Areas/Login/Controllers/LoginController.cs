@@ -11,16 +11,19 @@ namespace PG_Management_System.Areas.Login.Controllers;
 
 
 [Area("Login")]
-[Route("Login/{controller}/{action}")]
+[Route("Login")]
 public class LoginController(DatabaseHelper dbHelper) : Controller
 {
 	private readonly DatabaseHelper _dbHelper = dbHelper;
 
+	[HttpGet]
 	public IActionResult Login()
 	{
 		return View();
 	}
 
+
+	[HttpPost("LoginAction")]
 	public IActionResult LoginAction(Owner owner)
 	{
 		string error = null;
@@ -107,11 +110,13 @@ public class LoginController(DatabaseHelper dbHelper) : Controller
 		}
 	}
 
+	[HttpGet("AdminRegistration")]
 	public IActionResult AdminRegistration()
 	{
 		return View();
 	}
 
+	[HttpPost]
     public IActionResult InsertAdmin(Owner owner)
     {
         try
@@ -140,10 +145,11 @@ public class LoginController(DatabaseHelper dbHelper) : Controller
         }
     }
 
+	[HttpGet("Logout")]
     public IActionResult Logout()
 	{
 		HttpContext.Session.Clear();
-		return RedirectToAction("Login", "Login", new { Area = "Login" });
+		return RedirectToAction("Login");
 	}
 
 }

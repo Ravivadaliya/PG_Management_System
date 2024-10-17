@@ -14,7 +14,7 @@ namespace PG_Management_System.Areas.User.Controllers
 {
     [ClientCkeckAccess]
     [Area("User")]
-    [Route("User/[Controller]/[Action]")]
+    [Route("User")]
     public class UserController : Controller
     {
         private readonly DatabaseHelper _dbHelper;
@@ -25,21 +25,27 @@ namespace PG_Management_System.Areas.User.Controllers
             _dbHelper.OpenConnection();
         }
 
+        [HttpGet("IssueForm")]
         public IActionResult IssueForm()
         {
             return View();
         }
 
-        public IActionResult PaymentForm()
-        {
-            return View();
-        }
+
+        //public IActionResult PaymentForm()
+        //{
+        //    return View();
+        //}
+
+        [HttpGet("UserPaymentList")]
         public IActionResult UserPaymentList()
         {
             PaymentsDal paymentsDal = new PaymentsDal();
             DataTable dataTable = paymentsDal.selectPaymentListFromPersonID(_dbHelper);
             return View("UserPaymentList",dataTable);
         }
+
+        [HttpGet("UserDashBoard")]
         public IActionResult UserDashBoard()
         {
             try
@@ -56,6 +62,8 @@ namespace PG_Management_System.Areas.User.Controllers
             }
         }
 
+
+        [HttpGet("UserIssueList")]
         public IActionResult UserIssueList(int Room_ID)
         {
             try
@@ -80,6 +88,7 @@ namespace PG_Management_System.Areas.User.Controllers
             }
         }
 
+        [HttpPost("SaveIssue")]
         public IActionResult SaveIssue(Models.User userIssue)
         {
             try
@@ -133,6 +142,7 @@ namespace PG_Management_System.Areas.User.Controllers
             }
         }
 
+        [HttpGet("AnnouncementList")]
         public IActionResult AnnouncementList()
         {
             try
@@ -156,6 +166,7 @@ namespace PG_Management_System.Areas.User.Controllers
             }
         }
 
+        [HttpGet("GetNewNotificationCountByPersonId")]
         public int GetNewNotificationCountByPersonId()
         {
             try
@@ -181,6 +192,7 @@ namespace PG_Management_System.Areas.User.Controllers
             }
         }
 
+        [HttpPost("SavePayment")]
         public IActionResult SavePayment(Payments payments)
         {
             try

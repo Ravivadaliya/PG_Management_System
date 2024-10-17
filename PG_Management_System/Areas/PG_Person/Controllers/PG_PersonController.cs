@@ -15,7 +15,7 @@ namespace PG_Management_System.Areas.PG_Person.Controllers;
 
 [CheckAccess]
 [Area("PG_Person")]
-[Route("PG_Person/{controller}/{action}")]
+[Route("Person")]
 public class PG_PersonController : Controller
 {
     private readonly DatabaseHelper _dbHelper;
@@ -27,7 +27,7 @@ public class PG_PersonController : Controller
         _dbHelper.OpenConnection();
     }
 
-    [HttpGet("AllPerson")]
+    [HttpGet("PersonList")]
     public IActionResult AllPersonList()
     {
 
@@ -38,20 +38,21 @@ public class PG_PersonController : Controller
     }
 
 
-    public IActionResult AddEditPerson()
-    {
-        try
-        {
-            return View();
-        }
-        catch (Exception ex)
-        {
-            TempData["Message"] = $"An unexpected error occurred";
-            TempData["AlertType"] = "error";
-            return RedirectToAction("AllPersonList");
-        }
-    }
+    //public IActionResult AddEditPerson()
+    //{
+    //    try
+    //    {
+    //        return View();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        TempData["Message"] = $"An unexpected error occurred";
+    //        TempData["AlertType"] = "error";
+    //        return RedirectToAction("AllPersonList");
+    //    }
+    //}
 
+    [HttpGet("AddEdit")]
     public IActionResult Add(int? Person_Id)
     {
         try
@@ -144,6 +145,7 @@ public class PG_PersonController : Controller
         }
     }
 
+    [HttpGet("PersonDetails")]
     public IActionResult PersonDetails(int Person_Id)
     {
         try
@@ -160,6 +162,7 @@ public class PG_PersonController : Controller
         }
     }
 
+    [HttpGet("RoomWisePersons")]
     public IActionResult PersonWithBedDetails(int PG_ID)
     {
         try
@@ -176,6 +179,7 @@ public class PG_PersonController : Controller
         }
     }
 
+    [HttpPost("SavePerson")]
     public IActionResult SavePerson(Person person)
     {
         try
@@ -218,6 +222,7 @@ public class PG_PersonController : Controller
     }
 
 
+    [HttpPost("personDelete")]
     public IActionResult personDelete(int Person_Id)
     {
         try
@@ -242,6 +247,7 @@ public class PG_PersonController : Controller
             return RedirectToAction("AllPersonList");
         }
     }
+
 
     #region PG_Room_RoomDropDownByHostelId
     public IActionResult PG_Room_RoomDropDownByHostelId(int Hostel_Id)
@@ -280,7 +286,7 @@ public class PG_PersonController : Controller
     }
 
 
-    [HttpGet]
+    [HttpGet("SelectPaymentHistoryByPerson")]
     public IActionResult SelectPaymentHistoryByPerson(int personId)
     {
         try
@@ -316,6 +322,7 @@ public class PG_PersonController : Controller
     #region Automatic payment genrate
 
 
+    [HttpGet("GeneratePaymentRequests")]
     public void GeneratePaymentRequests()
     {
         Thread.Sleep(20000);
@@ -336,6 +343,7 @@ public class PG_PersonController : Controller
                     Owner_Id = person.Owner_ID,
                     Payment_DueDate = CalculatePaymentDeadline(person),
                     PaymentStatus = false,
+                    PaymentDate = DateTime.Now.Date // Set to the first date of the current month
                 };
 
                 // Save payment request to the database
@@ -370,13 +378,13 @@ public class PG_PersonController : Controller
         switch (person.Payment_Cycle.ToLower())
         {
             case "daily":
-                return latestPayment.PaymentDate?.AddDays(1) <= DateTime.Now;
+                return latestPayment.PaymentDate.AddDays(1) <= DateTime.Now.Date;
 
             case "weekly":
-                return latestPayment.PaymentDate?.AddDays(7) <= DateTime.Now;
+                return latestPayment.PaymentDate.AddDays(7) <= DateTime.Now.Date;
 
             case "monthly":
-                return latestPayment.PaymentDate?.AddMonths(1) <= DateTime.Now;
+                return latestPayment.PaymentDate.AddMonths(1) <= DateTime.Now.Date;
 
             default:
                 return false;
@@ -425,7 +433,7 @@ public class PG_PersonController : Controller
                 Person_Id = Convert.ToInt32(dr["Person_Id"]),
                 Owner_Id = Convert.ToInt32(dr["Owner_Id"]),
                 Payment_DueDate = Convert.ToDateTime(dr["Payment_DueDate"]).Date,
-                PaymentDate = dr["Payment_Date"] != DBNull.Value ? Convert.ToDateTime(dr["Payment_Date"]).Date : (DateTime?)null,
+                PaymentDate =  Convert.ToDateTime(dr["Payment_Date"]).Date,
                 PaymentStatus = Convert.ToBoolean(dr["Payment_Status"]),
             };
         }
@@ -435,8 +443,6 @@ public class PG_PersonController : Controller
 
 
     #endregion 
-
-
 }
 
 

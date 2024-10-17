@@ -34,7 +34,7 @@ namespace PG_Management_System.Areas.PG_Payments.Models
         public DateTime Payment_DueDate { get; set; }
 
         [Required(ErrorMessage = "Payment Date is required.")]
-        public DateTime? PaymentDate { get; set; } 
+        public DateTime PaymentDate { get; set; } 
 
 
         [Required(ErrorMessage = "Payment Status is required.")]
@@ -42,5 +42,10 @@ namespace PG_Management_System.Areas.PG_Payments.Models
 
 
         public string Payment_Amount { get; set; }
+
+        public DateTime? Payment_ReceivedDate { get; set; }
+
     }
 }
+
+

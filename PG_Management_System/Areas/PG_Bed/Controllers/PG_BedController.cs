@@ -14,11 +14,12 @@ namespace PG_Management_System.Areas.PG_Bed.Controllers;
 
 [CheckAccess]
 [Area("PG_Bed")]
-[Route("PG_Bed/{controller}/{action}")]
+[Route("Bed")]
 public class PG_BedController(DatabaseHelper dbHelper) : Controller
 {
     private readonly DatabaseHelper _dbHelper = dbHelper;
 
+    [HttpGet("SelectPG")]
     public IActionResult PGList()
     {
         try
@@ -35,6 +36,7 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
         }
     }
 
+    [HttpGet("Beds")]
     public IActionResult BedListByHostelId(int Hostel_Id)
     {
         try
@@ -51,7 +53,7 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
         }
     }
 
-    [HttpPost]
+    [HttpPost("AssignBedToPerson")]
     public IActionResult AssignBedToPerson(int Bed_ID, int Person_ID, string Payment_Cycle, int Deposit, DateOnly Payment_Date)
     {
         BedDal bedDal = new BedDal();
@@ -73,6 +75,8 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
         }
     }
 
+
+    [HttpPost("removePersonFromBed")]
     public IActionResult removePersonFromBed(int Bed_Id)
     {
         BedDal bedDal = new BedDal();
@@ -90,7 +94,7 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
 
     }
 
-    [HttpGet]
+    [HttpGet("GetPersonsByPartialMobileNumber")]
     public IActionResult GetPersonsByPartialMobileNumber(string partialMobileNumber)
     {
         if (string.IsNullOrEmpty(partialMobileNumber))
@@ -112,7 +116,7 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
     }
 
 
-
+    [HttpGet("AddBed")]
     public IActionResult AddBed(int? Hostel_Id, string PG_Number)
     {
         if (Hostel_Id == null || Hostel_Id == 0)
@@ -136,7 +140,7 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
     }
 
 
-
+    [HttpPost("DeleteBed")]
     public IActionResult DeleteBed(int Bed_Id)
     {
         try
@@ -163,6 +167,7 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
     }
 
 
+    [HttpPost("SaveBed")]
     public IActionResult SaveBed(Bed bed)
     {
         try

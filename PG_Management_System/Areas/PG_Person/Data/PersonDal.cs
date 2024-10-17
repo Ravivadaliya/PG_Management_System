@@ -1,6 +1,4 @@
 ﻿using DatabaseHelperLibrary;
-using Hangfire.Common;
-using Microsoft.AspNetCore.Mvc;
 using PG_Management_System.Areas.PG_Bed.Models;
 using PG_Management_System.Areas.PG_Hostel.Models;
 using PG_Management_System.Areas.PG_Payments.Models;
@@ -695,6 +693,7 @@ public class PersonDal
                     Payment_DueDate = Convert.ToDateTime(dr["Payment_DueDate"]),
                     PaymentStatus = Convert.ToBoolean(dr["Payment_Status"]),
                     Payment_Amount = dr["Room_Rent"].ToString(),
+                    Payment_ReceivedDate = dr["Payment_ReceivedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["Payment_ReceivedDate"]).Date,
                 };
                 payments.Add(payments1);
             }

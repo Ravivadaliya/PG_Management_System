@@ -55,11 +55,12 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a asp-area="User" asp-controller="User" asp-action="UserDashboard" class="logo">
-                        <img src="~/assets/img/Infinity-removebg.png"
+                       @*  <img src="~/assets/img/Infinity-removebg.png"
                              alt="navbar brand"
                              class="navbar-brand"
                              height="100"
-                             width="100" />
+                             width="100" /> *@
+                        <h1 class="ml-3" style="color:deepskyblue">Veduratech</h1>
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -97,12 +98,12 @@
                                 <span id="NewNotificationBadge" class="badge bg-warning">0</span>
                             </a>
                         </li>
-                          <li class="nav-item">
+                        @*   <li class="nav-item">
                             <a asp-area="User" asp-controller="User" asp-action="PaymentForm">
                                 <i class="fas fa-rupee-sign"></i>
                                 <p>Pay Rent</p>
                             </a>
-                        </li>
+                        </li> *@
                         <li class="nav-item">
                             <a asp-area="User" asp-controller="User" asp-action="UserPaymentList">
                                 <i class="fas fa-money-check"></i>

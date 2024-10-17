@@ -13,7 +13,7 @@ namespace PG_Management_System.Areas.PG_Owner.Controllers;
 
 [CheckAccess]
 [Area("PG_Owner")]
-[Route("PG_Owner/{controller}/{action}")]
+[Route("PGOwner")]
 public class PG_OwnerController : Controller
 {
     private readonly DatabaseHelper _dbHelper;
@@ -24,11 +24,13 @@ public class PG_OwnerController : Controller
         _dbHelper.OpenConnection();
     }
 
+    [HttpGet("Dashboard")]
     public IActionResult Dashboard()
     {
         return View();
     }
 
+    [HttpPost("SelectPGDetalsForDashBoard")]
     public IActionResult SelectPGDetalsForDashBoard()
     {
         try
@@ -46,13 +48,14 @@ public class PG_OwnerController : Controller
         }
     }
 
+    [HttpGet("AdminRegistration")]
     public IActionResult AdminRegistration()
     {
         TempData["AddAdmin"] = null;
         return View();
     }
 
-    [HttpPost]
+    [HttpPost("GetPersonsByNameMobileNumber")]
     public IActionResult GetPersonsByNameMobileNumber(string SearchInput)
     {
         if (string.IsNullOrEmpty(SearchInput))
@@ -70,7 +73,8 @@ public class PG_OwnerController : Controller
             return StatusCode(500, "Internal server error: " + ex.Message);
         }
     }
-    [HttpPost]
+
+    [HttpPost("GetRoomsByName")]
     public IActionResult GetRoomsByName(string roomSearchInput)
     {
         if (string.IsNullOrEmpty(roomSearchInput))
@@ -88,6 +92,4 @@ public class PG_OwnerController : Controller
             return StatusCode(500, "Internal server error: " + ex.Message);
         }
     }
-
-
 }

@@ -10,7 +10,7 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
 {
     [CheckAccess]
     [Area("PG_Room")]
-    [Route("PG_Room/{controller}/{action}")]
+    [Route("Room")]
     public class PG_RoomController : Controller
     {
         private readonly DatabaseHelper _dbHelper;
@@ -21,6 +21,7 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
             _dbHelper.OpenConnection();
         }
 
+        [HttpGet("SelectPG")]
         public IActionResult PGList()
         {
 
@@ -30,7 +31,8 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
 
         }
 
-      
+
+        [HttpGet("Rooms")]
         public IActionResult AllRoomListByHostelId(string Id)
         {
             try
@@ -47,7 +49,7 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
             }
         }
 
-       
+        [HttpGet("AddRoom")]       
         public IActionResult Add(int? Id, int Hostel_Id)
         {
             try
@@ -84,7 +86,8 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
             }
         }
 
-       
+
+        [HttpPost("SaveRoom")]
         public IActionResult SaveRoom(Room room)
         {
             string errorMessage = string.Empty; // Initialize error message
@@ -129,6 +132,7 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
             }
         }
 
+        [HttpPost("DeleteRoom")]
         public IActionResult DeleteRoom(int Id)
         {
             try

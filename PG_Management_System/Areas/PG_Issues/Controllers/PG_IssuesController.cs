@@ -9,7 +9,7 @@ namespace PG_Management_System.Areas.PG_Issues.Controllers;
 
 [CheckAccess]
 [Area("PG_Issues")]
-[Route("PG_Issues/{controller}/{action}")]
+[Route("Issues")]
 public class PG_IssuesController : Controller
 {
     private readonly DatabaseHelper _dbHelper;
@@ -20,6 +20,7 @@ public class PG_IssuesController : Controller
         _dbHelper.OpenConnection();
     }
 
+    [HttpGet("IssuesList")]
     public IActionResult AllIssuesList()
     {
         IssueDal issueDal = new IssueDal();
@@ -27,6 +28,7 @@ public class PG_IssuesController : Controller
         return View("AllIssuesList", dataTable);
     }
 
+    [HttpPost("UpdateStatus")]
     public IActionResult UpdateStatus(int Issue_Id)
     {
         try
@@ -54,6 +56,7 @@ public class PG_IssuesController : Controller
         }
     }
 
+    [HttpGet("GetPendingIssuesCount")]
     public IActionResult GetPendingIssuesCount()
     {
         IssueDal issueDal = new IssueDal();
@@ -63,6 +66,7 @@ public class PG_IssuesController : Controller
     }
 
 
+    [HttpGet("GetIssuesCountByOwnerId")]
     public int GetIssuesCountByOwnerId()
     {
         int issuesCount = 0;

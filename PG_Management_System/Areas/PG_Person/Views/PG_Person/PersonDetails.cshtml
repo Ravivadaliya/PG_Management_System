@@ -263,7 +263,8 @@
                                 <thead class="thead-light">
                                     <tr>
                                         @* <th scope="col">Sr.</th> *@
-                                        <th scope="col">Payment Date</th>
+                                        <th scope="col">Payment Created Date</th>
+                                        <th scope="col">Payment Accept Date</th>
                                         <th scope="col">Payment Duedate</th>
                                         <th scope="col">Amount</th>
                                         <th scope="col">Payment_Status</th>
@@ -303,7 +304,8 @@
                            @*  <th scope="row">
                                 ${payment.person_Id}
                             </th> *@
-                              <td>${formatDate(payment.paymentDate)}</td>
+                                  <td>${formatDate(payment.paymentDate)}</td>
+                                      <td>${formatDate(payment.payment_ReceivedDate)}</td>
                              <td>${formatDate(payment.payment_DueDate)}</td>
                             <td >${paymentAmount}</td>
                             <td >
@@ -338,7 +340,7 @@
         var minutes = String(d.getMinutes()).padStart(2, '0');
 
         // Return formatted date and time
-        return `${day}-${month}-${year} ${hours}:${minutes}`;
+        return `${day}-${month}-${year}`;
     }
 
 </script>

@@ -8,11 +8,12 @@ namespace PG_Management_System.Areas.PG_Payments.Controllers;
 
 [CheckAccess]
 [Area("PG_Payments")]
-[Route("PG_Payments/{controller}/{action}")]
+[Route("Payments")]
 public class PG_PaymentsController(DatabaseHelper _dbHelper) : Controller
 {
     private readonly DatabaseHelper _dbHelper = _dbHelper;
 
+    [HttpGet("SelectPG")]
     public IActionResult PGList()
     {
         try
@@ -29,6 +30,7 @@ public class PG_PaymentsController(DatabaseHelper _dbHelper) : Controller
         }
     }
 
+    [HttpGet("PenddingPayments")]
     public IActionResult penddingfPaymentsList(int Hostel_Id)
     {
         PaymentsDal paymentsDal = new PaymentsDal();
@@ -36,6 +38,7 @@ public class PG_PaymentsController(DatabaseHelper _dbHelper) : Controller
         return View("PaymentsList", dataTable);
     }
 
+    [HttpGet("CompletePayments")]
     public IActionResult completePaymentsList(int Hostel_Id)
     {
         PaymentsDal paymentsDal = new PaymentsDal();
@@ -43,7 +46,7 @@ public class PG_PaymentsController(DatabaseHelper _dbHelper) : Controller
         return View("PaymentsList", dataTable);
     }
 
-
+    [HttpPost("UpdatePaymentCompleteStatus")]
     public IActionResult UpdatePaymentCompleteStatus(int Payment_Id)
     {
         try

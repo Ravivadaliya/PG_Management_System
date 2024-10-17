@@ -9,7 +9,7 @@ namespace PG_Management_System.Areas.PG_Hostel.Controllers
 {
     [CheckAccess]
     [Area("PG_Hostel")]
-    [Route("PG_Hostel/{controller}/{action}")]
+    [Route("PG")]
     public class PG_HostelController : Controller
     {
         private readonly DatabaseHelper _dbHelper;
@@ -20,6 +20,7 @@ namespace PG_Management_System.Areas.PG_Hostel.Controllers
             _dbHelper.OpenConnection();
         }
 
+        [HttpGet("PgList")]
         public IActionResult AllPgList()
         {
             HostelDal hostelDal = new HostelDal();
@@ -29,13 +30,13 @@ namespace PG_Management_System.Areas.PG_Hostel.Controllers
         }
 
 
-        public IActionResult AddEditPG_Hostel()
-        {
 
-            return View();
+        //public IActionResult AddEditPG_Hostel()
+        //{
+        //    return View();
+        //}
 
-        }
-
+        [HttpGet("Add")]
         public IActionResult Add(int? id)
         {
             try
@@ -82,6 +83,7 @@ namespace PG_Management_System.Areas.PG_Hostel.Controllers
             }
         }
 
+        [HttpPost("DeletePG")]
         public IActionResult DeletePG(int id)
         {
             try
@@ -108,6 +110,7 @@ namespace PG_Management_System.Areas.PG_Hostel.Controllers
             return RedirectToAction("AllPgList");
         }
 
+        [HttpPost("SavePg")]
         public IActionResult SavePg(Hostel hostel)
         {
             try
