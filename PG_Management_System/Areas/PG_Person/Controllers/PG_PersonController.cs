@@ -162,7 +162,7 @@ public class PG_PersonController : Controller
         }
     }
 
-    [HttpGet("RoomWisePersons")]
+    [HttpGet("PersonWithBedDetails")]
     public IActionResult PersonWithBedDetails(int PG_ID)
     {
         try

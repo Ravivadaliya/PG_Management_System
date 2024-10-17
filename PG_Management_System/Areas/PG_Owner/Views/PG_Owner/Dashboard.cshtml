@@ -221,7 +221,7 @@
                                             <td>${hostel.pG_Number}</td>
                                                 <th >${hostel.hostel_Gender}</th>-
                                                 <th >${hostel.hostel_Floor}</th>-
-                                                <td><a href="/PG_Person/PG_Person/PersonWithBedDetails?PG_ID=${hostel.id}">
+                                                <td><a href="/Person/PersonWithBedDetails?PG_ID=${hostel.id}">
                                                 <button  class="btn btn-warning btn-sm">View Room</button></a></td>
                                       </tr>`;
                             tbody.append(row);
@@ -266,7 +266,7 @@
                             var row = `<tr>
                                                         <th scope="row">${index + 1}</th>-
                                                         <td>${person.person_Name}</td>
-                                                             <td><a href="/PG_Person/PG_Person/PersonDetails?Person_Id=${person.id}">
+                                                             <td><a href="/Person/PersonDetails?Person_Id=${person.id}">
                                                                         <button  class="btn btn-warning btn-sm">View Person</button></a></td>
                                                     </tr>`;
                             tbody.append(row);
