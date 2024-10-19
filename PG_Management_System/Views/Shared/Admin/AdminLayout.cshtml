@@ -264,7 +264,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a asp-area="PG_Staff" asp-controller="PG_Staff" asp-action="AddEditPG_Staff">
+                                        <a asp-area="PG_Staff" asp-controller="PG_Staff" asp-action="Add">
                                             <span class="sub-item">Add New Staff</span>
                                         </a>
                                     </li>
@@ -555,7 +555,7 @@
             $("#basic-datatables").DataTable({});
 
             $("#multi-filter-select").DataTable({
-                pageLength: 5,
+                pageLength: 10,
                 initComplete: function () {
                     this.api()
                         .columns()

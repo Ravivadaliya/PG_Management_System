@@ -192,4 +192,22 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
 
         return RedirectToAction("PGList");
     }
+
+
+
+    [HttpPost("ChangePaymentLifeCycle")]
+    public IActionResult ChangePaymentLifeCycle(int bedid,string paymentCycle)
+    {
+        BedDal bedDal = new BedDal();
+        if (bedDal.ChnagePaymentCyclePerson(_dbHelper, bedid,paymentCycle))
+        {
+            return Json(new { success = true, message = "Payment Life Cycle Update SuccesFully " });
+        }
+        else
+        {
+            return Json(new { success = false, message = "Error occur while changin life cycle" });
+        }
+
+    }
+
 }

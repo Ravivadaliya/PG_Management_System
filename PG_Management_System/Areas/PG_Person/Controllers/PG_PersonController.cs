@@ -27,7 +27,7 @@ public class PG_PersonController : Controller
         _dbHelper.OpenConnection();
     }
 
-    [HttpGet("PersonList")]
+    [HttpGet("AllPersonList")]
     public IActionResult AllPersonList()
     {
 
@@ -36,6 +36,7 @@ public class PG_PersonController : Controller
         return View("AllPersonList", dataTable);
 
     }
+
 
 
     //public IActionResult AddEditPerson()

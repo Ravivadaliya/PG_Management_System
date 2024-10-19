@@ -64,41 +64,6 @@
                                         </div>
                                     </div>
 
-@* 
-                                    <div class="form-group form-inline">
-                                        <label for="inlineinput"
-                                               class="col-md-3 col-form-label">Select PG</label>
-                                        <div class="col-md-9 p-0">
-                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" asp-for="Hostel_ID" asp-items="@(new SelectList(ViewBag.HostelList, "Id", "PG_Number"))" onchange="OnHostelChange();">
-                                                <option value="">Select Hostel</option>
-                                            </select>
-                                            <span asp-validation-for="Hostel_ID" class="text-danger"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group form-inline">
-                                        <label for="inlineinput"
-                                               class="col-md-3 col-form-label">Select Room Sharing</label>
-                                        <div class="col-md-9 p-0">
-                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room" asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList,"Id","Room_SharingType"))" onchange="OnRoomChange();">
-                                                <option value="">Select Room Sharing</option>
-                                            </select>
-                                            <span asp-validation-for="Room_ID" class="text-danger"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group form-inline">
-                                        <label for="inlineinput"
-                                               class="col-md-3 col-form-label">Select Bed</label>
-                                        <div class="col-md-9 p-0">
-                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Room" asp-for="Bed_ID" asp-items="@(new SelectList(ViewBag.BedList, "Id", "Bed_Number", Model?.Bed_ID))">
-                                                <option value="">Select Bed</option>
-                                            </select>
-                                            <span asp-validation-for="Bed_ID" class="text-danger"></span>
-                                        </div>
-                                    </div> *@
-
-
                                     <div class="form-group form-inline">
                                         <label for="inlineinput"
                                                class="col-md-3 col-form-label">Enter Mobile Number*</label>
@@ -226,26 +191,40 @@
                                             <span asp-validation-for="Person_JoningDate" class="text-danger"></span>
                                         </div>
                                     </div>
-                                   @*  <div class="form-group form-inline">
-                                        <label for="inlineinput"
-                                               class="col-md-3 col-form-label">Select Payment Mode*</label>
-                                        <div class="col-md-9 p-0">
-                                            <select class="form-control input-full" data-control="select2" data-placeholder="Select Mode" data-allow-clear="true" asp-for="Person_PaymentMode">
-                                                <option value="">Select Gender*</option>
-                                                <option value="Daily">Daily</option>
-                                                <option value="Weekly">Weekly</option>
-                                                <option value="Monthly">Monthly</option>
-                                            </select>
-                                            <span asp-validation-for="Person_PaymentMode" class="text-danger"></span>
-                                        </div>
-                                    </div> *@
                                     <div class="form-group">
                                         <label for="exampleFormControlFile1">Upload Your Photo</label>
                                         <input type="file"
                                                asp-for="File"
                                                class="form-control-file"
-                                               id="exampleFormControlFile1" />
+                                               id="exampleFormControlFile1"
+                                               onchange="previewImage(event)" 
+                                               accept=".jpg,.jpeg" />
+
                                         <span asp-validation-for="File" class="text-danger"></span>
+                                    </div>
+                                    <!-- Display Existing Image (if available) -->
+                                    @if (Model != null && !string.IsNullOrEmpty(Model.Person_Image))
+                                    {
+                                        <div class="form-group">
+                                            <label>Current Image</label>
+                                            <div>
+                                                <img src="@Url.Content("~/"+ Model.Person_Image)" alt="Person Image" style="max-width: 150px; max-height: 150px;" />
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <!-- Display Image Preview when uploading a new image -->
+                                    <div class="form-group" id="imagePreview" style="display:none;">
+                                        <label>Selected Image</label>
+                                        <div>
+                                            <img id="previewImg" src="#" alt="Image Preview" style="max-width: 150px; max-height: 150px;" />
+                                        </div>
+                                    </div>
+
+                                    <!-- Error message for invalid image size or type -->
+                                    <div class="form-group">
+                                        <span id="imageSizeError" class="text-danger" style="display:none;">The image size should not exceed 200KB.</span>
+                                        <span id="imageTypeError" class="text-danger" style="display:none;">Only JPG or JPEG images are allowed.</span>
                                     </div>
                                     <div class="form-group form-inline">
                                         <label for="inlineinput"
@@ -259,6 +238,7 @@
                                             <span asp-validation-for="Person_AadharCard" class="text-danger"></span>
                                         </div>
                                     </div>
+
                                     <div class="form-group form-inline">
                                         <label for="inlineinput"
                                                class="col-md-3 col-form-label">Set Password*</label>
@@ -285,6 +265,60 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    function previewImage(event) {
+        var input = event.target;
+        var imageSizeError = document.getElementById('imageSizeError');
+        var imageTypeError = document.getElementById('imageTypeError');
+        var imagePreview = document.getElementById('imagePreview');
+        var preview = document.getElementById('previewImg');
+
+        // Check if a file is selected
+        if (input.files && input.files[0]) {
+            var file = input.files[0];
+            var fileType = file.type;
+
+            // Validate file type (jpg, jpeg)
+            var validImageTypes = ['image/jpeg', 'image/jpg'];
+            if (!validImageTypes.includes(fileType)) {
+                imageTypeError.style.display = 'block'; // Show type error message
+                imageSizeError.style.display = 'none';  // Hide size error message
+                imagePreview.style.display = 'none';    // Hide preview
+                preview.src = ''; // Clear preview image src
+
+                // Clear the file input if file type is invalid
+                input.value = '';  // This will reset the file input
+
+                return; // Exit if file type is invalid
+            }
+
+            // Clear file type error if valid
+            imageTypeError.style.display = 'none';
+
+            // Validate file size (200KB = 200 * 1024 bytes)
+            if (file.size > 200 * 1024) {
+                imageSizeError.style.display = 'block'; // Show size error message
+                imagePreview.style.display = 'none';    // Hide preview
+                preview.src = ''; // Clear preview image src
+
+                // Clear the file input if file size exceeds the limit
+                input.value = '';  // This will reset the file input
+
+                return; // Exit if file is too large
+            }
+
+            // Clear error messages if valid
+            imageSizeError.style.display = 'none';
+
+            var reader = new FileReader();
+            reader.onload = function () {
+                preview.src = reader.result; // Set preview image src
+                imagePreview.style.display = 'block'; // Show the preview section
+            }
+            reader.readAsDataURL(file); // Read the selected image file
+        }
+    }
+</script>
 <script>
     function OnHostelChange() {
         var Hostel_Id = $("#Hostel_ID").val();
@@ -360,3 +394,39 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+
+
+@*
+                                    <div class="form-group form-inline">
+                                    <label for="inlineinput"
+                                    class="col-md-3 col-form-label">Select PG</label>
+                                    <div class="col-md-9 p-0">
+                                    <select class="form-control input-full" data-control="select2" data-placeholder="Select PG Hostel" asp-for="Hostel_ID" asp-items="@(new SelectList(ViewBag.HostelList, "Id", "PG_Number"))" onchange="OnHostelChange();">
+                                    <option value="">Select Hostel</option>
+                                    </select>
+                                    <span asp-validation-for="Hostel_ID" class="text-danger"></span>
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                    <label for="inlineinput"
+                                    class="col-md-3 col-form-label">Select Room Sharing</label>
+                                    <div class="col-md-9 p-0">
+                                    <select class="form-control input-full" data-control="select2" data-placeholder="Select Room" asp-for="Room_ID" asp-items="@(new SelectList(ViewBag.RoomList,"Id","Room_SharingType"))" onchange="OnRoomChange();">
+                                    <option value="">Select Room Sharing</option>
+                                    </select>
+                                    <span asp-validation-for="Room_ID" class="text-danger"></span>
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                    <label for="inlineinput"
+                                    class="col-md-3 col-form-label">Select Bed</label>
+                                    <div class="col-md-9 p-0">
+                                    <select class="form-control input-full" data-control="select2" data-placeholder="Select Room" asp-for="Bed_ID" asp-items="@(new SelectList(ViewBag.BedList, "Id", "Bed_Number", Model?.Bed_ID))">
+                                    <option value="">Select Bed</option>
+                                    </select>
+                                    <span asp-validation-for="Bed_ID" class="text-danger"></span>
+                                    </div>
+                                    </div> *@

@@ -11,24 +11,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 
-// Add Hangfire services
-builder.Services.AddHangfire(config =>
-{
-    config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-          .UseSimpleAssemblyNameTypeSerializer()
-          .UseRecommendedSerializerSettings()
-          .UseSqlServerStorage(builder.Configuration.GetConnectionString("myConnectionStrings"), new SqlServerStorageOptions
-          {
-              CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-              SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-              QueuePollInterval = TimeSpan.Zero,
-              UseRecommendedIsolationLevel = true,
-              DisableGlobalLocks = true
-          });
-});
+//// Add Hangfire services
+//builder.Services.AddHangfire(config =>
+//{
+//    config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+//          .UseSimpleAssemblyNameTypeSerializer()
+//          .UseRecommendedSerializerSettings()
+//          .UseSqlServerStorage(builder.Configuration.GetConnectionString("myConnectionStrings"), new SqlServerStorageOptions
+//          {
+//              CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+//              SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+//              QueuePollInterval = TimeSpan.Zero,
+//              UseRecommendedIsolationLevel = true,
+//              DisableGlobalLocks = true
+//          });
+//});
 
-// Add Hangfire server
-builder.Services.AddHangfireServer();
+//// Add Hangfire server
+//builder.Services.AddHangfireServer();
 
 
 builder.Services.AddSingleton<DatabaseHelper>(sp =>
@@ -134,12 +134,12 @@ app.MapControllerRoute(
     pattern: "{area:exists}/{controller=Home}/{action=Dashboard}/{id?}");
 
 
-using (var scope = app.Services.CreateScope())
-{
-    var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
-    recurringJobManager.AddOrUpdate<PG_PersonController>(
-        "generate-payment-requests",
-        service => service.GeneratePaymentRequests(),
-        "*/2 * * * *");
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+//    recurringJobManager.AddOrUpdate<PG_PersonController>(
+//        "generate-payment-requests",
+//        service => service.GeneratePaymentRequests(),
+//        "*/2 * * * *");
+//}
 app.Run();

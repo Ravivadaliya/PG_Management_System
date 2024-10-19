@@ -93,11 +93,14 @@ public class Person
     [Required]
     [StringLength(20)]
     public string Person_AadharCard { get; set; }
+
+    [NotMapped]
     public IFormFile File { get; set; }
 
-    [Required]
-    [StringLength(120)]
+    //[Required]
+    //[StringLength(120)]
     public string Person_Image { get; set; }
+    
     public DateOnly Person_CreatedDate { get; set; }
     public DateOnly Person_ModificationDate { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using DatabaseHelperLibrary;
+using Hangfire.Common;
 using PG_Management_System.Areas.PG_Bed.Models;
 using PG_Management_System.Areas.PG_Hostel.Models;
 using PG_Management_System.Areas.PG_Payments.Models;
@@ -454,7 +455,7 @@ public class PersonDal
         {
             if (person.File != null)
             {
-                string file_loc = Path.Combine("wwwroot", "upload");
+                string file_loc = Path.Combine("wwwroot", "upload", person.Owner_ID.ToString());
                 string full_path = Path.Combine(Directory.GetCurrentDirectory(), file_loc);
 
                 if (!Directory.Exists(full_path))
@@ -466,7 +467,6 @@ public class PersonDal
                 {
                     File.Delete(file_name_with_path);
                 }
-
 
                 person.Person_Image = Path.Combine("upload", person.File.FileName);
 
@@ -517,7 +517,7 @@ public class PersonDal
         {
             if (person.File != null)
             {
-                string file_loc = Path.Combine("wwwroot", "upload");
+                string file_loc = Path.Combine("wwwroot", "upload",person.Owner_ID.ToString());
                 string full_path = Path.Combine(Directory.GetCurrentDirectory(), file_loc);
 
                 if (!Directory.Exists(full_path))
@@ -705,5 +705,6 @@ public class PersonDal
         }
     }
 
-    
+
+
 }

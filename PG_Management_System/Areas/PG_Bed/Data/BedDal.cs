@@ -69,6 +69,8 @@ public class BedDal
 
     public bool DeleteBed(DatabaseHelper _dbHelper, int bedid)
     {
+
+
         try
         {
             SqlParameter[] sqlParameters = new SqlParameter[]
@@ -122,4 +124,16 @@ public class BedDal
         }
     }
 
+
+    public bool ChnagePaymentCyclePerson(DatabaseHelper _dbHelper,int bed_id,string PaymentLifeCycle)
+    {
+        SqlParameter[] sqlParameter = new SqlParameter[]
+        {
+            new SqlParameter("Bed_Id",SqlDbType.Int){Value=bed_id},
+            new SqlParameter("Payment_Cycle",SqlDbType.VarChar){Value = PaymentLifeCycle},
+        };
+
+        int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PGBed_ChangePaymentLifeCycle", sqlParameter);
+        return (value == -1) ? false : true;
+    }
 }

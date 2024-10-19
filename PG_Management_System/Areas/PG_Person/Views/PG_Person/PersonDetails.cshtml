@@ -100,46 +100,6 @@
 
             <div class="row">
                 <div class="col-md-4" style="width: fit-content;">
-                    <!-- <div class="card card-primary card-round">
-                      <div class="card-header">
-                        <div class="card-head-row">
-                          <div class="card-title">Daily Sales</div>
-                          <div class="card-tools">
-                            <div class="dropdown">
-                              <button
-                                class="btn btn-sm btn-label-light dropdown-toggle"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
-                                Export
-                              </button>
-                              <div
-                                class="dropdown-menu"
-                                aria-labelledby="dropdownMenuButton"
-                              >
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#"
-                                  >Something else here</a
-                                >
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="card-category">March 25 - April 02</div>
-                      </div>
-                      <div class="card-body pb-0">
-                        <div class="mb-4 mt-2">
-                          <h1>$4,578.58</h1>
-                        </div>
-                        <div class="pull-in">
-                          <canvas id="dailySalesChart"></canvas>
-                        </div>
-                      </div>
-                    </div> -->
                     <div class="card card-round">
                         <div class="card-body pb-4 ">
                             <!-- <div class="h1 fw-bold float-end text-primary">+5%</div> -->
@@ -230,16 +190,28 @@
                                 <a asp-area="PG_Person" class="btn btn-primary me-2" asp-controller="PG_Person" asp-action="Add" asp-route-Person_Id="@Convert.ToInt32(dr["Id"])">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Person" asp-controller="PG_Person" asp-action="personDelete" asp-route-Person_Id="@Convert.ToInt32(dr["Id"])">
-                                    <input type="hidden" name="Id" value="@Convert.ToInt32(dr["Id"])" />
-                                    <button type="button"
-                                            onclick="confirmDelete('@dr["Id"]')"
-                                            title=""
-                                            class="btn btn-danger"
-                                            data-original-title="Remove">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </form>
+                                @{
+                                    var bedId = dr["Bed_Id"] != DBNull.Value ? Convert.ToInt32(dr["Bed_Id"]) : (int?)null;
+
+                                    if (bedId.HasValue && bedId > 0)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Person" asp-controller="PG_Person" asp-action="personDelete" asp-route-Person_Id="@Convert.ToInt32(dr["Id"])">
+                                            <input type="hidden" name="Id" value="@Convert.ToInt32(dr["Id"])" />
+                                            <button type="button"
+                                                    onclick="confirmDelete('@dr["Id"]')"
+                                                    title=""
+                                                    class="btn btn-danger"
+                                                    data-original-title="Remove">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                }
+                               
                             </div>
                         </div>
                     </div>
