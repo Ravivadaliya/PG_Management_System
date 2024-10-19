@@ -135,6 +135,7 @@
                                         </span>
                                         Print
                                     </a>
+                                  
                                     <input type="button" onclick="printDiv('PrintDiv')" class="btn btn-label-info btn-round btn-sm no-print" value="Print only Datalist!" />
 
 
@@ -171,7 +172,7 @@
                                     <strong>Workplace:</strong> @dr["Person_WorkPlace"]
                                 </div>
                                 <div class="col-md-6">
-                                    <strong>City:</strong>@dr["Person_City"]
+                                    <strong>City:</strong> @dr["Person_City"]
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -237,7 +238,6 @@
                                         @* <th scope="col">Sr.</th> *@
                                         <th scope="col">Payment Created Date</th>
                                         <th scope="col">Payment Accept Date</th>
-                                        <th scope="col">Payment Duedate</th>
                                         <th scope="col">Amount</th>
                                         <th scope="col">Payment_Status</th>
                                     </tr>
@@ -273,12 +273,9 @@
 
                         var row = `
                         <tr>
-                           @*  <th scope="row">
-                                ${payment.person_Id}
-                            </th> *@
-                                  <td>${formatDate(payment.paymentDate)}</td>
-                                      <td>${formatDate(payment.payment_ReceivedDate)}</td>
-                             <td>${formatDate(payment.payment_DueDate)}</td>
+
+                            <td>${formatDate(payment.payment_CreationDate)}</td>
+                            <td>${formatDate(payment.payment_ReceviedDate)}</td>
                             <td >${paymentAmount}</td>
                             <td >
                                 <span class="badge ${payment.paymentStatus ? 'badge-success' : 'badge-warning'}">

@@ -689,8 +689,7 @@ public class PersonDal
             {
                 Payments payments1 = new Payments()
                 {
-                    PaymentDate = Convert.ToDateTime(dr["Payment_Date"]),
-                    Payment_DueDate = Convert.ToDateTime(dr["Payment_DueDate"]),
+                    Payment_CreationDate = Convert.ToDateTime(dr["Payment_CreationDate"]),
                     PaymentStatus = Convert.ToBoolean(dr["Payment_Status"]),
                     Payment_Amount = dr["Room_Rent"].ToString(),
                     Payment_ReceivedDate = dr["Payment_ReceivedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["Payment_ReceivedDate"]).Date,

@@ -1,6 +1,8 @@
 ﻿using DatabaseHelperLibrary;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using OfficeOpenXml.Table;
+using OfficeOpenXml;
 using PG_Management_System.Areas.PG_Bed.Models;
 using PG_Management_System.Areas.PG_Payments.Data;
 using PG_Management_System.Areas.PG_Payments.Models;
@@ -342,9 +344,8 @@ public class PG_PersonController : Controller
                 {
                     Person_Id = person.Id,
                     Owner_Id = person.Owner_ID,
-                    Payment_DueDate = CalculatePaymentDeadline(person),
                     PaymentStatus = false,
-                    PaymentDate = DateTime.Now.Date // Set to the first date of the current month
+                    Payment_CreationDate = DateTime.Now.Date // Set to the first date of the current month
                 };
 
                 // Save payment request to the database
@@ -379,13 +380,13 @@ public class PG_PersonController : Controller
         switch (person.Payment_Cycle.ToLower())
         {
             case "daily":
-                return latestPayment.PaymentDate.AddDays(1) <= DateTime.Now.Date;
+                return latestPayment.Payment_CreationDate.AddDays(1) <= DateTime.Now.Date;
 
             case "weekly":
-                return latestPayment.PaymentDate.AddDays(7) <= DateTime.Now.Date;
+                return latestPayment.Payment_CreationDate.AddDays(7) <= DateTime.Now.Date;
 
             case "monthly":
-                return latestPayment.PaymentDate.AddMonths(1) <= DateTime.Now.Date;
+                return latestPayment.Payment_CreationDate.AddMonths(1) <= DateTime.Now.Date;
 
             default:
                 return false;
@@ -433,8 +434,7 @@ public class PG_PersonController : Controller
                 ID = Convert.ToInt32(dr["ID"]),
                 Person_Id = Convert.ToInt32(dr["Person_Id"]),
                 Owner_Id = Convert.ToInt32(dr["Owner_Id"]),
-                Payment_DueDate = Convert.ToDateTime(dr["Payment_DueDate"]).Date,
-                PaymentDate =  Convert.ToDateTime(dr["Payment_Date"]).Date,
+                Payment_CreationDate =  Convert.ToDateTime(dr["Payment_Date"]).Date,
                 PaymentStatus = Convert.ToBoolean(dr["Payment_Status"]),
             };
         }
@@ -443,7 +443,54 @@ public class PG_PersonController : Controller
     }
 
 
-    #endregion 
+    #endregion
+
+
+    [HttpGet]
+    public IActionResult DownloadPersonData()
+    {
+        // Fetch data from the database using SP
+        PersonDal personDal = new PersonDal();
+
+        var personData = personDal.GetAllPersonByOwnerId(_dbHelper);
+
+        if (personData.Rows.Count > 0)
+        {
+            // Remove the 'Bed_Id' column from the DataTable before generating Excel
+            if (personData.Columns.Contains("Bed_Id")|| personData.Columns.Contains("Id")|| personData.Columns.Contains("Owner_ID"))
+            {
+                personData.Columns.Remove("Bed_Id");
+                personData.Columns.Remove("Id");
+                personData.Columns.Remove("Owner_ID");
+            }
+
+            // Set the license context
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            // Create the Excel package
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Persons");
+
+                // Load the DataTable into the worksheet, starting from cell A1
+                worksheet.Cells["A1"].LoadFromDataTable(personData, true, TableStyles.Light1);
+
+                // Customize the Excel (e.g., AutoFit the columns)
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                // Convert the Excel package to a byte array
+                var excelFile = package.GetAsByteArray();
+
+                // Send the Excel file to the client
+                return File(excelFile, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "PersonData.xlsx");
+            }
+        }
+
+        return BadRequest("No data available");
+    }
+
+
+
+
 }
 
 

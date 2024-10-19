@@ -47,7 +47,6 @@
                                         <th>Hostel</th>
                                         <th>Rent</th>
                                         <th>Payment Date</th>
-                                        <th>Payment Duedate</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -56,7 +55,6 @@
                                         <th>Name</th>
                                         <th>Position</th>
                                         <th>Office</th>
-                                        <th>Age</th>
                                         <th>Age</th>
                                         <th>Age</th>
                                         <th>Age</th>
@@ -75,13 +73,7 @@
                                             <td>@(dr["Room_Rent"]?.ToString() ?? "N/A")</td>
                                             <td>
                                                 @{
-                                                    var paymentDate = dr["Payment_Date"] == DBNull.Value ? "N/A" : Convert.ToDateTime(dr["Payment_Date"]).ToString("dd-MM-yyyy");
-                                                }
-                                                @paymentDate
-                                            </td>
-                                            <td>
-                                                @{
-                                                    var paymentDueDate = dr["Payment_DueDate"] == DBNull.Value ? "N/A" : Convert.ToDateTime(dr["Payment_DueDate"]).ToString("dd-MM-yyyy");
+                                                    var paymentDate = dr["Payment_CreationDate"] == DBNull.Value ? "N/A" : Convert.ToDateTime(dr["Payment_CreationDate"]).ToString("dd-MM-yyyy");
                                                 }
                                                 @paymentDate
                                             </td>

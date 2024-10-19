@@ -67,8 +67,7 @@ namespace PG_Management_System.Areas.PG_Payments.Data
             new SqlParameter("@Person_Id", SqlDbType.Int) { Value = payments.Person_Id },
             new SqlParameter("@Owner_Id", SqlDbType.Int) { Value = payments.Owner_Id },
             new SqlParameter("@Payment_Status", SqlDbType.Int) { Value = payments.PaymentStatus },
-            new SqlParameter("@Payment_DueDate", SqlDbType.Date) { Value = payments.Payment_DueDate },
-            new SqlParameter("@Payment_Date", SqlDbType.Date) { Value = payments.PaymentDate }
+            new SqlParameter("@Payment_CreationDate", SqlDbType.Date) { Value = payments.Payment_CreationDate }
             };
 
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_InsertPaymentByAdmin", sqlParameters);

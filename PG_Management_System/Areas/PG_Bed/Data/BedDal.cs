@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data;
 using PG_Management_System.Areas.PG_Person.Models;
 using Hangfire.Common;
+using PG_Management_System.BAL;
 
 public class BedDal
 {
@@ -28,7 +29,8 @@ public class BedDal
             {
                 new SqlParameter("Room_ID", SqlDbType.Int) { Value = bed.Room_ID },
                 new SqlParameter("Bed_Number", SqlDbType.VarChar) { Value = bed.Bed_Number },
-                new SqlParameter("Bed_Status", SqlDbType.Bit) { Value = false }
+                new SqlParameter("Bed_Status", SqlDbType.Bit) { Value = false },
+                new SqlParameter("Owner_Id", SqlDbType.Int) { Value = CV.Owner_Id()}
             };
 
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Bed_Insert", sqlParameter);
@@ -99,7 +101,7 @@ public class BedDal
             new SqlParameter("Person_ID",SqlDbType.Int){Value= Person_ID},
             new SqlParameter("Deposit",SqlDbType.Int){Value= Deposit},
             new SqlParameter("Payment_Cycle",SqlDbType.VarChar){Value= Payment_Cycle},
-           new SqlParameter("@Payment_Date", Payment_Date.ToDateTime(TimeOnly.MinValue).Date) // Pass only the Date component
+           new SqlParameter("Payment_Date", Payment_Date.ToDateTime(TimeOnly.MinValue).Date) // Pass only the Date component
         };
 
         int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_InsertPersonOnBed", sqlParameter);

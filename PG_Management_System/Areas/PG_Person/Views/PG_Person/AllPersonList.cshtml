@@ -37,6 +37,13 @@
                             <div class="ms-md-auto py-2 py-md-0">
                                 <a asp-area="PG_Person" asp-controller="PG_Person" asp-action="Add" class="btn btn-primary btn-round me-2">Add Person</a>
                             </div>
+                            
+                            <a onclick="downloadExcel()" class="btn btn-label-success btn-round  no-print">
+                                <span class="btn-label">
+                                    <i class="fa fa-print"></i>
+                                </span>
+                                DownLoad Excel
+                            </a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -84,20 +91,20 @@
 
                                                         if (bedId.HasValue && bedId > 0)
                                                         {
-                                                            
+
                                                         }
                                                         else
                                                         {
-                                                            <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Person" asp-controller="PG_Person" asp-action="personDelete" asp-route-Person_Id="@Convert.ToInt32(dr["Id"])">
-                                                                <input type="hidden" name="Id" value="@Convert.ToInt32(dr["Id"])" />
-                                                                <button type="button"
-                                                                        onclick="confirmDelete('@dr["Id"]')"
-                                                                        title=""
-                                                                        class="btn btn-link btn-danger mt-2"
-                                                                        data-original-title="Remove">
-                                                                    <i class="fa fa-times"></i>
-                                                                </button>
-                                                            </form>
+                                                                <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Person" asp-controller="PG_Person" asp-action="personDelete" asp-route-Person_Id="@Convert.ToInt32(dr["Id"])">
+                                                                    <input type="hidden" name="Id" value="@Convert.ToInt32(dr["Id"])" />
+                                                                    <button type="button"
+                                                                            onclick="confirmDelete('@dr["Id"]')"
+                                                                            title=""
+                                                                            class="btn btn-link btn-danger mt-2"
+                                                                            data-original-title="Remove">
+                                                                        <i class="fa fa-times"></i>
+                                                                    </button>
+                                                                </form>
                                                         }
                                                     }
 
@@ -178,4 +185,11 @@
         }
     });
 
+</script>
+
+<script>
+    function downloadExcel() {
+        // Redirect to the controller action to download the file directly
+        window.location.href = '@Url.Action("DownloadPersonData", "PG_Person", new { Area = "PG_Person" })';
+    }
 </script>
