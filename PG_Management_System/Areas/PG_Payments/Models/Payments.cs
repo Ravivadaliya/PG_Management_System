@@ -43,6 +43,23 @@ namespace PG_Management_System.Areas.PG_Payments.Models
         public DateTime? Payment_ReceivedDate { get; set; }
 
     }
+
+    public class PendingPaymentViewModel
+    {
+        public int ID { get; set; }
+        public string Person_Name { get; set; }
+        public string Person_Surname { get; set; }
+        public string Person_Email_ID { get; set; }
+        public string Person_Mobile_Number { get; set; }
+        public string Bed_Number { get; set; }
+        public DateTime Payment_CreationDate { get; set; }
+        public int Payment_Status { get; set; }
+        public decimal Room_Rent { get; set; }
+        public string PG_Number { get; set; }
+    }
+
+
+
 }
 
 

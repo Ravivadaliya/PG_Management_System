@@ -268,14 +268,18 @@
                     var tbody = $('#personPaymenthistory');
                     tbody.empty();
                     response.forEach(function (payment) {
-                        // Convert payment_Amount to a number for correct formatting
                         var paymentAmount = parseFloat(payment.payment_Amount).toFixed(2);
+
+                        // Handle null or valid payment_ReceivedDate
+                        var receivedDate = payment.payment_ReceivedDate
+                            ? formatDate(payment.payment_ReceivedDate)
+                            : 'NaN';  // If null, show empty string
 
                         var row = `
                         <tr>
 
                             <td>${formatDate(payment.payment_CreationDate)}</td>
-                            <td>${formatDate(payment.payment_ReceviedDate)}</td>
+                            <td>${(receivedDate)}</td>
                             <td >${paymentAmount}</td>
                             <td >
                                 <span class="badge ${payment.paymentStatus ? 'badge-success' : 'badge-warning'}">

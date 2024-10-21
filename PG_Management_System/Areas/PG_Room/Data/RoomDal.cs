@@ -29,13 +29,13 @@ namespace PG_Management_System.Areas.PG_Room.Data
             }
         }
 
-        public DataTable GetRoomById(DatabaseHelper _dbHelper, int? Id)
+        public DataTable GetRoomById(DatabaseHelper _dbHelper, string? encryptedHostelId)
         {
             try
             {
                 SqlParameter[] sqlParameter = new SqlParameter[]
                 {
-                    new SqlParameter("Room_Id", SqlDbType.Int) { Value = Id }
+                    new SqlParameter("Room_Id", SqlDbType.Int) { Value = encryptedHostelId }
                 };
                 return _dbHelper.ExecuteStoredProcedure("SP_PG_Room_SelectById", sqlParameter);
             }

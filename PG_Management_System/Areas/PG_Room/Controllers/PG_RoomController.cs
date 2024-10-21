@@ -4,6 +4,7 @@ using PG_Management_System.Areas.PG_Hostel.Data;
 using PG_Management_System.Areas.PG_Room.Data;
 using PG_Management_System.Areas.PG_Room.Models;
 using PG_Management_System.BAL;
+using PG_Management_System.Helper;
 using System.Data;
 
 namespace PG_Management_System.Areas.PG_Room.Controllers
@@ -13,10 +14,11 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
     [Route("Room")]
     public class PG_RoomController : Controller
     {
+        private readonly EncryptionHelper _encryptionHelper;
         private readonly DatabaseHelper _dbHelper;
-
-        public PG_RoomController(DatabaseHelper dbHelper)
+        public PG_RoomController(DatabaseHelper dbHelper, EncryptionHelper encryptionHelper)
         {
+            _encryptionHelper = encryptionHelper;
             _dbHelper = dbHelper;
             _dbHelper.OpenConnection();
         }
@@ -33,12 +35,12 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
 
 
         [HttpGet("Rooms")]
-        public IActionResult AllRoomListByHostelId(string Id)
+        public IActionResult AllRoomListByHostelId(string Hostel_Id)
         {
             try
             {
                 RoomDal roomDal = new RoomDal();
-                DataTable dataTable = roomDal.GetAllRoomByHostelId(_dbHelper, Id);
+                DataTable dataTable = roomDal.GetAllRoomByHostelId(_dbHelper, Hostel_Id);
                 return View("AllRoomList", dataTable);
             }
             catch (Exception ex)
@@ -50,7 +52,7 @@ namespace PG_Management_System.Areas.PG_Room.Controllers
         }
 
         [HttpGet("AddRoom")]       
-        public IActionResult Add(int? Id, int Hostel_Id)
+        public IActionResult Add(string Id, int Hostel_Id)
         {
             try
             {

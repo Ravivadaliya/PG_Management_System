@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PG_Management_System.Areas.PG_Staff.Data;
 using PG_Management_System.Areas.PG_Staff.Models;
 using PG_Management_System.BAL;
+using PG_Management_System.Helper;
 using System.Data;
 
 namespace PG_Management_System.Areas.PG_Staff.Controllers
@@ -13,11 +14,12 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
     public class PG_StaffController : Controller
     {
         private readonly DatabaseHelper _dbHelper;
-
-        public PG_StaffController(DatabaseHelper dbHelper)
+        private readonly AESEncryptionHelper _aesencryptionHelper;
+        public PG_StaffController(DatabaseHelper dbHelper,AESEncryptionHelper aESEncryptionHelper)
         {
             _dbHelper = dbHelper;
             _dbHelper.OpenConnection();
+            _aesencryptionHelper = aESEncryptionHelper;
         }
 
 
@@ -42,6 +44,9 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
             {
                 if (Id != null)
                 {
+                    //var decryptedPersonId = _aesencryptionHelper.Decrypt(Id);
+
+                    //int? StaffID = Convert.ToInt32(decryptedPersonId);
                     StaffDal staffDal = new StaffDal();
                     DataTable dataTable = staffDal.GetStaffById(_dbHelper, Id);
                     Staff staff = new Staff();
@@ -50,6 +55,7 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
                     {
                         foreach (DataRow dr in dataTable.Rows)
                         {
+                            staff.Id = Id;
                             staff.Owner_ID = Convert.ToInt32(dr["Owner_Id"]);
                             staff.Staff_Name = dr["Staff_Name"].ToString();
                             staff.Staff_Mobile_Number = dr["Staff_Mobile_Number"].ToString();
@@ -104,6 +110,19 @@ namespace PG_Management_System.Areas.PG_Staff.Controllers
         [HttpPost("SaveStaff")]
         public IActionResult SaveStaff(Staff staff)
         {
+            if (!ModelState.IsValid)
+            {
+                // Log model state errors for debugging
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                // You can log errors to a logger or console
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error); // For debugging
+                }
+
+                // Return the view with the current staff data
+                return View("AddEditPG_Staff", staff);
+            }
             try
             {
                 StaffDal staffDal = new StaffDal();

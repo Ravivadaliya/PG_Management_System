@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PG_Management_System.Areas.PG_Hostel.Data;
 using PG_Management_System.Areas.PG_Hostel.Models;
 using PG_Management_System.BAL;
+using PG_Management_System.Helper;
 using System.Data;
 
 namespace PG_Management_System.Areas.PG_Hostel.Controllers
@@ -13,11 +14,12 @@ namespace PG_Management_System.Areas.PG_Hostel.Controllers
     public class PG_HostelController : Controller
     {
         private readonly DatabaseHelper _dbHelper;
-
-        public PG_HostelController(DatabaseHelper dbHelper)
+        private readonly AESEncryptionHelper _aesencryptionHelper;
+        public PG_HostelController(DatabaseHelper dbHelper, AESEncryptionHelper aesencryptionHelper)
         {
             _dbHelper = dbHelper;
             _dbHelper.OpenConnection();
+            _aesencryptionHelper = aesencryptionHelper;
         }
 
         [HttpGet("PgList")]
@@ -37,15 +39,21 @@ namespace PG_Management_System.Areas.PG_Hostel.Controllers
         //}
 
         [HttpGet("Add")]
-        public IActionResult Add(int? id)
+        public IActionResult Add(string? id)
         {
             try
             {
                 if (id != null)
                 {
+                    // Decrypt the encrypted Person_Id
+                    var decryptedPersonId = _aesencryptionHelper.Decrypt(id);
+
+                    int? PGID = Convert.ToInt32(decryptedPersonId);
+
+
                     HostelDal hostelDal = new HostelDal();
                     string errorMessage;
-                    DataTable dataTable = hostelDal.GetPgById(_dbHelper, id, out errorMessage);
+                    DataTable dataTable = hostelDal.GetPgById(_dbHelper, PGID, out errorMessage);
 
                     if (dataTable == null)
                     {

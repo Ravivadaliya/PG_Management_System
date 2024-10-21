@@ -2,6 +2,7 @@
     Layout = "~/Views/Shared/Admin/AdminLayout.cshtml";
 }
 @using System.Data;
+@using PG_Management_System.Helper
 @model DataTable
 
 <div class="container">
@@ -64,7 +65,7 @@
                                             </td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a asp-area="PG_Room" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Room" asp-action="AllRoomListByHostelId" asp-route-Id="@Convert.ToInt32(dr["Id"])">
+                                                    <a asp-area="PG_Room" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Room" asp-action="AllRoomListByHostelId" asp-route-Hostel_Id="@Convert.ToInt32(dr["Id"])">
                                                         <i class="fas fa-home"></i>
                                                     </a>
                                                 </div>

@@ -34,7 +34,7 @@ public class PG_PaymentsController(DatabaseHelper _dbHelper) : Controller
     public IActionResult penddingfPaymentsList(int Hostel_Id)
     {
         PaymentsDal paymentsDal = new PaymentsDal();
-        DataTable dataTable = paymentsDal.GetPenddingPaymentListByOwnerId(_dbHelper, Hostel_Id);
+        DataTable dataTable = paymentsDal.GetPenddingPaymentListByOwnerIdAndHostelId(_dbHelper, Hostel_Id);
         return View("PaymentsList", dataTable);
     }
 
@@ -68,4 +68,8 @@ public class PG_PaymentsController(DatabaseHelper _dbHelper) : Controller
             return Json(new { success = false, message = "Error to payment confirmed!" });
         }
     }
+
+
+
+
 }

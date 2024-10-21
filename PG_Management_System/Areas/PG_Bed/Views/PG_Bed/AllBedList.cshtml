@@ -3,6 +3,7 @@
 }
 
 @using System.Data;
+@using PG_Management_System.Helper
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
@@ -56,8 +57,12 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @inject PG_Management_System.Helper.AESEncryptionHelper AESencryptionHelper
                                     @foreach (DataRow dr in Model.Rows)
                                     {
+
+                                        var encryptedPersonId = AESencryptionHelper.Encrypt((dr["Id"]).ToString());
+
                                         <tr>
                                             <td>@dr["Bed_Number"]</td>
                                             <td>@dr["Room_SharingType"]</td>
@@ -82,7 +87,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <span class="badge badge-success">Assigned <a class="badge badge-black" asp-area="PG_Person" asp-controller="PG_Person" asp-action="PersonDetails" asp-route-Person_Id="@Convert.ToInt32(dr["Person_ID"])">View Person</a></span>
+                                                        <span class="badge badge-success">Assigned <a class="badge badge-black" asp-area="PG_Person" asp-controller="PG_Person" asp-action="PersonDetails" asp-route-Person_Id="@Convert.ToInt32(dr["Id"])">View Person</a></span>
                                                         <span>
                                                             <a class="badge badge-danger unassign-person" href="javascript:void(0)" data-bed-id="@Convert.ToInt32(dr["Id"])">UnAssign</a>
                                                         </span>

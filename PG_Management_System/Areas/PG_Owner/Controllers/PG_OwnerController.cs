@@ -8,6 +8,8 @@ using PG_Management_System.Areas.PG_Person.Data;
 using PG_Management_System.Areas.PG_Person.Models;
 using PG_Management_System.Areas.PG_Hostel.Models;
 using PG_Management_System.Areas.PG_Hostel.Data;
+using PG_Management_System.Areas.PG_Payments.Models;
+using PG_Management_System.Areas.PG_Payments.Data;
 
 namespace PG_Management_System.Areas.PG_Owner.Controllers;
 
@@ -90,6 +92,45 @@ public class PG_OwnerController : Controller
         catch (Exception ex)
         {
             return StatusCode(500, "Internal server error: " + ex.Message);
+        }
+    }
+
+    [HttpGet("GetPendingPayments")]
+    public IActionResult GetPendingPayments()
+    {
+        try
+        {
+            PaymentsDal paymentsDal = new PaymentsDal();
+            List<PendingPaymentViewModel> paymentViewModels = paymentsDal.GetPenddingPaymentListByOwnerId(_dbHelper);
+            return Ok(paymentViewModels);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Internal server error: " + ex.Message);
+        }
+    }
+
+    [HttpPost("GetMonthlyPayments")]
+    public IActionResult GetMonthlyPayments()
+    {
+        try
+        {
+            PaymentsDal paymentsDal = new PaymentsDal();
+            DataTable dataTable = paymentsDal.GetMothlyAndyealyPayment(_dbHelper);
+
+            // Convert the DataTable to a list of dynamic objects or a strongly typed list
+            var payments = dataTable.AsEnumerable().Select(row => new
+            {
+                PaymentYear = row.Field<int>("PaymentYear"),
+                PaymentMonth = row.Field<int>("PaymentMonth"),
+                TotalPaymentAmount = row.Field<int>("TotalPaymentAmount")
+            }).ToList();
+
+            return Json(payments);
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = "Error fetching payment data." });
         }
     }
 }

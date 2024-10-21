@@ -12,6 +12,7 @@ using PG_Management_System.Areas.PG_Room.Models;
 using PG_Management_System.BAL;
 using System.Data;
 using System.Data.SqlClient;
+using PG_Management_System.Helper;
 
 namespace PG_Management_System.Areas.PG_Person.Controllers;
 
@@ -22,11 +23,12 @@ public class PG_PersonController : Controller
 {
     private readonly DatabaseHelper _dbHelper;
     public static string Person_Image = "";
-
-    public PG_PersonController(DatabaseHelper dbHelper)
+    private readonly AESEncryptionHelper _aesencryptionHelper;
+    public PG_PersonController(DatabaseHelper dbHelper, AESEncryptionHelper aesencryptionHelper)
     {
         _dbHelper = dbHelper;
         _dbHelper.OpenConnection();
+        _aesencryptionHelper = aesencryptionHelper;
     }
 
     [HttpGet("AllPersonList")]
@@ -147,14 +149,19 @@ public class PG_PersonController : Controller
             return RedirectToAction("AllPersonList");
         }
     }
-
     [HttpGet("PersonDetails")]
     public IActionResult PersonDetails(int Person_Id)
     {
         try
         {
+            // Decrypt the encrypted Person_Id
+            //var decryptedPersonId = _aesencryptionHelper.Decrypt(Person_Id);
+
+            //int personId = Convert.ToInt32(decryptedPersonId);
+
             PersonDal personDal = new PersonDal();
             DataTable dataTable = personDal.GetAllPersonByOwnerIdAndPersonId(_dbHelper, Person_Id);
+
             return View("PersonDetails", dataTable);
         }
         catch (Exception ex)
@@ -164,6 +171,7 @@ public class PG_PersonController : Controller
             return RedirectToAction("AllPersonList");
         }
     }
+
 
     [HttpGet("PersonWithBedDetails")]
     public IActionResult PersonWithBedDetails(int PG_ID)
@@ -328,7 +336,7 @@ public class PG_PersonController : Controller
     [HttpGet("GeneratePaymentRequests")]
     public void GeneratePaymentRequests()
     {
-        Thread.Sleep(20000);
+        //Thread.Sleep(20000);
         PersonDal personDal = new PersonDal();
         DataTable personTable = personDal.GetAllPersonByBedAssign(_dbHelper);
 

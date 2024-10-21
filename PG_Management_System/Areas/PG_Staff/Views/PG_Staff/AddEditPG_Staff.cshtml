@@ -3,6 +3,19 @@
 }
 @model PG_Management_System.Areas.PG_Staff.Models.Staff;
 <div class="container">
+    @* @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <strong>Please correct the following errors:</strong>
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    } *@
+
     <div class="page-inner">
         <div class="page-header">
             <h3 class="fw-bold mb-3">Add Staff</h3>
@@ -28,9 +41,12 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                @inject PG_Management_System.Helper.AESEncryptionHelper AESencryptionHelper
                 <form asp-area="PG_Staff" asp-controller="PG_Staff" asp-action="SaveStaff"  method="post">
                     @Html.HiddenFor(x => x.Id)
                     @Html.HiddenFor(x => x.Owner_ID)
+                    @* <script>alert(@ViewBag.Id)</script> *@
+                    <input type="hidden" asp-for="Id" name="Id" value="@ViewBag.Id" />
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Fill PG Staff Details</div>
