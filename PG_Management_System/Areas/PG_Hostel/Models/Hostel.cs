@@ -49,6 +49,11 @@ public class Hostel
 
     public DateOnly Hostel_CreatedDate { get; set; }
     public DateOnly Hostel_ModificationDate { get; set; }
+
+    [NotMapped]
+    public DateOnly? Contract_EndDate { get; set; }
+
+
 }
 
 public class Hostel_DropDownModel

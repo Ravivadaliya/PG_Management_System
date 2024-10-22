@@ -39,21 +39,21 @@ namespace PG_Management_System.Areas.PG_Hostel.Controllers
         //}
 
         [HttpGet("Add")]
-        public IActionResult Add(string? id)
+        public IActionResult Add(int? id)
         {
             try
             {
                 if (id != null)
                 {
-                    // Decrypt the encrypted Person_Id
-                    var decryptedPersonId = _aesencryptionHelper.Decrypt(id);
+                    //// Decrypt the encrypted Person_Id
+                    //var decryptedPersonId = _aesencryptionHelper.Decrypt(id);
 
-                    int? PGID = Convert.ToInt32(decryptedPersonId);
+                    //int? PGID = Convert.ToInt32(decryptedPersonId);
 
 
                     HostelDal hostelDal = new HostelDal();
                     string errorMessage;
-                    DataTable dataTable = hostelDal.GetPgById(_dbHelper, PGID, out errorMessage);
+                    DataTable dataTable = hostelDal.GetPgById(_dbHelper, id, out errorMessage);
 
                     if (dataTable == null)
                     {

@@ -14,10 +14,90 @@
             </div> -->
         </div>
         <div class="row">
+            <div class="col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-primary bubble-shadow-small">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Total PG</p>
+                                    <h4 id="TotalPg" class="card-title">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-primary bubble-shadow">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Total Room</p>
+                                    <h4 id="TotalRoom" class="card-title">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 ">
+                <!-- Ensuring responsiveness -->
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-primary bubble-shadow-small">
+                                    <i class="fas fa-bed"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Total Beds</p>
+                                    <h4 id="TotalBed" class="card-title">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 ">
+                <!-- Also ensuring responsiveness here -->
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-secondary bubble-shadow-small">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Total Person</p>
+                                    <h4 id="TotalPerson" class="card-title">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6 col-sm-6">
                 <div class="card" style="">
                     <div class="card-header">
-                        <div class="card-title">Monthly Payments (Year-wise)</div>
+                        <div class="card-title custom-title">Monthly Payments (Year-wise)</div>
                     </div>
                     <div class="card-body">
                         <canvas id="paymentChart" class="chart-canvas"></canvas> <!-- added class -->
@@ -57,89 +137,126 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="row">
+            @*  <div class="col-md-6">
+            <div class="row">
             <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card card-stats card-round">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-icon">
-                                        <div class="icon-big text-center icon-primary bubble-shadow-small">
-                                            <i class="fas fa-building"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col col-stats ms-3 ms-sm-0">
-                                        <div class="numbers">
-                                            <p class="card-category">Total PG</p>
-                                            <h4 id="TotalPg" class="card-title">0</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="card card-stats card-round">
+            <div class="card-body">
+            <div class="row align-items-center">
+            <div class="col-icon">
+            <div class="icon-big text-center icon-primary bubble-shadow-small">
+            <i class="fas fa-building"></i>
+            </div>
+            </div>
+            <div class="col col-stats ms-3 ms-sm-0">
+            <div class="numbers">
+            <p class="card-category">Total PG</p>
+            <h4 id="TotalPg" class="card-title">0</h4>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="col-md-6">
+            <div class="card card-stats card-round">
+            <div class="card-body">
+            <div class="row align-items-center">
+            <div class="col-icon">
+            <div class="icon-big text-center icon-primary bubble-shadow">
+            <i class="fas fa-home"></i>
+            </div>
+            </div>
+            <div class="col col-stats ms-3 ms-sm-0">
+            <div class="numbers">
+            <p class="card-category">Total Room</p>
+            <h4 id="TotalRoom" class="card-title">0</h4>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6 ">
+            <!-- Ensuring responsiveness -->
+            <div class="card card-stats card-round">
+            <div class="card-body">
+            <div class="row align-items-center">
+            <div class="col-icon">
+            <div class="icon-big text-center icon-primary bubble-shadow-small">
+            <i class="fas fa-bed"></i>
+            </div>
+            </div>
+            <div class="col col-stats ms-3 ms-sm-0">
+            <div class="numbers">
+            <p class="card-category">Total Beds</p>
+            <h4 id="TotalBed" class="card-title">0</h4>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="col-md-6 ">
+            <!-- Also ensuring responsiveness here -->
+            <div class="card card-stats card-round">
+            <div class="card-body">
+            <div class="row align-items-center">
+            <div class="col-icon">
+            <div class="icon-big text-center icon-secondary bubble-shadow-small">
+            <i class="fas fa-users"></i>
+            </div>
+            </div>
+            <div class="col col-stats ms-3 ms-sm-0">
+            <div class="numbers">
+            <p class="card-category">Total Person</p>
+            <h4 id="TotalPerson" class="card-title">0</h4>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div> *@
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Search Person</div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card card-stats card-round">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-icon">
-                                        <div class="icon-big text-center icon-primary bubble-shadow">
-                                            <i class="fas fa-home"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col col-stats ms-3 ms-sm-0">
-                                        <div class="numbers">
-                                            <p class="card-category">Total Room</p>
-                                            <h4 id="TotalRoom" class="card-title">0</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input type="text"
+                                   class="form-control"
+                                   id="PersonDetailInput"
+                                   name="PersonDetailInput"
+                                   oninput="SearchPerson()"
+                                   placeholder="Default Input" />
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 ">
-                        <!-- Ensuring responsiveness -->
-                        <div class="card card-stats card-round">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-icon">
-                                        <div class="icon-big text-center icon-primary bubble-shadow-small">
-                                            <i class="fas fa-bed"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col col-stats ms-3 ms-sm-0">
-                                        <div class="numbers">
-                                            <p class="card-category">Total Beds</p>
-                                            <h4 id="TotalBed" class="card-title">0</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 ">
-                        <!-- Also ensuring responsiveness here -->
-                        <div class="card card-stats card-round">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-icon">
-                                        <div class="icon-big text-center icon-secondary bubble-shadow-small">
-                                            <i class="fas fa-users"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col col-stats ms-3 ms-sm-0">
-                                        <div class="numbers">
-                                            <p class="card-category">Total Person</p>
-                                            <h4 id="TotalPerson" class="card-title">0</h4>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="table-responsive">
+                            <div class="table-scroll" style="overflow-y: auto; max-height: 250px;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.</th>
+                                            <th>Name</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="personTableBody">
+                                        @*  <tr>
+                                        <th scope="row">1</th>
+                                        <td>Name</td>
+                                        <td>View Details</td>
+                                        </tr> *@
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -186,47 +303,46 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="card-title">Search Person</div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <input type="text"
-                                               class="form-control"
-                                               id="PersonDetailInput"
-                                               name="PersonDetailInput"
-                                               oninput="SearchPerson()"
-                                               placeholder="Default Input" />
-                                    </div>
-                                    <div class="table-responsive">
-                                        <div class="table-scroll" style="overflow-y: auto; max-height: 250px;">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Sr.</th>
-                                                        <th>Name</th>
-                                                        <th>Details</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="personTableBody">
-                                                    @*  <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Name</td>
-                                                    <td>View Details</td>
-                                                    </tr> *@
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
+        @*  <div class="row">
+        <div class="col-md-6">
+        <div class="card">
+        <div class="card-header">
+        <div class="card-title">Search Person</div>
+        </div>
+        <div class="card-body">
+        <div class="form-group">
+        <input type="text"
+        class="form-control"
+        id="PersonDetailInput"
+        name="PersonDetailInput"
+        oninput="SearchPerson()"
+        placeholder="Default Input" />
+        </div>
+        <div class="table-responsive">
+        <div class="table-scroll" style="overflow-y: auto; max-height: 250px;">
+        <table class="table table-bordered">
+        <thead>
+        <tr>
+        <th>Sr.</th>
+        <th>Name</th>
+        <th>Details</th>
+        </tr>
+        </thead>
+        <tbody id="personTableBody">
+
+        </tbody>
+        </table>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div> *@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -282,16 +398,15 @@
         return months[monthNumber - 1];
     }
 
-    
 
-    // Function to render the chart
-    function renderChart(groupedData) { 
+
+    function renderChart(groupedData) {
         const months = ['January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'];
-            
-    // Define two fixed colors for alternating months
-    const colorEven = '#4caf50'; // Green for even months
-    const colorOdd = '#2196F3';  // Blue for odd months
+
+        // Define two fixed colors for alternating months
+        const colorEven = '#7F230F'; 
+        const colorOdd = '#BA24E4';  
 
         const datasets = Object.keys(groupedData).map(year => {
             return {
@@ -327,12 +442,18 @@
                             display: true,
                             text: 'Total Payments'
                         },
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 4000, // Set the gap between ticks to 4000
+                            suggestedMax: 40000 // Adjust the maximum value for Y-axis
+                        }
                     }
                 }
             }
         });
     }
+
+
 
     // Function to generate random colors for the chart
     function getRandomColor() {
@@ -363,19 +484,19 @@
                     if (response && response.length > 0) {
                         response.forEach(function (person, index) {
                             var row = `<tr>
-                                                            <th scope="row">${index + 1}</th>-
-                                                            <td>${person.person_Name}</td>
-                                                            <td><a href="/Person/PersonDetails?Person_Id=${person.id}">
-                                                            <button  class="btn btn-warning btn-sm">View Person</button></a></td>
-                                                            </tr>`;
+                                                                <th scope="row">${index + 1}</th>-
+                                                                <td>${person.person_Name}</td>
+                                                                <td><a href="/Person/PersonDetails?Person_Id=${person.id}">
+                                                                <button  class="btn btn-warning btn-sm">View Person</button></a></td>
+                                                                </tr>`;
                             tbody.append(row);
                             // alert(JSON.stringify(person))
                         });
                     } else {
                         // If no results are found
                         var emptyRow = `<tr>
-                                                     <td colspan="3" class="text-center">No persons found</td>
-                                                </tr>`;
+                                                         <td colspan="3" class="text-center">No persons found</td>
+                                                    </tr>`;
                         tbody.append(emptyRow);
                     }
                 },
@@ -390,6 +511,51 @@
         }
     }
 </script>
+
+<script>
+    function SearchRoom() {
+        const roomInput = $('#RoomInput').val();
+
+        $.ajax({
+            url: '@Url.Action("GetRoomsByName", "PG_Owner", new { area = "PG_Owner" })',
+            type: 'POST',
+            data: { roomSearchInput: roomInput },
+            success: function (data) {
+                // Clear previous table rows
+                $('#RoomTableBody').empty();
+                // alert(JSON.stringify(data));
+                // Populate the table with the returned data
+
+                if (data.length > 0 && data) {
+                    data.forEach(function (room) {
+                        $('#RoomTableBody').append(`
+                            <tr>
+                                <th scope="row">${room.pG_Number}</th>
+                                    <td>${room.hostel_Gender}</td>
+                                    <td>${room.hostel_Floor}</td>
+                                                <td><a href="/Person/PersonWithBedDetails?PG_ID=${room.id}">
+                                         <button  class="btn btn-warning btn-sm">View Person</button></a></td>
+                            </tr>
+                        `);
+                    });
+                }
+                else {
+                    // If no results are found
+                    $('#RoomTableBody').append(`<tr>
+                                          <td colspan="4" class="text-center">No Room found</td>
+                                        </tr>`)
+                }
+
+            },
+            error: function (xhr, status, error) {
+                var tbody = $("#RoomTableBody");
+                tbody.empty(); // Clear the current table body
+            }
+        });
+    }
+
+</script>
+
 <script>
     $(document).ready(function () {
         $.ajax({
@@ -433,12 +599,12 @@
 
                         $('#paymentTable').append(
                             `<tr>
-                                        <td>${payment.person_Name}</td>
-                                        <td>${payment.person_Mobile_Number}</td>
-                                        <td><span class="badge badge-warning">${payment.payment_Status === 0 ? 'Pending' : 'Completed'}</span> </td>
-                                        <td>${payment.room_Rent}</td>
-                                        <td>${payment.pG_Number}</td>
-                                    </tr>`
+                                            <td>${payment.person_Name}</td>
+                                            <td>${payment.person_Mobile_Number}</td>
+                                            <td><span class="badge badge-warning">${payment.payment_Status === 0 ? 'Pending' : 'Completed'}</span> </td>
+                                            <td>${payment.room_Rent}</td>
+                                            <td>${payment.pG_Number}</td>
+                                        </tr>`
                         );
                     });
                 },

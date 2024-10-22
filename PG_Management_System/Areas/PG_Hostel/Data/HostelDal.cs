@@ -66,6 +66,7 @@ public class HostelDal
                 new SqlParameter("@Hostel_Floor", SqlDbType.VarChar) { Value = hostel.Hostel_Floor },
                 new SqlParameter("@Hostel_Society", SqlDbType.VarChar) { Value = hostel.Hostel_Society },
                 new SqlParameter("@Hostel_Gender", SqlDbType.VarChar) { Value = hostel.Hostel_Gender },
+                new SqlParameter("Contract_EndDate", SqlDbType.Date) { Value =hostel.Contract_EndDate },
             };
 
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Insert", sqlParameter);
@@ -129,6 +130,7 @@ public class HostelDal
                 new SqlParameter("@Hostel_Floor", SqlDbType.VarChar) { Value = hostel.Hostel_Floor },
                 new SqlParameter("@Hostel_Society", SqlDbType.VarChar) { Value = hostel.Hostel_Society },
                 new SqlParameter("@Hostel_Gender", SqlDbType.VarChar) { Value = hostel.Hostel_Gender},
+                new SqlParameter("@Contract_EndDate", SqlDbType.Date) { Value =hostel.Contract_EndDate }
           };
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Update", sqlParameter);
             if (value == -1)

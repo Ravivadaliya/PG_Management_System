@@ -115,7 +115,7 @@
                                             @* <td>@Convert.ToDateTime(dr["Hostel_Modificationdate"]).ToString("dd-MM-yyyy")</td> *@
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a asp-area="PG_Hostel" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Hostel" asp-action="Add" asp-route-Id="@encryptedPGId">
+                                                    <a asp-area="PG_Hostel" class="btn btn-link btn-primary btn-lg" asp-controller="PG_Hostel" asp-action="Add" asp-route-Id="@Convert.ToInt32(dr["Id"])">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                     <form id="deleteForm-@dr["Id"]" method="post" asp-area="PG_Hostel" asp-controller="PG_Hostel" asp-action="DeletePG">

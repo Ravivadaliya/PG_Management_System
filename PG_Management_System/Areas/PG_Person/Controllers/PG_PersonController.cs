@@ -43,19 +43,19 @@ public class PG_PersonController : Controller
 
 
 
-    //public IActionResult AddEditPerson()
-    //{
-    //    try
-    //    {
-    //        return View();
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        TempData["Message"] = $"An unexpected error occurred";
-    //        TempData["AlertType"] = "error";
-    //        return RedirectToAction("AllPersonList");
-    //    }
-    //}
+    public IActionResult AddEditPerson()
+    {
+        try
+        {
+            return View();
+        }
+        catch (Exception ex)
+        {
+            TempData["Message"] = $"An unexpected error occurred";
+            TempData["AlertType"] = "error";
+            return RedirectToAction("AllPersonList");
+        }
+    }
 
     [HttpGet("AddEdit")]
     public IActionResult Add(int? Person_Id)
@@ -198,6 +198,13 @@ public class PG_PersonController : Controller
             PersonDal personDal = new PersonDal();
             if (person.Id == null)
             {
+                if (person.Person_Image==null)
+                {
+                    TempData["Message"] = "Please Upload Image Also!";
+                    TempData["AlertType"] = "error";
+                    return RedirectToAction("AllPersonList");
+                }
+
                 if (personDal.InsertPerson(_dbHelper, person))
                 {
                     TempData["Message"] = "Person data inserted successfully!";
@@ -376,6 +383,7 @@ public class PG_PersonController : Controller
     // Check if a payment request should be generated
     private bool ShouldGeneratePaymentRequest(PaymentPerson person)
     {
+
         Payments latestPayment = GetLatestPaymentForPerson(person.Id);
 
         if (latestPayment == null)
@@ -401,24 +409,7 @@ public class PG_PersonController : Controller
         }
     }
 
-    // Calculate the payment deadline based on the person's chosen plan
-    private DateTime CalculatePaymentDeadline(PaymentPerson person)
-    {
-        switch (person.Payment_Cycle.ToLower())
-        {
-            case "daily":
-                return DateTime.Now.AddDays(1);
-
-            case "weekly":
-                return DateTime.Now.AddDays(2);
-
-            case "monthly":
-                return DateTime.Now.AddDays(4);
-
-            default:
-                throw new Exception("Invalid plan chosen by the person");
-        }
-    }
+ 
 
     // Save payment request to the database
     private void SavePaymentRequestToDatabase(Payments payment)
@@ -442,7 +433,7 @@ public class PG_PersonController : Controller
                 ID = Convert.ToInt32(dr["ID"]),
                 Person_Id = Convert.ToInt32(dr["Person_Id"]),
                 Owner_Id = Convert.ToInt32(dr["Owner_Id"]),
-                Payment_CreationDate =  Convert.ToDateTime(dr["Payment_Date"]).Date,
+                Payment_CreationDate =  Convert.ToDateTime(dr["Payment_CreationDate"]).Date,
                 PaymentStatus = Convert.ToBoolean(dr["Payment_Status"]),
             };
         }
@@ -503,3 +494,23 @@ public class PG_PersonController : Controller
 
 
 
+
+
+//// Calculate the payment deadline based on the person's chosen plan
+//private DateTime CalculatePaymentDeadline(PaymentPerson person)
+//{
+//    switch (person.Payment_Cycle.ToLower())
+//    {
+//        case "daily":
+//            return DateTime.Now.AddDays(1);
+
+//        case "weekly":
+//            return DateTime.Now.AddDays(2);
+
+//        case "monthly":
+//            return DateTime.Now.AddDays(4);
+
+//        default:
+//            throw new Exception("Invalid plan chosen by the person");
+//    }
+//}
