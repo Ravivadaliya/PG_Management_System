@@ -158,12 +158,12 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a asp-area="PG_Owner" asp-controller="PG_Owner" asp-action="Dashboard" class="logo">
-                        @* <img src="~/assets/img/Infinity-removebg.png"
-                             alt="navbar brand"
-                             class="navbar-brand"
-                             height="100"
-                             width="100" /> *@
-                            <h1 class="ml-3" style="color:deepskyblue">Veduratech</h1>
+                        <img src="~/assets/img/Comppanylogo.png"
+                        alt="navbar brand"
+                        class="navbar-brand"
+                        height="45"
+                        width="210" />
+                        @* <h1 class="ml-3" style="color:deepskyblue">Veduratech</h1> *@
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -209,7 +209,7 @@
                                 </ul>
                             </div>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#Room">
                                 <i class="fas fa-home"></i>
@@ -312,7 +312,7 @@
                                 <p>Announcemet</p>
                             </a>
                         </li>
-                       
+
                     </ul>
                 </div>
             </div>
@@ -350,16 +350,21 @@
                     <div class="container-fluid">
                         <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
                             @* <div class="input-group"> *@
-                                @* <div class="input-group-prepend">
-                                    <button type="submit" class="btn btn-search pe-1">
-                                        <i class="fa fa-search search-icon"></i>
-                                    </button>
-                                </div>
-                                <input type="text"
-                                       placeholder="Search ..."
-                                       class="form-control" /> *@
-                                <h1 class="ml-3" style="color:darkcyan">@CV.PG_Name()</h1>
+                            @* <div class="input-group-prepend">
+                            <button type="submit" class="btn btn-search pe-1">
+                            <i class="fa fa-search search-icon"></i>
+                            </button>
+                            </div>
+                            <input type="text"
+                            placeholder="Search ..."
+                            class="form-control" /> *@
+                            @* <h1 class="ml-3" style="color:darkcyan; font-family:Arial">@CV.PG_Name()</h1> *@
                             @* </div> *@
+                            <img src="~/assets/img/Comppanylogo.png"
+                                 alt="navbar brand"
+                                 class="navbar-brand"
+                                 height="50"
+                                 width="200" />
                         </nav>
 
                         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
@@ -373,8 +378,8 @@
                                     aria-labelledby="messageDropdown">
                                 </ul>
                             </li>
-                            
-                            
+
+
 
                             <li class="nav-item topbar-user dropdown hidden-caret">
                                 <a class="dropdown-toggle profile-pic"
@@ -382,25 +387,25 @@
                                    href="#"
                                    aria-expanded="false">
                                     @* <div class="avatar-sm">
-                                        <img src="~/assets/img/profile.jpg"
-                                             alt="..."
-                                             class="avatar-img rounded-circle" />
+                                    <img src="~/assets/img/profile.jpg"
+                                    alt="..."
+                                    class="avatar-img rounded-circle" />
                                     </div> *@
                                     <span class="profile-username">
                                         <span class="op-7">Hi,</span>
                                         <span class="fw-bold">@CV.Owner_Name()</span>
                                     </span>
                                 </a>
-                               
-                               
+
+
                             </li>
                         </ul>
-                        </div>
+                    </div>
                 </nav>
                 <!-- End Navbar -->
             </div>
 
-            
+
 
             @RenderBody()
         </div>
@@ -544,7 +549,7 @@
 
             // Call the function periodically every 10 seconds
             setInterval(updateIssueCount, 15000);
-            updateIssueCount(); 
+            updateIssueCount();
         });
 
 
@@ -554,37 +559,40 @@
         $(document).ready(function () {
             $("#basic-datatables").DataTable({});
 
-            $("#multi-filter-select").DataTable({
-                pageLength: 10,
-                initComplete: function () {
-                    this.api()
-                        .columns()
-                        .every(function () {
-                            var column = this;
-                            var select = $(
-                                '<select class="form-select"><option value=""></option></select>'
-                            )
-                                .appendTo($(column.footer()).empty())
-                                .on("change", function () {
-                                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+            $(document).ready(function () {
+                // Check if DataTable is already initialized on the element
+                if (!$.fn.DataTable.isDataTable('#multi-filter-select')) {
+                    $("#multi-filter-select").DataTable({
+                        pageLength: 10,
+                        initComplete: function () {
+                            this.api()
+                                .columns()
+                                .every(function () {
+                                    var column = this;
+                                    var select = $('<select class="form-select"><option value=""></option></select>')
+                                        .appendTo($(column.footer()).empty())
+                                        .on("change", function () {
+                                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                                            column
+                                                .search(val ? "^" + val + "$" : "", true, false)
+                                                .draw();
+                                        });
 
                                     column
-                                        .search(val ? "^" + val + "$" : "", true, false)
-                                        .draw();
+                                        .data()
+                                        .unique()
+                                        .sort()
+                                        .each(function (d, j) {
+                                            select.append('<option value="' + d + '">' + d + "</option>");
+                                        });
                                 });
-
-                            column
-                                .data()
-                                .unique()
-                                .sort()
-                                .each(function (d, j) {
-                                    select.append(
-                                        '<option value="' + d + '">' + d + "</option>"
-                                    );
-                                });
-                        });
-                },
+                        },
+                    });
+                }
             });
+
+
 
             // Add Row
             $("#add-row").DataTable({
@@ -630,33 +638,6 @@
         });
 
 
-        // Sparkline Charts
-        $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
-            type: "line",
-            height: "70",
-            width: "100%",
-            lineWidth: "2",
-            lineColor: "#177dff",
-            fillColor: "rgba(23, 125, 255, 0.14)",
-        });
-
-        $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
-            type: "line",
-            height: "70",
-            width: "100%",
-            lineWidth: "2",
-            lineColor: "#f3545d",
-            fillColor: "rgba(243, 84, 93, .14)",
-        });
-
-        $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
-            type: "line",
-            height: "70",
-            width: "100%",
-            lineWidth: "2",
-            lineColor: "#ffa534",
-            fillColor: "rgba(255, 165, 52, .14)",
-        });
 
         // Nav-item Active Class Management
         document.addEventListener('DOMContentLoaded', function () {
@@ -689,9 +670,42 @@
             });
         });
     </script>
-    
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+
+
+
+
+@* 
+        // Sparkline Charts
+        $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#177dff",
+            fillColor: "rgba(23, 125, 255, 0.14)",
+        });
+
+        $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#f3545d",
+            fillColor: "rgba(243, 84, 93, .14)",
+        });
+
+        $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#ffa534",
+            fillColor: "rgba(255, 165, 52, .14)",
+        }); *@

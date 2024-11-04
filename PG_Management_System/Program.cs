@@ -146,6 +146,6 @@ using (var scope = app.Services.CreateScope())
     recurringJobManager.AddOrUpdate<PG_PersonController>(
         "generate-payment-requests",
         service => service.GeneratePaymentRequests(),
-        "*/2 * * * *");
+        "*/10 * * * *");
 }
 app.Run();

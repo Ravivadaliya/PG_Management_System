@@ -13,6 +13,7 @@ using PG_Management_System.BAL;
 using System.Data;
 using System.Data.SqlClient;
 using PG_Management_System.Helper;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace PG_Management_System.Areas.PG_Person.Controllers;
 
@@ -21,23 +22,43 @@ namespace PG_Management_System.Areas.PG_Person.Controllers;
 [Route("Person")]
 public class PG_PersonController : Controller
 {
+
+    private readonly IMemoryCache _cache;
     private readonly DatabaseHelper _dbHelper;
     public static string Person_Image = "";
     private readonly AESEncryptionHelper _aesencryptionHelper;
-    public PG_PersonController(DatabaseHelper dbHelper, AESEncryptionHelper aesencryptionHelper)
+    public PG_PersonController(DatabaseHelper dbHelper, AESEncryptionHelper aesencryptionHelper, IMemoryCache cache)
     {
         _dbHelper = dbHelper;
         _dbHelper.OpenConnection();
         _aesencryptionHelper = aesencryptionHelper;
+        _cache = cache;
     }
 
     [HttpGet("AllPersonList")]
     public IActionResult AllPersonList()
     {
 
-        PersonDal personDal = new PersonDal();
-        DataTable dataTable = personDal.GetAllPersonByOwnerId(_dbHelper);
+        const string cacheKey = "PersonDataCache";
+        DataTable dataTable;
+        //_cache.Remove("PersonDataCache");
+        if (!_cache.TryGetValue(cacheKey, out dataTable))
+        {
+            PersonDal personDal = new PersonDal();
+            dataTable = personDal.GetAllPersonByOwnerId(_dbHelper);
+
+            // Set cache options (optional)
+            var cacheExpirationOptions = new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30), // cache duration
+                Priority = CacheItemPriority.Normal
+            };
+
+            _cache.Set(cacheKey, dataTable, cacheExpirationOptions);
+        }
+
         return View("AllPersonList", dataTable);
+
 
     }
 
@@ -74,9 +95,6 @@ public class PG_PersonController : Controller
                     foreach (DataRow dr in dataTable.Rows)
                     {
                         person.Id = Convert.ToInt32(dr["Id"]);
-                        //person.Bed_ID = Convert.ToInt32(dr["Bed_Id"]);
-                        //person.Room_ID = Convert.ToInt32(dr["Room_Id"]);
-                        //person.Hostel_ID = Convert.ToInt32(dr["Hostel_ID"]);
                         person.Person_Name = dr["Person_Name"].ToString();
                         person.Person_Surname = dr["Person_Surname"].ToString();
                         person.Person_Mobile_Number = dr["Person_Mobile_Number"].ToString();
@@ -90,56 +108,14 @@ public class PG_PersonController : Controller
                         person.Person_WorkPlace_MobileNumber = dr["Person_WorkPlace_MobileNumber"].ToString();
                         person.Person_JoningDate = DateOnly.FromDateTime(Convert.ToDateTime(dr["Person_JoningDate"]));
                         person.Person_Image = dr["Person_Image"].ToString();
-                        //person.Person_PaymentMode= dr["Person_PaymentMode"].ToString();
+
                         person.Person_AadharCard = dr["Person_AadharCard"].ToString();
                         person.Person_PassWord = dr["Person_PassWord"].ToString();
-
-                        //// Get the bed list based on the room ID
-                        //var bedList = personDal.GetBedListByRoomID(_dbHelper, person.Room_ID);
-                        //if (bedList.All(b => b.Id != person.Bed_ID))
-                        //{
-                        //    var selectedBed = personDal.GetBedById(_dbHelper, person.Bed_ID);
-                        //    if (selectedBed != null)
-                        //    {
-                        //        bedList.Add(selectedBed);
-                        //    }
-                        //}
-                        //ViewBag.BedList = bedList;
-
-                        //// Get the room list based on the hostel ID
-                        //var roomList = personDal.GetRoomListByHostelId(_dbHelper, person.Hostel_ID);
-                        //if (roomList.All(r => r.Id != person.Room_ID))
-                        //{
-                        //    var selectedRoom = personDal.GetRoomById(_dbHelper, person.Room_ID);
-                        //    if (selectedRoom != null)
-                        //    {
-                        //        roomList.Add(selectedRoom);
-                        //    }
-                        //}
-                        //ViewBag.RoomList = roomList;
-
-                        //// Get the hostel list
-                        //var hostelList = personDal.GetHostelListByOwnerID(_dbHelper);
-                        //if (hostelList.All(h => h.Id != person.Hostel_ID))
-                        //{
-                        //    var selectedHostel = personDal.GetHostelById(_dbHelper, person.Hostel_ID);
-                        //    if (selectedHostel != null)
-                        //    {
-                        //        hostelList.Add(selectedHostel);
-                        //    }
-                        //}
-                        //ViewBag.HostelList = hostelList;
                     }
                     Person_Image = person.Person_Image;
                     return View("AddEditPerson", person);
                 }
             }
-
-            //// Set default lists if no Person_Id is provided
-            //ViewBag.HostelList = personDal.GetHostelListByOwnerID(_dbHelper);
-            //ViewBag.RoomList = new List<Room_DropDownModel>();
-            //ViewBag.BedList = new List<Bed_DropDownmodel>();
-
             return View("AddEditPerson");
         }
         catch (Exception ex)
@@ -154,11 +130,6 @@ public class PG_PersonController : Controller
     {
         try
         {
-            // Decrypt the encrypted Person_Id
-            //var decryptedPersonId = _aesencryptionHelper.Decrypt(Person_Id);
-
-            //int personId = Convert.ToInt32(decryptedPersonId);
-
             PersonDal personDal = new PersonDal();
             DataTable dataTable = personDal.GetAllPersonByOwnerIdAndPersonId(_dbHelper, Person_Id);
 

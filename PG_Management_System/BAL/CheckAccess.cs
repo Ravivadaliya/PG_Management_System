@@ -8,7 +8,7 @@ public class CheckAccess : ActionFilterAttribute, IAuthorizationFilter
 	{
 		if (filterContext.HttpContext.Session.GetString("AdminId") == null)
 		{
-			filterContext.Result = new RedirectResult("~/Login/Login/Login");
+			filterContext.Result = new RedirectResult("~/Login");
 		}
 	}
 	public override void OnResultExecuting(ResultExecutingContext filterContext)

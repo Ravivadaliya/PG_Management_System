@@ -132,7 +132,7 @@ namespace PG_Management_System.Areas.User.Controllers
                     TempData["AlertType"] = "error";
                 }
 
-                return RedirectToAction("UserIssueList", new { Room_ID = userIssue1.Room_ID });
+                return RedirectToAction("UserDashBoard");
             }
             catch (Exception ex)
             {
