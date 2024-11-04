@@ -421,7 +421,7 @@ public class PersonDal
             {
                 new SqlParameter("Person_ID", SqlDbType.Int) { Value = personId }
             };
-            DataTable dataTable = _dbHelper.ExecuteStoredProcedure("SP_GetPersonById", sqlParameter);
+            DataTable dataTable = _dbHelper.ExecuteStoredProcedure("[SP_PG_Person_SelectByPersonId]", sqlParameter);
             return dataTable;
         }
         catch (Exception ex)

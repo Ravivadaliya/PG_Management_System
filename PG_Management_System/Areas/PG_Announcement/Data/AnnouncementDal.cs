@@ -15,7 +15,6 @@ public class AnnouncementDal
             {
             new SqlParameter("Announcement_Title",SqlDbType.VarChar){Value = announcement.Announcement_Title},
             new SqlParameter("Announcement_Message",SqlDbType.VarChar){Value = announcement.Announcement_Message},
-            new SqlParameter("Hostel_ID",SqlDbType.Int){Value = announcement.Hostel_ID},
             new SqlParameter("Owner_ID",SqlDbType.Int){Value = CV.Owner_Id()},
             };
 
@@ -32,7 +31,7 @@ public class AnnouncementDal
 
 
             // Get the list of users associated with the given Hostel_ID
-            List<int> userIds = GetUsersByHostelId(_dbHelper, announcement.Hostel_ID);
+            List<int> userIds = GetUsersByOwnerId(_dbHelper);
 
             // Insert notifications for each user
             foreach (int userId in userIds)
@@ -60,14 +59,14 @@ public class AnnouncementDal
     }
 
     // Helper method to get users by Hostel_ID
-    private List<int> GetUsersByHostelId(DatabaseHelper _dbHelper, int hostelId)
+    private List<int> GetUsersByOwnerId(DatabaseHelper _dbHelper)
     {
         try
         {
 
             SqlParameter[] sqlParameter = new SqlParameter[]
             {
-              new SqlParameter("HostelId", SqlDbType.Int) { Value = hostelId }
+              new SqlParameter("OwnerId", SqlDbType.Int) { Value = @CV.Owner_Id() }
             };
 
             DataTable dtUsers = _dbHelper.ExecuteStoredProcedure("Sp_GetPersonByHostelId", sqlParameter);

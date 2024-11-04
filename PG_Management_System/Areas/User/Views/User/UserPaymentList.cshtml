@@ -31,10 +31,10 @@
                         </div>
                     </div>
                     <div class="card-body p-0">
-                        <div class="table-responsive">
+                        <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
                             <!-- Projects table -->
                             <table class="table align-items-center mb-0">
-                                <thead class="thead-light">
+                                <thead class="thead-light" style="position: sticky; top: 0">
                                     <tr>
                                         @* <th scope="col">Person Name</th> *@
                                         <th scope="col" >Amount</th>
@@ -44,9 +44,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @{
-
-                                    }
                                     @foreach (DataRow dr in Model.Rows)
                                     {
                                         <tr>
@@ -54,11 +51,14 @@
                                             
                                             <td>@dr["Room_Rent"]</td>
                                             <td>
-                                                @Convert.ToDateTime(dr["Payment_Date"]).ToString("dd-MM-yyyy")
+                                                @Convert.ToDateTime(dr["Payment_CreationDate"]).ToString("dd-MM-yyyy")
                                             </td>
                                             <td>
-                                                @Convert.ToDateTime(dr["Payment_ReceivedDate"]).ToString("dd-MM-yyyy")
+                                                @(dr["Payment_ReceivedDate"] == DBNull.Value
+                                                    ? "N/A"
+                                                    : Convert.ToDateTime(dr["Payment_ReceivedDate"]).ToString("dd-MM-yyyy"))
                                             </td>
+
                                             <td>
                                                 @{
                                                     int paymentStatus = dr["Payment_Status"] != DBNull.Value ? Convert.ToInt32(dr["Payment_Status"]) : 0;
@@ -73,21 +73,7 @@
                                                     }
                                                 }
                                             </td>
-
                                         </tr>
-                                        @* <tr>
-                                            <th scope="row">
-                                                <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                                Payment from #10231
-                                            </th>
-                                            <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                            <td class="text-end">$250.00</td>
-                                            <td class="text-end">
-                                                <span class="badge badge-success">Completed</span>
-                                            </td>
-                                        </tr> *@
                                     }
                                 </tbody>
                             </table>
