@@ -14,6 +14,52 @@
             </div> -->
         </div>
         <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="card" style="">
+                    <div class="card-header">
+                        <div class="card-title custom-title">Monthly Payments (Year-wise)</div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="paymentChart" class="chart-canvas"></canvas> <!-- added class -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header" style="background-color: #f8f9fa; padding: 15px;">
+                        <div class="card-title" style="font-size: 1.5rem; font-weight: bold; color: #dc3545; text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);">
+                            <i class="fas fa-exclamation-circle" style="color: #dc3545; margin-right: 8px;"></i>Pending Payments
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="table-scroll" style="overflow-y: auto; max-height: 250px;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Person</th>
+                                            <th>Mobile</th>
+                                            <th>Status</th>
+                                            <th>Rent</th>
+                                            <th>PG</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="paymentTable">
+                                        @*  <tr>
+                                        <th scope="row">1</th>
+                                        <td>Name</td>
+                                        <td>View Details</td>
+                                        </tr> *@
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
             <div class="col-md-3">
                 <div class="card card-stats card-round">
                     <div class="card-body">
@@ -92,52 +138,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <div class="card" style="">
-                    <div class="card-header">
-                        <div class="card-title custom-title">Monthly Payments (Year-wise)</div>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="paymentChart" class="chart-canvas"></canvas> <!-- added class -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header" style="background-color: #f8f9fa; padding: 15px;">
-                        <div class="card-title" style="font-size: 1.5rem; font-weight: bold; color: #dc3545; text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);">
-                            <i class="fas fa-exclamation-circle" style="color: #dc3545; margin-right: 8px;"></i>Pending Payments
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <div class="table-scroll" style="overflow-y: auto; max-height: 250px;">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Person</th>
-                                            <th>Mobile</th>
-                                            <th>Status</th>
-                                            <th>Rent</th>
-                                            <th>PG</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="paymentTable">
-                                        @*  <tr>
-                                        <th scope="row">1</th>
-                                        <td>Name</td>
-                                        <td>View Details</td>
-                                        </tr> *@
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
         <div class="row">

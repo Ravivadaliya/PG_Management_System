@@ -14,6 +14,7 @@ using System.Data;
 using System.Data.SqlClient;
 using PG_Management_System.Helper;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Practices.EnterpriseLibrary.Data;
 
 namespace PG_Management_System.Areas.PG_Person.Controllers;
 
@@ -35,31 +36,72 @@ public class PG_PersonController : Controller
         _cache = cache;
     }
 
+    //[HttpGet("AllPersonList")]
+    //public IActionResult AllPersonList()
+    //{
+
+    //    const string cacheKey = "PersonDataCache";
+    //    DataTable dataTable;
+    //    //_cache.Remove("PersonDataCache");
+    //    if (!_cache.TryGetValue(cacheKey, out dataTable))
+    //    {
+    //        PersonDal personDal = new PersonDal();
+    //        dataTable = personDal.GetAllPersonByOwnerId(_dbHelper);
+
+    //        // Set cache options (optional)
+    //        var cacheExpirationOptions = new MemoryCacheEntryOptions
+    //        {
+    //            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30), // cache duration
+    //            Priority = CacheItemPriority.Normal
+    //        };
+
+    //        _cache.Set(cacheKey, dataTable, cacheExpirationOptions);
+    //    }
+
+    //    return View("AllPersonList", dataTable);
+
+
+    //}
     [HttpGet("AllPersonList")]
-    public IActionResult AllPersonList()
+    public IActionResult AllPersonList(int pageNumber = 1, int pageSize = 20)
     {
+        var dataTable = new DataTable();
+        int totalRecords = 0;
 
-        const string cacheKey = "PersonDataCache";
-        DataTable dataTable;
-        //_cache.Remove("PersonDataCache");
-        if (!_cache.TryGetValue(cacheKey, out dataTable))
-        {
-            PersonDal personDal = new PersonDal();
-            dataTable = personDal.GetAllPersonByOwnerId(_dbHelper);
-
-            // Set cache options (optional)
-            var cacheExpirationOptions = new MemoryCacheEntryOptions
+        using (var connection = new SqlConnection("Data Source=MSI\\MSSQLSERVER01;Initial Catalog=PG_ManagementSystem;Integrated Security=true;"))
+        {   
+            using (var command = new SqlCommand("SP_GetPagedRecords", connection))
             {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30), // cache duration
-                Priority = CacheItemPriority.Normal
-            };
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@PageNumber", pageNumber);
+                command.Parameters.AddWithValue("@PageSize", pageSize);
+                command.Parameters.AddWithValue("@OwnerId", CV.Owner_Id());
 
-            _cache.Set(cacheKey, dataTable, cacheExpirationOptions);
+                connection.Open();
+                using (var adapter = new SqlDataAdapter(command))
+                {
+                    adapter.Fill(dataTable);
+                }
+
+                using (SqlCommand command1 = new SqlCommand())
+                {
+                    command1.Connection = connection; // Ensure you have an open SqlConnection
+                    command1.CommandType = CommandType.Text; // Specify that this is a raw SQL query
+                    command1.CommandText = "SELECT COUNT(*) FROM PG_Person";
+
+                    // Execute the command and fetch the total records count
+                    totalRecords = (int)command1.ExecuteScalar();
+                }
+
+            }
         }
 
-        return View("AllPersonList", dataTable);
+        ViewBag.CurrentPage = pageNumber;
+        ViewBag.PageSize = pageSize;
+        ViewBag.TotalRecords = totalRecords;
+        ViewBag.TotalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
 
-
+        return View(dataTable);
     }
 
 

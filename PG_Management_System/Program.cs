@@ -69,6 +69,12 @@ app.UseAuthorization();
 #pragma warning disable ASP0014 // Suggest using top level route registrations
 app.UseEndpoints(endpoints =>
 {
+    // Redirect root to Login
+    endpoints.MapGet("/", context =>
+    {
+        context.Response.Redirect("/Login");
+        return Task.CompletedTask;
+    });
     // Custom route to access action directly, hiding Area and Controller in the URL
     endpoints.MapControllerRoute(
         name: "Pg_hostel_route",
@@ -111,7 +117,7 @@ app.UseEndpoints(endpoints =>
      defaults: new { controller = "PG_Announcements", area = "PG_Announcements" }
     );
     endpoints.MapControllerRoute(
-     name: "Pg_Announcements_route",
+     name: "PG_Payments_route",
      pattern: "{action}/{id?}",
      defaults: new { controller = "PG_Payments", area = "PG_Payments" }
     );
@@ -129,8 +135,9 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{area}/{controller}/{action}/{id?}");
 });
-#pragma warning restore ASP0014 // Suggest using top level route registrations
 
+
+#pragma warning restore ASP0014 // Suggest using top level route registrations
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -138,6 +145,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Dashboard}/{id?}");
+
 
 
 using (var scope = app.Services.CreateScope())
