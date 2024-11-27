@@ -150,7 +150,6 @@ public class PG_PersonController : Controller
                         person.Person_WorkPlace_MobileNumber = dr["Person_WorkPlace_MobileNumber"].ToString();
                         person.Person_JoningDate = DateOnly.FromDateTime(Convert.ToDateTime(dr["Person_JoningDate"]));
                         person.Person_Image = dr["Person_Image"].ToString();
-
                         person.Person_AadharCard = dr["Person_AadharCard"].ToString();
                         person.Person_PassWord = dr["Person_PassWord"].ToString();
                     }

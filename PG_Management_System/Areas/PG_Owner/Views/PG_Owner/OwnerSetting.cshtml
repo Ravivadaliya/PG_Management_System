@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/Views/Shared/Admin/Adminlayout.cshtml";
+}
+<div class="container">
+    <div class="page-inner">
+        <!-- Card -->
+        <h3 class="fw-bold mb-3">Setting</h3>
+
+        <!-- Card With Icon States Color -->
+        <div class="row">
+            <div class="col-sm-12 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="icon-big text-center">
+                                    <i class="fas fa-address-book"></i>
+                                </div>
+                            </div>
+                            <div class="col-10 col-stats">
+                                <div class="numbers">
+                                    @* <p class="card-category">Profile Setting</p> *@
+                                    <h4 class="card-title">Profile Setting</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <a asp-area="Login" asp-controller="Login" asp-action="ResetPassword">
+                    <div class="card card-stats card-round">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="icon-big text-center">
+                                        <i class="fas fa-undo-alt"></i>
+                                    </div>
+                                </div>
+                                <div class="col-10 col-stats">
+                                    <div class="numbers">
+                                        @* <p class="card-category">Profile Setting</p> *@
+                                        <h4 class="card-title">Reset Passsword</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <a asp-area="Login" asp-controller="Login" asp-action="ResetPassword">
+                    <div class="card card-stats card-round">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="icon-big text-center">
+                                        <i class="fas fa-key"></i>
+                                    </div>
+                                </div>
+                                <div class="col-10 col-stats">
+                                    <div class="numbers">
+                                        @* <p class="card-category">Profile Setting</p> *@
+                                        <h4 class="card-title">Forgot Password</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- Card With Icon States Background -->
+    </div>
+</div>

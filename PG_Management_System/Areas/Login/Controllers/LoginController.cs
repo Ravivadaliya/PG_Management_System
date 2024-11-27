@@ -22,6 +22,11 @@ public class LoginController(DatabaseHelper dbHelper) : Controller
 		return View();
 	}
 
+	[HttpGet("ResetPassword")]
+	public IActionResult ResetPassword()
+	{
+		return View();
+	}
 
 	[HttpPost("LoginAction")]
 	public IActionResult LoginAction(Owner owner)

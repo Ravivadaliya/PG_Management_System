@@ -31,7 +31,11 @@ public class PG_OwnerController : Controller
     {
         return View();
     }
-
+    [HttpGet("OwnerSetting")]
+    public IActionResult OwnerSetting()
+    {
+        return View();
+    }
     [HttpPost("SelectPGDetalsForDashBoard")]
     public IActionResult SelectPGDetalsForDashBoard()
     {
