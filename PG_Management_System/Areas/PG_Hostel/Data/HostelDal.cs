@@ -66,7 +66,12 @@ public class HostelDal
                 new SqlParameter("@Hostel_Floor", SqlDbType.VarChar) { Value = hostel.Hostel_Floor },
                 new SqlParameter("@Hostel_Society", SqlDbType.VarChar) { Value = hostel.Hostel_Society },
                 new SqlParameter("@Hostel_Gender", SqlDbType.VarChar) { Value = hostel.Hostel_Gender },
-                new SqlParameter("Contract_EndDate", SqlDbType.Date) { Value =hostel.Contract_EndDate },
+                new SqlParameter("@Contract_EndDate", SqlDbType.Date)
+                    {
+                        Value = hostel.Contract_EndDate.HasValue ?
+                            hostel.Contract_EndDate.Value.ToDateTime(TimeOnly.MinValue) :
+                            DBNull.Value
+                    },
             };
 
             int value = _dbHelper.ExecuteStoredProcedureNonQuery("SP_PG_Hostel_Insert", sqlParameter);

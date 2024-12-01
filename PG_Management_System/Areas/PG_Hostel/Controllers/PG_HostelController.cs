@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using PG_Management_System.Areas.PG_Hostel.Data;
 using PG_Management_System.Areas.PG_Hostel.Models;
+using PG_Management_System.Areas.PG_Owner.Models;
 using PG_Management_System.BAL;
 using PG_Management_System.Helper;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace PG_Management_System.Areas.PG_Hostel.Controllers
 {
@@ -160,5 +162,53 @@ namespace PG_Management_System.Areas.PG_Hostel.Controllers
 
             return RedirectToAction("AllPgList");
         }
+
+        [HttpPost("GetRoomWithEmptyBed")]
+        public IActionResult GetRoomWithEmptyBed()
+        {
+            try
+            {
+                SqlParameter[] sqlParameter = new SqlParameter[]
+                {
+            new SqlParameter("@OwnerID", SqlDbType.Int) { Value = CV.Owner_Id() }
+                };
+
+                // Execute the stored procedure and get a DataTable
+                var result = _dbHelper.ExecuteStoredProcedure("[dbo].[SP_GetHostelsWithEmptyBedCounts]", sqlParameter);
+
+                if (result == null || result.Rows.Count == 0)
+                {
+                    return BadRequest("No data found for the given OwnerID.");
+                }
+
+                // Convert DataTable to a list of dictionaries
+                var resultList = DataTableToList(result);
+
+                return Ok(resultList);
+            }
+            catch (Exception ex)
+            {
+                // Log exception
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(500, "An error occurred while fetching data.");
+            }
+        }
+
+        private List<Dictionary<string, object>> DataTableToList(DataTable dataTable)
+        {
+            var list = new List<Dictionary<string, object>>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                var dict = new Dictionary<string, object>();
+                foreach (DataColumn col in dataTable.Columns)
+                {
+                    dict[col.ColumnName] = row[col] == DBNull.Value ? null : row[col];
+                }
+                list.Add(dict);
+            }
+            return list;
+        }
+
+
     }
 }

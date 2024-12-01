@@ -89,7 +89,7 @@ public class PG_BedController(DatabaseHelper dbHelper) : Controller
         else
         {
 
-            return Json(new { success = false, message = "Error occur while assign bed to person" });
+            return Json(new { success = false, message = "Error occur while unassign bed to person" });
         }
 
     }

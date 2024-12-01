@@ -95,6 +95,10 @@ public class BedDal
 
     public bool insertPersonOnBed(DatabaseHelper _dbHelper, int Bed_ID, int Person_ID, int Deposit, string Payment_Cycle, DateOnly Payment_Date)
     {
+
+
+
+
         SqlParameter[] sqlParameter = new SqlParameter[]
         {
             new SqlParameter("Bed_ID",SqlDbType.Int){Value= Bed_ID},

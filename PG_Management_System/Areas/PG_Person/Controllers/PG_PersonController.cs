@@ -172,7 +172,7 @@ public class PG_PersonController : Controller
         try
         {
             PersonDal personDal = new PersonDal();
-            DataTable dataTable = personDal.GetAllPersonByOwnerIdAndPersonId(_dbHelper, Person_Id);
+            DataTable dataTable = personDal.GetPersonByOwnerIdAndPersonId(_dbHelper, Person_Id);
 
             return View("PersonDetails", dataTable);
         }

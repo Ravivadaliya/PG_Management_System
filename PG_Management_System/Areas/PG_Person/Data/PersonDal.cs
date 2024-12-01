@@ -379,7 +379,7 @@ public class PersonDal
         }
     }
 
-    public DataTable GetAllPersonByOwnerIdAndPersonId(DatabaseHelper _dbHelper, int Person_Id)
+    public DataTable GetPersonByOwnerIdAndPersonId(DatabaseHelper _dbHelper, int Person_Id)
     {
         try
         {
@@ -691,7 +691,6 @@ public class PersonDal
                 {
                     Payment_CreationDate = Convert.ToDateTime(dr["Payment_CreationDate"]),
                     PaymentStatus = Convert.ToBoolean(dr["Payment_Status"]),
-                    Payment_Amount = dr["Room_Rent"].ToString(),
                     Payment_ReceivedDate = dr["Payment_ReceivedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["Payment_ReceivedDate"]).Date,
                 };
                 payments.Add(payments1);
